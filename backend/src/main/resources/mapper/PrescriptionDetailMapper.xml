@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.PrescriptionDetailMapper">
+
+    <select id="selectDetailVO" resultType="com.neusoft.hospital.entity.vo.PrescriptionDetailVO">
+        SELECT pd.id, pd.prescription_id, pd.drug_id, dr.drug_name, dr.specification, dr.unit,
+               pd.quantity, pd.unit_price, pd.amount, pd.usage_method
+        FROM prescription_detail pd
+        LEFT JOIN drug dr ON pd.drug_id = dr.id
+        WHERE pd.prescription_id = #{prescriptionId}
+    </select>
+
+</mapper>

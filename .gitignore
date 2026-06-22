@@ -1,0 +1,10 @@
+node_modules/
+dist/
+target/
+*.class
+*.jar
+.idea/
+*.iml
+*.log
+.DS_Store
+~$*.docx

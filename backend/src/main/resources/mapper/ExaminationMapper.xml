@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.ExaminationMapper">
+
+    <select id="selectExaminationVO" resultType="com.neusoft.hospital.entity.vo.ExaminationVO">
+        SELECT e.id, e.registration_id, e.patient_id, p.patient_name,
+               e.exam_type, e.exam_name, e.result, e.fee, e.status, e.exam_time
+        FROM examination e
+        LEFT JOIN patient p ON e.patient_id = p.id
+        <where>
+            <if test="registrationId != null">AND e.registration_id = #{registrationId}</if>
+            <if test="patientId != null">AND e.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND e.registration_id IN (SELECT r.id FROM registration r WHERE r.doctor_id = #{doctorId})</if>
+            <if test="status != null">AND e.status = #{status}</if>
+        </where>
+        ORDER BY e.exam_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectExaminationVOCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM examination e
+        <where>
+            <if test="registrationId != null">AND e.registration_id = #{registrationId}</if>
+            <if test="patientId != null">AND e.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND e.registration_id IN (SELECT r.id FROM registration r WHERE r.doctor_id = #{doctorId})</if>
+            <if test="status != null">AND e.status = #{status}</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.RegistrationMapper">
+
+    <select id="selectRegistrationVO" resultType="com.neusoft.hospital.entity.vo.RegistrationVO">
+        SELECT r.id, r.patient_id, p.patient_name, p.gender, p.age, p.phone,
+               r.doctor_id, d.doctor_name, d.title,
+               r.dept_id, dept.dept_name,
+               r.reg_type, r.reg_fee, r.reg_time, r.status
+        FROM registration r
+        LEFT JOIN patient p ON r.patient_id = p.id
+        LEFT JOIN doctor d ON r.doctor_id = d.id
+        LEFT JOIN department dept ON r.dept_id = dept.id
+        <where>
+            <if test="patientId != null">AND r.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND r.doctor_id = #{doctorId}</if>
+            <if test="status != null">AND r.status = #{status}</if>
+            <if test="patientName != null and patientName != ''">AND p.patient_name LIKE CONCAT('%', #{patientName}, '%')</if>
+            <if test="deptId != null">AND r.dept_id = #{deptId}</if>
+        </where>
+        ORDER BY r.reg_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectRegistrationVOCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM registration r
+        LEFT JOIN patient p ON r.patient_id = p.id
+        <where>
+            <if test="patientId != null">AND r.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND r.doctor_id = #{doctorId}</if>
+            <if test="status != null">AND r.status = #{status}</if>
+            <if test="patientName != null and patientName != ''">AND p.patient_name LIKE CONCAT('%', #{patientName}, '%')</if>
+            <if test="deptId != null">AND r.dept_id = #{deptId}</if>
+        </where>
+    </select>
+
+</mapper>

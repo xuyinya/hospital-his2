@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.DoctorMapper">
+
+    <select id="selectAllVO" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+        SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
+        FROM doctor d
+        LEFT JOIN department dept ON d.dept_id = dept.id
+        WHERE d.status = 1
+    </select>
+
+    <select id="selectVOPage" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+        SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
+        FROM doctor d
+        LEFT JOIN department dept ON d.dept_id = dept.id
+        <where>
+            <if test="doctorName != null and doctorName != ''">
+                AND d.doctor_name LIKE CONCAT('%', #{doctorName}, '%')
+            </if>
+            <if test="deptId != null">
+                AND d.dept_id = #{deptId}
+            </if>
+        </where>
+        ORDER BY d.id
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectVOCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM doctor d
+        <where>
+            <if test="doctorName != null and doctorName != ''">
+                AND d.doctor_name LIKE CONCAT('%', #{doctorName}, '%')
+            </if>
+            <if test="deptId != null">
+                AND d.dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByDeptIdVO" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+        SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
+        FROM doctor d
+        LEFT JOIN department dept ON d.dept_id = dept.id
+        WHERE d.dept_id = #{deptId} AND d.status = 1
+    </select>
+
+</mapper>

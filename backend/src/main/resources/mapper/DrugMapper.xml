@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.DrugMapper">
+
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Drug">
+        SELECT * FROM drug WHERE status=1
+        <if test="drugName != null and drugName != ''">
+            AND drug_name LIKE CONCAT('%', #{drugName}, '%')
+        </if>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM drug WHERE status=1
+        <if test="drugName != null and drugName != ''">
+            AND drug_name LIKE CONCAT('%', #{drugName}, '%')
+        </if>
+    </select>
+
+</mapper>

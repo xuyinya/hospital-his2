@@ -1,0 +1,187 @@
+<template>
+  <div class="page-container">
+    <div class="search-bar">
+      <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
+      <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
+        <el-option label="待检验" :value="0" />
+        <el-option label="已完成" :value="1" />
+      </el-select>
+      <el-button type="primary" icon="Search" @click="fetchData">查询</el-button>
+      <el-button type="success" icon="Plus" @click="handleAdd">新增检验</el-button>
+    </div>
+
+    <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
+      <el-table-column prop="id" label="ID" width="60" />
+      <el-table-column prop="patientName" label="患者姓名" width="100" />
+      <el-table-column prop="labType" label="检验类型" width="100" />
+      <el-table-column prop="labName" label="检验项目" min-width="150" />
+      <el-table-column prop="result" label="检验结果" min-width="120" show-overflow-tooltip />
+      <el-table-column prop="referenceRange" label="参考范围" width="100" />
+      <el-table-column prop="fee" label="费用" width="90">
+        <template #default="{ row }">¥{{ row.fee }}</template>
+      </el-table-column>
+      <el-table-column prop="status" label="状态" width="80">
+        <template #default="{ row }">
+          <el-tag :type="row.status === 1 ? 'success' : 'warning'" size="small">{{ row.status === 1 ? '已完成' : '待检验' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="labTime" label="检验时间" width="170" />
+      <el-table-column label="操作" width="200" fixed="right">
+        <template #default="{ row }">
+          <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
+          <el-button v-if="row.status === 0" size="small" type="success" @click="handleResult(row)">录入结果</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <div class="pagination">
+      <el-pagination
+        v-model:current-page="searchParams.pageNum"
+        v-model:page-size="searchParams.pageSize"
+        :page-sizes="[10, 20, 50]"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="fetchData"
+        @current-change="fetchData"
+      />
+    </div>
+
+    <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
+      <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
+        <el-form-item label="挂号ID" prop="registrationId">
+          <el-input v-model="formData.registrationId" />
+        </el-form-item>
+        <el-form-item label="患者" prop="patientId">
+          <el-select v-model="formData.patientId" placeholder="选择患者" filterable style="width: 100%">
+            <el-option v-for="p in patientOptions" :key="p.id" :label="p.patientName" :value="p.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="检验类型" prop="labType">
+          <el-input v-model="formData.labType" />
+        </el-form-item>
+        <el-form-item label="检验项目" prop="labName">
+          <el-input v-model="formData.labName" />
+        </el-form-item>
+        <el-form-item label="参考范围">
+          <el-input v-model="formData.referenceRange" />
+        </el-form-item>
+        <el-form-item label="费用">
+          <el-input-number v-model="formData.fee" :precision="2" :min="0" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleSubmit">确定</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="resultVisible" title="录入检验结果" width="520px">
+      <el-input v-model="resultText" type="textarea" :rows="4" placeholder="请输入检验结果" />
+      <template #footer>
+        <el-button @click="resultVisible = false">取消</el-button>
+        <el-button type="primary" @click="submitResult">确定</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup>
+import { ref, reactive, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { getLaboratoryList, addLaboratory, updateLaboratory, updateLaboratoryResult } from '@/api/laboratory'
+import { getPatientList } from '@/api/patient'
+
+const loading = ref(false)
+const tableData = ref([])
+const total = ref(0)
+const dialogVisible = ref(false)
+const dialogTitle = ref('')
+const resultVisible = ref(false)
+const resultText = ref('')
+const currentId = ref(null)
+const formRef = ref(null)
+const patientOptions = ref([])
+
+const searchParams = reactive({
+  patientName: '',
+  status: '',
+  pageNum: 1,
+  pageSize: 10
+})
+
+const formData = reactive({
+  id: null,
+  registrationId: '',
+  patientId: '',
+  labType: '',
+  labName: '',
+  referenceRange: '',
+  fee: 0
+})
+
+const rules = {
+  registrationId: [{ required: true, message: '请输入挂号ID', trigger: 'blur' }],
+  patientId: [{ required: true, message: '请选择患者', trigger: 'change' }],
+  labType: [{ required: true, message: '请输入检验类型', trigger: 'blur' }],
+  labName: [{ required: true, message: '请输入检验项目', trigger: 'blur' }]
+}
+
+const fetchData = async () => {
+  loading.value = true
+  try {
+    const res = await getLaboratoryList(searchParams)
+    tableData.value = res.data.rows || []
+    total.value = res.data.total || 0
+  } finally {
+    loading.value = false
+  }
+}
+
+const fetchPatientOptions = async () => {
+  const res = await getPatientList({ pageNum: 1, pageSize: 100 })
+  patientOptions.value = res.data.rows || []
+}
+
+const handleAdd = () => {
+  dialogTitle.value = '新增检验'
+  Object.assign(formData, { id: null, registrationId: '', patientId: '', labType: '', labName: '', referenceRange: '', fee: 0 })
+  dialogVisible.value = true
+}
+
+const handleEdit = (row) => {
+  dialogTitle.value = '编辑检验'
+  Object.assign(formData, row)
+  dialogVisible.value = true
+}
+
+const handleSubmit = async () => {
+  await formRef.value.validate()
+  if (formData.id) {
+    await updateLaboratory(formData.id, formData)
+    ElMessage.success('修改成功')
+  } else {
+    await addLaboratory(formData)
+    ElMessage.success('新增成功')
+  }
+  dialogVisible.value = false
+  fetchData()
+}
+
+const handleResult = (row) => {
+  currentId.value = row.id
+  resultText.value = row.result || ''
+  resultVisible.value = true
+}
+
+const submitResult = async () => {
+  await updateLaboratoryResult(currentId.value, resultText.value)
+  ElMessage.success('录入成功')
+  resultVisible.value = false
+  fetchData()
+}
+
+onMounted(() => {
+  fetchData()
+  fetchPatientOptions()
+})
+</script>

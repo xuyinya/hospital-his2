@@ -1,0 +1,55 @@
+# 东软云医院系统配置文件
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hospital-his
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hospital_his?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 12345
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.neusoft.hospital.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Knife4j配置
+knife4j:
+  enable: true
+  openapi:
+    title: 东软云医院系统API
+    description: HIS系统接口文档
+    version: 1.0
+    group:
+      default:
+        group-name: 默认分组
+        api-rule: package
+        api-rule-resources:
+          - com.neusoft.hospital.controller
+
+# JWT配置
+jwt:
+  secret: NeusoftHospitalHIS2026SecretKeyForJWTTokenGeneration
+  expiration: 86400000
+
+logging:
+  level:
+    com.neusoft.hospital: debug

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.PrescriptionMapper">
+
+    <select id="selectPrescriptionVO" resultType="com.neusoft.hospital.entity.vo.PrescriptionVO">
+        SELECT pr.id, pr.registration_id, pr.patient_id, p.patient_name,
+               pr.doctor_id, d.doctor_name,
+               pr.total_amount, pr.status, pr.create_time
+        FROM prescription pr
+        LEFT JOIN patient p ON pr.patient_id = p.id
+        LEFT JOIN doctor d ON pr.doctor_id = d.id
+        <where>
+            <if test="registrationId != null">AND pr.registration_id = #{registrationId}</if>
+            <if test="patientId != null">AND pr.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND pr.doctor_id = #{doctorId}</if>
+            <if test="status != null">AND pr.status = #{status}</if>
+        </where>
+        ORDER BY pr.create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectPrescriptionVOCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM prescription pr
+        <where>
+            <if test="registrationId != null">AND pr.registration_id = #{registrationId}</if>
+            <if test="patientId != null">AND pr.patient_id = #{patientId}</if>
+            <if test="doctorId != null">AND pr.doctor_id = #{doctorId}</if>
+            <if test="status != null">AND pr.status = #{status}</if>
+        </where>
+    </select>
+
+</mapper>

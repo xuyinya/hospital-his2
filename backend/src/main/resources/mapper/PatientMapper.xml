@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hospital.mapper.PatientMapper">
+
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Patient">
+        SELECT * FROM patient
+        <where>
+            <if test="patientName != null and patientName != ''">
+                AND patient_name LIKE CONCAT('%', #{patientName}, '%')
+            </if>
+            <if test="doctorId != null">
+                AND id IN (SELECT DISTINCT r.patient_id FROM registration r WHERE r.doctor_id = #{doctorId})
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM patient
+        <where>
+            <if test="patientName != null and patientName != ''">
+                AND patient_name LIKE CONCAT('%', #{patientName}, '%')
+            </if>
+            <if test="doctorId != null">
+                AND id IN (SELECT DISTINCT r.patient_id FROM registration r WHERE r.doctor_id = #{doctorId})
+            </if>
+        </where>
+    </select>
+
+</mapper>

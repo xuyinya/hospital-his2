@@ -1,5 +1,7 @@
 <template>
+  <!-- 收费管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名和支付状态筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
@@ -10,6 +12,7 @@
       <el-button type="success" icon="Plus" @click="handleAdd">新增收费</el-button>
     </div>
 
+    <!-- 收费列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="患者姓名" width="100" />
@@ -35,6 +38,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -47,6 +51,7 @@
       />
     </div>
 
+    <!-- 新增收费弹窗 -->
     <el-dialog v-model="dialogVisible" title="新增收费" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="挂号ID" prop="registrationId">
@@ -87,6 +92,9 @@
 </template>
 
 <script setup>
+/**
+ * 收费管理页面 - 支持收费的查询、新增、确认支付操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getPaymentList, addPayment, updatePaymentStatus } from '@/api/payment'
@@ -121,6 +129,7 @@ const rules = {
   totalAmount: [{ required: true, message: '请输入总金额', trigger: 'blur' }]
 }
 
+/** 获取收费列表数据（按患者姓名和状态分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -132,16 +141,19 @@ const fetchData = async () => {
   }
 }
 
+/** 加载患者下拉选项 */
 const fetchPatientOptions = async () => {
   const res = await getPatientList({ pageNum: 1, pageSize: 100 })
   patientOptions.value = res.data.rows || []
 }
 
+/** 打开新增收费弹窗 */
 const handleAdd = () => {
   Object.assign(formData, { registrationId: '', patientId: '', paymentType: '', totalAmount: 0, paymentMethod: '现金' })
   dialogVisible.value = true
 }
 
+/** 提交新增收费表单 */
 const handleSubmit = async () => {
   await formRef.value.validate()
   await addPayment(formData)
@@ -150,6 +162,7 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 确认支付（将收费状态设为"已支付"） */
 const handlePay = async (row) => {
   await ElMessageBox.confirm('确认该笔收费已支付？', '提示')
   await updatePaymentStatus(row.id, 1)
@@ -157,6 +170,7 @@ const handlePay = async (row) => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(() => {
   fetchData()
   fetchPatientOptions()

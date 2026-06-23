@@ -6,9 +6,25 @@ import io.swagger.v3.oas.models.info.Contact;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Knife4j接口文档配置类
+ * <p>
+ * 集成Knife4j（基于Swagger/OpenAPI 3.0），自动生成RESTful API文档。
+ * 启动后可通过 http://localhost:8080/doc.html 访问文档页面。
+ * </p>
+ */
 @Configuration
 public class Knife4jConfig {
 
+    /**
+     * 自定义OpenAPI配置
+     * <p>
+     * 配置API文档的标题、描述、版本号和联系信息。
+     * Spring Doc会自动扫描所有Controller的@Operation注解生成接口文档。
+     * </p>
+     *
+     * @return OpenAPI实例
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

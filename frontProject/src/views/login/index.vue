@@ -1,6 +1,9 @@
 <template>
+  <!-- 登录页面组件：支持管理员/医生和患者两种登录方式 -->
   <div class="login-page">
+    <!-- 左侧品牌展示区：系统名称和功能亮点 -->
     <div class="login-left">
+      <!-- 品牌标识 -->
       <div class="brand">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
           <rect width="48" height="48" rx="12" fill="#5d87ff"/>
@@ -11,6 +14,7 @@
           <p>HIS门诊管理系统</p>
         </div>
       </div>
+      <!-- 系统功能亮点列表 -->
       <div class="features">
         <div class="feature-item">
           <div class="dot"></div>
@@ -26,17 +30,19 @@
         </div>
       </div>
     </div>
+    <!-- 右侧登录卡片区 -->
     <div class="login-right">
       <div class="login-card">
         <h2 class="login-title">欢迎登录</h2>
         <p class="login-subtitle">请选择登录方式</p>
 
+        <!-- 登录方式切换标签页：员工登录 / 患者登录 -->
         <el-tabs v-model="loginType" class="login-tabs" stretch>
           <el-tab-pane label="管理员 / 医生" name="staff" />
           <el-tab-pane label="患者登录" name="patient" />
         </el-tabs>
 
-        <!-- 员工登录 -->
+        <!-- 员工登录表单（管理员/医生） -->
         <el-form
           v-if="loginType === 'staff'"
           ref="formRef"
@@ -57,7 +63,7 @@
           </el-form-item>
         </el-form>
 
-        <!-- 患者登录 -->
+        <!-- 患者登录表单 -->
         <el-form
           v-if="loginType === 'patient'"
           ref="patientFormRef"
@@ -78,6 +84,7 @@
           </el-form-item>
         </el-form>
 
+        <!-- 登录提示信息（默认账号） -->
         <div class="login-tips">
           <p>管理员: admin / admin123</p>
           <p>医生: doctor / 123456</p>
@@ -89,6 +96,10 @@
 </template>
 
 <script setup>
+/**
+ * LoginPage - 登录页面组件
+ * 功能：提供管理员/医生和患者两种登录方式，支持表单验证
+ */
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -99,17 +110,23 @@ const router = useRouter()
 const authStore = useAuthStore()
 const formRef = ref(null)
 const patientFormRef = ref(null)
+/** 登录按钮加载状态 */
 const loading = ref(false)
+/** 当前选中的登录类型：staff（员工）或 patient（患者） */
 const loginType = ref('staff')
 
+/** 员工登录表单数据 */
 const staffForm = reactive({ username: '', password: '' })
+/** 患者登录表单数据 */
 const patientForm = reactive({ idCard: '', password: '' })
 
+/** 员工登录表单验证规则 */
 const staffRules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 
+/** 患者登录表单验证规则 */
 const patientRules = {
   idCard: [
     { required: true, message: '请输入身份证号', trigger: 'blur' },
@@ -118,6 +135,10 @@ const patientRules = {
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 }
 
+/**
+ * 处理员工（管理员/医生）登录
+ * 验证表单后调用 auth store 登录，成功后跳转到管理端首页
+ */
 const handleStaffLogin = async () => {
   await formRef.value.validate()
   loading.value = true
@@ -130,6 +151,10 @@ const handleStaffLogin = async () => {
   } finally { loading.value = false }
 }
 
+/**
+ * 处理患者登录
+ * 验证表单后调用 auth store 的患者登录，成功后跳转到患者门户
+ */
 const handlePatientLogin = async () => {
   await patientFormRef.value.validate()
   loading.value = true

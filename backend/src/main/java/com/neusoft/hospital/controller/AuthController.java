@@ -23,6 +23,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+/**
+ * 认证控制器
+ * <p>
+ * 提供系统登录认证功能，包括员工登录、患者登录以及获取当前登录用户信息。
+ * 接口路径：/api/auth
+ * </p>
+ */
 public class AuthController {
 
     private final SysUserService sysUserService;
@@ -30,6 +37,16 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * 员工登录
+     * <p>
+     * 根据用户名和密码进行员工登录认证。验证用户是否存在、账户是否被禁用、密码是否正确。
+     * 认证成功后生成JWT令牌并返回登录响应信息。
+     * </p>
+     *
+     * @param loginRequest 登录请求体，包含用户名和密码
+     * @return 登录响应结果，包含JWT令牌、用户名、真实姓名和角色信息；认证失败返回错误信息
+     */
     @Operation(summary = "员工登录")
     @PostMapping("/login")
     public Result<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
@@ -49,6 +66,16 @@ public class AuthController {
         return Result.success(response);
     }
 
+    /**
+     * 患者登录
+     * <p>
+     * 根据身份证号和密码进行患者登录认证。验证患者是否存在、密码是否正确。
+     * 认证成功后生成JWT令牌并返回登录响应信息。
+     * </p>
+     *
+     * @param request 患者登录请求体，包含身份证号和密码
+     * @return 登录响应结果，包含JWT令牌、患者姓名和角色信息；认证失败返回错误信息
+     */
     @Operation(summary = "患者登录")
     @PostMapping("/patient-login")
     public Result<LoginResponse> patientLogin(@RequestBody PatientLoginRequest request) {
@@ -65,6 +92,17 @@ public class AuthController {
         return Result.success(response);
     }
 
+    /**
+     * 获取当前用户信息
+     * <p>
+     * 根据请求中携带的JWT令牌解析出的用户信息，返回当前登录用户的详细资料。
+     * 如果是患者角色，返回患者姓名、身份证号、手机号等信息；
+     * 如果是员工角色，返回员工用户名、真实姓名和角色信息。
+     * </p>
+     *
+     * @param request HTTP请求对象，从中获取用户ID和角色等认证属性
+     * @return 当前用户的信息Map，包含用户名、真实姓名、角色等；用户不存在时返回错误信息
+     */
     @Operation(summary = "获取当前用户信息")
     @GetMapping("/info")
     public Result<Map<String, Object>> info(HttpServletRequest request) {

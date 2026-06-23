@@ -1,5 +1,7 @@
 <template>
+  <!-- 挂号管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名和挂号状态筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
@@ -11,6 +13,7 @@
       <el-button type="success" icon="Plus" @click="handleAdd">新增挂号</el-button>
     </div>
 
+    <!-- 挂号列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="患者姓名" width="100" />
@@ -39,6 +42,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -51,6 +55,7 @@
       />
     </div>
 
+    <!-- 新增/编辑挂号弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="患者" prop="patientId">
@@ -87,6 +92,9 @@
 </template>
 
 <script setup>
+/**
+ * 挂号管理页面 - 支持挂号的查询、新增、编辑、完成就诊、取消挂号操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getRegistrationList, addRegistration, updateRegistration, updateRegistrationStatus } from '@/api/registration'
@@ -127,9 +135,12 @@ const patientOptions = ref([])
 const deptOptions = ref([])
 const doctorOptions = ref([])
 
+/** 根据状态值返回对应的文本显示 */
 const getStatusText = (status) => ({ 0: '待诊', 1: '已诊', 2: '已取消' }[status] || '未知')
+/** 根据状态值返回对应的标签类型 */
 const getStatusType = (status) => ({ 0: 'warning', 1: 'success', 2: 'info' }[status] || '')
 
+/** 获取挂号列表数据（按搜索条件分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -141,6 +152,7 @@ const fetchData = async () => {
   }
 }
 
+/** 加载下拉选项数据（患者列表和科室列表） */
 const fetchOptions = async () => {
   const [pRes, dRes] = await Promise.all([
     getPatientList({ pageNum: 1, pageSize: 100 }),
@@ -150,6 +162,7 @@ const fetchOptions = async () => {
   deptOptions.value = dRes.data || []
 }
 
+/** 科室选择变化时加载对应医生列表 */
 const onDeptChange = async (deptId) => {
   formData.doctorId = ''
   if (deptId) {
@@ -160,12 +173,14 @@ const onDeptChange = async (deptId) => {
   }
 }
 
+/** 打开新增挂号弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增挂号'
   Object.assign(formData, { id: null, patientId: '', doctorId: '', deptId: '', regType: '普通', regFee: 0 })
   dialogVisible.value = true
 }
 
+/** 打开编辑挂号弹窗并加载当前科室所对应的医生 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑挂号'
   Object.assign(formData, row)
@@ -173,6 +188,7 @@ const handleEdit = (row) => {
   dialogVisible.value = true
 }
 
+/** 提交表单（新增或更新挂号） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (formData.id) {
@@ -186,6 +202,7 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 完成就诊（状态改为"已诊"） */
 const handleComplete = async (row) => {
   await ElMessageBox.confirm('确认完成该挂号？', '提示')
   await updateRegistrationStatus(row.id, 1)
@@ -193,6 +210,7 @@ const handleComplete = async (row) => {
   fetchData()
 }
 
+/** 取消挂号（状态改为"已取消"） */
 const handleCancel = async (row) => {
   await ElMessageBox.confirm('确认取消该挂号？', '提示')
   await updateRegistrationStatus(row.id, 2)
@@ -200,6 +218,7 @@ const handleCancel = async (row) => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(() => {
   fetchData()
   fetchOptions()

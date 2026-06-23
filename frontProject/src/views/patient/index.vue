@@ -1,11 +1,14 @@
 <template>
+  <!-- 患者管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-button type="primary" icon="Search" @click="fetchData">查询</el-button>
       <el-button type="success" icon="Plus" @click="handleAdd">新增患者</el-button>
     </div>
 
+    <!-- 患者列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="姓名" width="100" />
@@ -28,6 +31,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -40,6 +44,7 @@
       />
     </div>
 
+    <!-- 新增/编辑患者弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="姓名" prop="patientName">
@@ -73,6 +78,9 @@
 </template>
 
 <script setup>
+/**
+ * 患者管理页面 - 支持患者的查询、新增、编辑操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getPatientList, addPatient, updatePatient } from '@/api/patient'
@@ -105,6 +113,7 @@ const rules = {
   gender: [{ required: true, message: '请选择性别', trigger: 'change' }]
 }
 
+/** 获取患者列表数据（按姓名分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -116,18 +125,21 @@ const fetchData = async () => {
   }
 }
 
+/** 打开新增患者弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增患者'
   Object.assign(formData, { id: null, patientName: '', gender: 1, age: 0, idCard: '', phone: '', address: '' })
   dialogVisible.value = true
 }
 
+/** 打开编辑患者弹窗 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑患者'
   Object.assign(formData, row)
   dialogVisible.value = true
 }
 
+/** 提交表单（新增或更新患者信息） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (formData.id) {
@@ -141,5 +153,6 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(fetchData)
 </script>

@@ -1,10 +1,13 @@
 <template>
+  <!-- 科室管理页面（只读列表） -->
   <div class="page-container">
+    <!-- 搜索栏区域：按科室名称筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.deptName" placeholder="科室名称" clearable style="width: 180px;" />
       <el-button type="primary" icon="Search" @click="fetchData">查询</el-button>
     </div>
 
+    <!-- 科室列表表格（只读） -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="deptName" label="科室名称" min-width="150" />
@@ -20,6 +23,9 @@
 </template>
 
 <script setup>
+/**
+ * 科室管理页面（只读列表） - 支持按科室名称查询
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { getDepartmentList } from '@/api/department'
 
@@ -30,6 +36,7 @@ const searchParams = reactive({
   deptName: ''
 })
 
+/** 获取科室列表数据（按名称筛选） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -40,5 +47,6 @@ const fetchData = async () => {
   }
 }
 
+/** 页面加载时初始化数据 */
 onMounted(fetchData)
 </script>

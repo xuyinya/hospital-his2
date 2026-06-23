@@ -1,5 +1,7 @@
 <template>
+  <!-- 医生管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按医生姓名和科室筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.doctorName" placeholder="医生姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.deptId" placeholder="科室" clearable style="width: 150px;">
@@ -9,6 +11,7 @@
       <el-button type="success" icon="Plus" @click="handleAdd">新增医生</el-button>
     </div>
 
+    <!-- 医生列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="doctorName" label="姓名" width="100" />
@@ -32,6 +35,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -44,6 +48,7 @@
       />
     </div>
 
+    <!-- 新增/编辑医生弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="480px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="80px">
         <el-form-item label="姓名" prop="doctorName">
@@ -78,6 +83,9 @@
 </template>
 
 <script setup>
+/**
+ * 医生管理页面 - 支持医生的查询、新增、编辑、删除操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getDoctorList, addDoctor, updateDoctor, deleteDoctor } from '@/api/doctor'
@@ -114,6 +122,7 @@ const rules = {
   title: [{ required: true, message: '请选择职称', trigger: 'change' }]
 }
 
+/** 获取医生列表数据（按姓名和科室分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -125,11 +134,13 @@ const fetchData = async () => {
   }
 }
 
+/** 加载科室下拉选项 */
 const fetchDeptOptions = async () => {
   const res = await getDepartmentList()
   deptOptions.value = res.data || []
 }
 
+/** 打开新增医生弹窗 */
 const handleAdd = () => {
   isEdit.value = false
   dialogTitle.value = '新增医生'
@@ -137,6 +148,7 @@ const handleAdd = () => {
   dialogVisible.value = true
 }
 
+/** 打开编辑医生弹窗 */
 const handleEdit = (row) => {
   isEdit.value = true
   dialogTitle.value = '编辑医生'
@@ -144,6 +156,7 @@ const handleEdit = (row) => {
   dialogVisible.value = true
 }
 
+/** 删除医生（含二次确认，检查是否有挂号记录） */
 const handleDelete = async (row) => {
   try {
     await ElMessageBox.confirm(`确认删除医生「${row.doctorName}」？删除前请确保该医生没有挂号记录。`, '警告', { confirmButtonText: '确认删除', cancelButtonText: '取消', type: 'warning' })
@@ -155,6 +168,7 @@ const handleDelete = async (row) => {
   }
 }
 
+/** 提交表单（新增或更新医生信息） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (isEdit.value) {
@@ -168,6 +182,7 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(() => {
   fetchData()
   fetchDeptOptions()

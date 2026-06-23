@@ -1,3 +1,10 @@
+<!--
+  根组件 App.vue
+
+  功能：应用的顶级组件，通过 <router-view /> 渲染当前路由匹配的页面内容。
+  全局样式在此定义，应用于所有页面的基础布局和字体。
+-->
+
 <template>
   <router-view />
 </template>

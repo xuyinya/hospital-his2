@@ -18,11 +18,27 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/dashboard")
 @RequiredArgsConstructor
+/**
+ * 首页仪表盘控制器
+ * <p>
+ * 提供系统首页的统计数据和概览信息，包括当日挂号数量、就诊数量、待诊数量及当日收入等。
+ * 接口路径：/api/dashboard
+ * </p>
+ */
 public class DashboardController {
 
     private final RegistrationMapper registrationMapper;
     private final PaymentService paymentService;
 
+    /**
+     * 获取首页统计数据
+     * <p>
+     * 按当日（亚洲/上海时区）统计系统运营数据，包括：
+     * 当日挂号总数、当日已就诊人数、当日待诊人数、当日已支付总金额。
+     * </p>
+     *
+     * @return 包含注册数、就诊数、待诊数和当日收入的统计数据Map
+     */
     @Operation(summary = "获取首页统计数据（按当日过滤）")
     @GetMapping("/stats")
     public Result<Map<String, Object>> stats() {

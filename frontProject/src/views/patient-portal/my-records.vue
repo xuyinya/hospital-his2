@@ -1,4 +1,5 @@
 <template>
+  <!-- 我的病历页面组件：展示当前患者的病历列表，支持分页和查看详情 -->
   <div class="portal-page">
     <el-card shadow="never" class="portal-card">
       <template #header>
@@ -7,6 +8,7 @@
           <span>我的病历</span>
         </div>
       </template>
+      <!-- 病历列表表格 -->
       <el-table :data="tableData" stripe v-loading="loading" style="width: 100%">
         <el-table-column prop="id" label="编号" width="70" />
         <el-table-column prop="doctorName" label="医生" width="100" />
@@ -14,12 +16,14 @@
         <el-table-column prop="diagnosis" label="诊断" min-width="140" show-overflow-tooltip />
         <el-table-column prop="treatmentPlan" label="处理方案" min-width="140" show-overflow-tooltip />
         <el-table-column prop="recordTime" label="记录时间" width="170" />
+        <!-- 查看详情操作 -->
         <el-table-column label="操作" width="80" fixed="right">
           <template #default="{ row }">
             <el-button size="small" type="primary" @click="handleView(row)">详情</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <!-- 病历详情弹窗 -->
       <el-dialog v-model="dialogVisible" title="病历详情" width="600px">
         <el-descriptions :column="1" border>
           <el-descriptions-item label="医生">{{ currentRecord.doctorName }}</el-descriptions-item>
@@ -30,6 +34,7 @@
           <el-descriptions-item label="记录时间">{{ currentRecord.recordTime }}</el-descriptions-item>
         </el-descriptions>
       </el-dialog>
+      <!-- 分页组件 -->
       <div class="pagination">
         <el-pagination
           v-model:current-page="pageNum"
@@ -44,6 +49,10 @@
 </template>
 
 <script setup>
+/**
+ * MyRecords - 患者门户：我的病历页面组件
+ * 功能：分页展示当前患者的病历列表，支持点击查看病历详情
+ */
 import { ref, onMounted } from 'vue'
 import { getMyRecords } from '@/api/patient-portal'
 
@@ -52,9 +61,15 @@ const tableData = ref([])
 const total = ref(0)
 const pageNum = ref(1)
 const pageSize = ref(10)
+/** 病历详情弹窗显示状态 */
 const dialogVisible = ref(false)
+/** 当前查看的病历详情数据 */
 const currentRecord = ref({})
 
+/**
+ * 获取病历列表（分页）
+ * 调用后端接口查询当前患者的病历数据
+ */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -66,11 +81,16 @@ const fetchData = async () => {
   }
 }
 
+/**
+ * 查看病历详情
+ * @param {Object} row - 选中的病历行数据
+ */
 const handleView = (row) => {
   currentRecord.value = row
   dialogVisible.value = true
 }
 
+/** 组件挂载时加载第一页数据 */
 onMounted(fetchData)
 </script>
 

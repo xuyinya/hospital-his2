@@ -1,5 +1,7 @@
 <template>
+  <!-- 检验管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名和检验状态筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
@@ -10,6 +12,7 @@
       <el-button type="success" icon="Plus" @click="handleAdd">新增检验</el-button>
     </div>
 
+    <!-- 检验列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="患者姓名" width="100" />
@@ -34,6 +37,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -46,6 +50,7 @@
       />
     </div>
 
+    <!-- 新增/编辑检验弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="挂号ID" prop="registrationId">
@@ -75,6 +80,7 @@
       </template>
     </el-dialog>
 
+    <!-- 录入检验结果弹窗 -->
     <el-dialog v-model="resultVisible" title="录入检验结果" width="520px">
       <el-input v-model="resultText" type="textarea" :rows="4" placeholder="请输入检验结果" />
       <template #footer>
@@ -86,6 +92,9 @@
 </template>
 
 <script setup>
+/**
+ * 检验管理页面 - 支持检验的查询、新增、编辑、录入结果操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getLaboratoryList, addLaboratory, updateLaboratory, updateLaboratoryResult } from '@/api/laboratory'
@@ -126,6 +135,7 @@ const rules = {
   labName: [{ required: true, message: '请输入检验项目', trigger: 'blur' }]
 }
 
+/** 获取检验列表数据（按患者姓名和状态分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -137,23 +147,27 @@ const fetchData = async () => {
   }
 }
 
+/** 加载患者下拉选项 */
 const fetchPatientOptions = async () => {
   const res = await getPatientList({ pageNum: 1, pageSize: 100 })
   patientOptions.value = res.data.rows || []
 }
 
+/** 打开新增检验弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增检验'
   Object.assign(formData, { id: null, registrationId: '', patientId: '', labType: '', labName: '', referenceRange: '', fee: 0 })
   dialogVisible.value = true
 }
 
+/** 打开编辑检验弹窗 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑检验'
   Object.assign(formData, row)
   dialogVisible.value = true
 }
 
+/** 提交表单（新增或更新检验信息） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (formData.id) {
@@ -167,12 +181,14 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 打开录入检验结果弹窗 */
 const handleResult = (row) => {
   currentId.value = row.id
   resultText.value = row.result || ''
   resultVisible.value = true
 }
 
+/** 提交检验结果并标记为已完成 */
 const submitResult = async () => {
   await updateLaboratoryResult(currentId.value, resultText.value)
   ElMessage.success('录入成功')
@@ -180,6 +196,7 @@ const submitResult = async () => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(() => {
   fetchData()
   fetchPatientOptions()

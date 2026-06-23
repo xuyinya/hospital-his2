@@ -1,8 +1,11 @@
 <template>
+  <!-- 患者门户布局组件：患者端页面框架，包含顶部导航和水平菜单 -->
   <div class="patient-layout">
+    <!-- 顶部横幅：Logo + 欢迎语 + 退出按钮 -->
     <header class="patient-header">
       <div class="header-left">
         <div class="logo-area">
+          <!-- 系统Logo -->
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
             <rect width="32" height="32" rx="8" fill="#5d87ff"/>
             <path d="M16 8L16 24M8 16L24 16" stroke="white" stroke-width="3" stroke-linecap="round"/>
@@ -11,11 +14,13 @@
         </div>
       </div>
       <div class="header-right">
+        <!-- 显示当前登录患者的姓名 -->
         <span class="welcome">欢迎您，{{ authStore.realName }}</span>
         <el-button size="small" type="primary" plain @click="handleLogout">退出</el-button>
       </div>
     </header>
     <div class="patient-body">
+      <!-- 水平导航菜单：首页 / 我的挂号 / 我的病历 / 我的处方 -->
       <nav class="patient-nav">
         <el-menu
           :default-active="currentRoute"
@@ -37,6 +42,7 @@
           </el-menu-item>
         </el-menu>
       </nav>
+      <!-- 路由视图出口：展示各功能子页面 -->
       <main class="patient-content">
         <router-view />
       </main>
@@ -45,6 +51,10 @@
 </template>
 
 <script setup>
+/**
+ * PatientLayout - 患者门户布局组件
+ * 功能：患者端整体页面框架，提供顶部导航、水平菜单和子页面路由出口
+ */
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
@@ -53,8 +63,13 @@ import { useAuthStore } from '@/stores/auth'
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+/** 当前路由路径，用于高亮激活的菜单项 */
 const currentRoute = computed(() => route.path)
 
+/**
+ * 处理退出登录
+ * 确认后清除认证信息并跳转到登录页
+ */
 const handleLogout = async () => {
   await ElMessageBox.confirm('确认退出登录？', '提示')
   authStore.logout()

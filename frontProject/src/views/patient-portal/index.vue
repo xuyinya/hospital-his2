@@ -1,6 +1,8 @@
 <template>
+  <!-- 患者门户首页组件：展示个人信息、就诊概览和快捷入口 -->
   <div class="patient-home">
     <el-row :gutter="20">
+      <!-- 左侧：个人信息卡片 -->
       <el-col :span="8">
         <el-card shadow="never" class="info-card">
           <template #header>
@@ -10,14 +12,18 @@
             </div>
           </template>
           <div class="patient-info">
+            <!-- 患者头像（姓名首字） -->
             <div class="avatar">{{ authStore.realName?.charAt(0) }}</div>
             <div class="name">{{ authStore.realName }}</div>
+            <!-- 身份证号和手机号 -->
             <div class="detail">身份证号: {{ patientInfo.idCard || '-' }}</div>
             <div class="detail">手机号: {{ patientInfo.phone || '-' }}</div>
           </div>
         </el-card>
       </el-col>
+      <!-- 右侧：就诊概览和快捷入口 -->
       <el-col :span="16">
+        <!-- 就诊概览统计卡片 -->
         <el-card shadow="never" class="info-card">
           <template #header>
             <div class="card-title">
@@ -46,6 +52,7 @@
             </el-col>
           </el-row>
         </el-card>
+        <!-- 快捷入口卡片 -->
         <el-card shadow="never" class="info-card" style="margin-top: 16px;">
           <template #header>
             <div class="card-title">
@@ -65,15 +72,22 @@
 </template>
 
 <script setup>
+/**
+ * PatientHome - 患者门户首页组件
+ * 功能：展示患者个人信息、挂号/病历/处方统计数据及快捷导航入口
+ */
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { getPatientInfo, getMyRegistrations, getMyRecords, getMyPrescriptions } from '@/api/patient-portal'
 
 const authStore = useAuthStore()
 
+/** 患者个人信息（身份证号和手机号） */
 const patientInfo = ref({ idCard: '-', phone: '-' })
+/** 就诊统计数据（挂号总数、病历数、处方数） */
 const stats = ref({ registrations: 0, records: 0, prescriptions: 0 })
 
+/** 组件挂载时：获取患者信息及各项统计 */
 onMounted(async () => {
   try {
     // 获取患者个人信息
@@ -85,7 +99,7 @@ onMounted(async () => {
       }
     }
 
-    // 获取各项统计
+    // 获取各项统计（通过分页查询获取总条数）
     const [regRes, recRes, preRes] = await Promise.all([
       getMyRegistrations({ pageNum: 1, pageSize: 1 }),
       getMyRecords({ pageNum: 1, pageSize: 1 }),

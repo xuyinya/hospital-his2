@@ -1,5 +1,7 @@
 <template>
+  <!-- 处置管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名和处置状态筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
@@ -10,6 +12,7 @@
       <el-button type="success" icon="Plus" @click="handleAdd">新增处置</el-button>
     </div>
 
+    <!-- 处置列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="患者姓名" width="100" />
@@ -32,6 +35,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -44,6 +48,7 @@
       />
     </div>
 
+    <!-- 新增/编辑处置弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="挂号ID" prop="registrationId">
@@ -73,6 +78,9 @@
 </template>
 
 <script setup>
+/**
+ * 处置管理页面 - 支持处置的查询、新增、编辑、完成操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getTreatmentList, addTreatment, updateTreatment, updateTreatmentStatus } from '@/api/treatment'
@@ -108,6 +116,7 @@ const rules = {
   treatmentName: [{ required: true, message: '请输入处置名称', trigger: 'blur' }]
 }
 
+/** 获取处置列表数据（按患者姓名和状态分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -119,23 +128,27 @@ const fetchData = async () => {
   }
 }
 
+/** 加载患者下拉选项 */
 const fetchPatientOptions = async () => {
   const res = await getPatientList({ pageNum: 1, pageSize: 100 })
   patientOptions.value = res.data.rows || []
 }
 
+/** 打开新增处置弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增处置'
   Object.assign(formData, { id: null, registrationId: '', patientId: '', treatmentName: '', treatmentDesc: '', fee: 0 })
   dialogVisible.value = true
 }
 
+/** 打开编辑处置弹窗 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑处置'
   Object.assign(formData, row)
   dialogVisible.value = true
 }
 
+/** 提交表单（新增或更新处置信息） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (formData.id) {
@@ -149,6 +162,7 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 完成处置（将状态设为"已完成"） */
 const handleComplete = async (row) => {
   await ElMessageBox.confirm('确认完成该处置？', '提示')
   await updateTreatmentStatus(row.id, 1)
@@ -156,6 +170,7 @@ const handleComplete = async (row) => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(() => {
   fetchData()
   fetchPatientOptions()

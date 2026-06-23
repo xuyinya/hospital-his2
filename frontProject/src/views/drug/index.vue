@@ -1,11 +1,14 @@
 <template>
+  <!-- 药品管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按药品名称筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.drugName" placeholder="药品名称" clearable style="width: 180px;" />
       <el-button type="primary" icon="Search" @click="fetchData">查询</el-button>
       <el-button type="success" icon="Plus" @click="handleAdd">新增药品</el-button>
     </div>
 
+    <!-- 药品列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="drugName" label="药品名称" min-width="140" />
@@ -34,6 +37,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -46,6 +50,7 @@
       />
     </div>
 
+    <!-- 新增/编辑药品弹窗 -->
     <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-form-item label="药品名称" prop="drugName">
@@ -85,6 +90,9 @@
 </template>
 
 <script setup>
+/**
+ * 药品管理页面 - 支持药品的查询、新增、编辑、删除操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getDrugList, addDrug, updateDrug, deleteDrug } from '@/api/drug'
@@ -119,6 +127,7 @@ const rules = {
   drugCode: [{ required: true, message: '请输入药品编码', trigger: 'blur' }]
 }
 
+/** 获取药品列表数据（按名称分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -130,18 +139,21 @@ const fetchData = async () => {
   }
 }
 
+/** 打开新增药品弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增药品'
   Object.assign(formData, { id: null, drugName: '', drugCode: '', specification: '', unit: '', manufacturer: '', unitPrice: 0, stock: 0, status: 1 })
   dialogVisible.value = true
 }
 
+/** 打开编辑药品弹窗 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑药品'
   Object.assign(formData, row)
   dialogVisible.value = true
 }
 
+/** 提交表单（新增或更新药品信息） */
 const handleSubmit = async () => {
   await formRef.value.validate()
   if (formData.id) {
@@ -155,6 +167,7 @@ const handleSubmit = async () => {
   fetchData()
 }
 
+/** 删除药品（含二次确认） */
 const handleDelete = async (row) => {
   await ElMessageBox.confirm('确认删除该药品？', '提示')
   await deleteDrug(row.id)
@@ -162,5 +175,6 @@ const handleDelete = async (row) => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(fetchData)
 </script>

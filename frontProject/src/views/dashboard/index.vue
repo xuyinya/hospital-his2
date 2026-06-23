@@ -1,6 +1,9 @@
 <template>
+  <!-- 首页仪表盘组件：展示统计卡片、快捷操作和系统信息 -->
   <div class="dashboard">
+    <!-- 顶部统计卡片行：今日挂号、今日就诊、待诊人数、今日收入 -->
     <el-row :gutter="20" class="stat-cards">
+      <!-- 今日挂号统计卡片 -->
       <el-col :span="6">
         <el-card shadow="never" class="stat-card stat-card-reg">
           <div class="card-content">
@@ -14,6 +17,7 @@
           </div>
         </el-card>
       </el-col>
+      <!-- 今日就诊统计卡片 -->
       <el-col :span="6">
         <el-card shadow="never" class="stat-card stat-card-pat">
           <div class="card-content">
@@ -27,6 +31,7 @@
           </div>
         </el-card>
       </el-col>
+      <!-- 待诊人数统计卡片 -->
       <el-col :span="6">
         <el-card shadow="never" class="stat-card stat-card-wait">
           <div class="card-content">
@@ -40,6 +45,7 @@
           </div>
         </el-card>
       </el-col>
+      <!-- 今日收入统计卡片 -->
       <el-col :span="6">
         <el-card shadow="never" class="stat-card stat-card-income">
           <div class="card-content">
@@ -55,7 +61,9 @@
       </el-col>
     </el-row>
 
+    <!-- 底部功能区：快捷操作 + 系统信息 -->
     <el-row :gutter="20" style="margin-top: 20px;">
+      <!-- 快捷操作区域 -->
       <el-col :span="14">
         <el-card shadow="never">
           <template #header>
@@ -73,6 +81,7 @@
           </div>
         </el-card>
       </el-col>
+      <!-- 系统信息区域 -->
       <el-col :span="10">
         <el-card shadow="never">
           <template #header>
@@ -93,12 +102,17 @@
 </template>
 
 <script setup>
+/**
+ * Dashboard - 首页仪表盘组件
+ * 功能：展示今日统计数据（挂号数/就诊数/待诊数/收入）、快捷操作入口和系统信息
+ */
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { getDashboardStats } from '@/api/dashboard'
 
 const authStore = useAuthStore()
 
+/** 统计数据对象：包含今日挂号、就诊、待诊和收入 */
 const stats = ref({
   registrationCount: 0,
   patientCount: 0,
@@ -106,14 +120,17 @@ const stats = ref({
   todayIncome: '0.00'
 })
 
+/** 当前系统时间（实时更新） */
 const currentTime = ref('')
 let timer = null
 
+/** 更新当前时间为本地时间字符串 */
 const updateTime = () => {
   const now = new Date()
   currentTime.value = now.toLocaleString('zh-CN')
 }
 
+/** 从后端获取仪表盘统计数据 */
 const fetchStats = async () => {
   try {
     const res = await getDashboardStats()
@@ -125,12 +142,14 @@ const fetchStats = async () => {
   }
 }
 
+/** 组件挂载时：初始化时间并开始定时刷新，获取统计数据 */
 onMounted(() => {
   updateTime()
   timer = setInterval(updateTime, 1000)
   fetchStats()
 })
 
+/** 组件卸载时：清除时间定时器 */
 onUnmounted(() => {
   if (timer) clearInterval(timer)
 })

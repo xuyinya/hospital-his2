@@ -1,5 +1,7 @@
 <template>
+  <!-- 处方管理页面 -->
   <div class="page-container">
+    <!-- 搜索栏区域：按患者姓名和处方状态筛选 -->
     <div class="search-bar">
       <el-input v-model="searchParams.patientName" placeholder="患者姓名" clearable style="width: 180px;" />
       <el-select v-model="searchParams.status" placeholder="状态" clearable style="width: 120px;">
@@ -9,6 +11,7 @@
       <el-button type="primary" icon="Search" @click="fetchData">查询</el-button>
     </div>
 
+    <!-- 处方列表表格 -->
     <el-table :data="tableData" border stripe v-loading="loading" style="width: 100%">
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="patientName" label="患者姓名" width="100" />
@@ -30,6 +33,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
         v-model:current-page="searchParams.pageNum"
@@ -42,6 +46,7 @@
       />
     </div>
 
+    <!-- 处方明细弹窗 -->
     <el-dialog v-model="detailVisible" title="处方明细" width="700px">
       <el-table :data="detailList" border>
         <el-table-column prop="drugName" label="药品名称" min-width="120" />
@@ -60,6 +65,9 @@
 </template>
 
 <script setup>
+/**
+ * 处方管理页面 - 支持处方查询、查看明细、确认取药操作
+ */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getPrescriptionList, getPrescriptionDetails, updatePrescriptionStatus } from '@/api/prescription'
@@ -77,6 +85,7 @@ const searchParams = reactive({
   pageSize: 10
 })
 
+/** 获取处方列表数据（按患者姓名和状态分页查询） */
 const fetchData = async () => {
   loading.value = true
   try {
@@ -88,12 +97,14 @@ const fetchData = async () => {
   }
 }
 
+/** 查看处方明细（弹窗显示药品列表） */
 const handleView = async (row) => {
   const res = await getPrescriptionDetails(row.id)
   detailList.value = res.data || []
   detailVisible.value = true
 }
 
+/** 确认取药（将处方状态设为"已取药"） */
 const handleComplete = async (row) => {
   await ElMessageBox.confirm('确认该处方已取药？', '提示')
   await updatePrescriptionStatus(row.id, 1)
@@ -101,5 +112,6 @@ const handleComplete = async (row) => {
   fetchData()
 }
 
+/** 页面加载时初始化数据 */
 onMounted(fetchData)
 </script>

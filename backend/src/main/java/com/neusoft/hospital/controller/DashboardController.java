@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Tag(name = "首页仪表盘")
@@ -21,17 +23,32 @@ public class DashboardController {
     private final RegistrationMapper registrationMapper;
     private final PaymentService paymentService;
 
-    @Operation(summary = "获取首页统计数据")
+    @Operation(summary = "获取首页统计数据（按当日过滤）")
     @GetMapping("/stats")
     public Result<Map<String, Object>> stats() {
-        List<RegistrationVO> todayRegs = registrationMapper.selectRegistrationVO(null, null, null, null, null, 0, 1000);
-        long regCount = todayRegs.stream().filter(r -> r.getRegTime() != null).count();
-        long doneCount = todayRegs.stream().filter(r -> r.getStatus() != null && r.getStatus() == 1).count();
-        long regWaitCount = todayRegs.stream().filter(r -> r.getStatus() != null && r.getStatus() == 0).count();
+        // 获取当天日期（按亚洲/上海时区）
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
 
-        // 从收费表中计算已支付总金额
-        var paidPayments = paymentService.list(null, 1, 1, 10000);
-        BigDecimal todayIncome = paidPayments.getRows().stream()
+        // 查询全部挂号记录
+        List<RegistrationVO> allRegs = registrationMapper.selectRegistrationVO(null, null, null, null, null, 0, 10000);
+
+        // 在Java中按日期过滤
+        long regCount = allRegs.stream()
+                .filter(r -> r.getRegTime() != null && r.getRegTime().toLocalDate().equals(today))
+                .count();
+        long doneCount = allRegs.stream()
+                .filter(r -> r.getRegTime() != null && r.getStatus() != null && r.getStatus() == 1
+                        && r.getRegTime().toLocalDate().equals(today))
+                .count();
+        long regWaitCount = allRegs.stream()
+                .filter(r -> r.getRegTime() != null && r.getStatus() != null && r.getStatus() == 0
+                        && r.getRegTime().toLocalDate().equals(today))
+                .count();
+
+        // 从收费表中计算当日已支付总金额（同样按日期过滤）
+        var allPayments = paymentService.list(null, 1, 1, 10000);
+        BigDecimal todayIncome = allPayments.getRows().stream()
+                .filter(p -> p.getPaymentTime() != null && p.getPaymentTime().toLocalDate().equals(today))
                 .map(p -> p.getTotalAmount() != null ? p.getTotalAmount() : BigDecimal.ZERO)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 

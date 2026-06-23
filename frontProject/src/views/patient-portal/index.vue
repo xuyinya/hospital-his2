@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { getMyRegistrations, getMyRecords, getMyPrescriptions } from '@/api/patient-portal'
+import { getPatientInfo, getMyRegistrations, getMyRecords, getMyPrescriptions } from '@/api/patient-portal'
 
 const authStore = useAuthStore()
 

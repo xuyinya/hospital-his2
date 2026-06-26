@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.Payment;
-import com.neusoft.hospital.entity.vo.PaymentVO;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 
@@ -46,52 +45,29 @@ public interface PaymentMapper {
     Payment selectById(Long id);
 
     /**
-     * 分页查询缴费 VO 列表（含患者名称）
+     * 分页查询缴费列表（含患者名称）
      * <p>XML 动态 SQL：按患者姓名和缴费状态分页查询，结果包含患者名称</p>
      *
      * @param patientName 患者姓名（可选，模糊匹配）
      * @param status      状态（可选，0=待支付，1=已支付，2=已退费）
      * @param offset      分页偏移量
      * @param pageSize    每页条数
-     * @return 缴费 VO 分页列表
+     * @return 缴费分页列表（含患者名称）
      */
     // 带患者名称的分页列表（XML动态SQL）
-    List<PaymentVO> selectPaymentVO(@Param("patientName") String patientName,
+    List<Payment> selectList(@Param("patientName") String patientName,
                                     @Param("status") Integer status,
                                     @Param("offset") int offset,
                                     @Param("pageSize") int pageSize);
 
     /**
-     * 查询缴费 VO 总数（用于分页）
+     * 查询缴费总数（用于分页）
      * <p>XML 动态 SQL：按患者姓名和缴费状态统计记录数</p>
      *
      * @param patientName 患者姓名（可选）
      * @param status      状态（可选）
      * @return 符合条件的缴费总数
      */
-    Long selectPaymentVOCount(@Param("patientName") String patientName,
+    Long selectCount(@Param("patientName") String patientName,
                               @Param("status") Integer status);
-
-    /**
-     * 分页查询缴费记录列表（传统查询，不含患者名称）
-     * <p>XML 动态 SQL：按患者ID分页查询缴费记录，保留兼容性</p>
-     *
-     * @param patientId 患者ID（可选）
-     * @param offset    分页偏移量
-     * @param pageSize  每页条数
-     * @return 缴费分页列表
-     */
-    // 不带患者名称的传统查询（保留兼容）
-    List<Payment> selectList(@Param("patientId") Long patientId,
-                             @Param("offset") int offset,
-                             @Param("pageSize") int pageSize);
-
-    /**
-     * 查询缴费记录总数（用于分页，传统查询）
-     * <p>XML 动态 SQL：按患者ID统计缴费记录数</p>
-     *
-     * @param patientId 患者ID（可选）
-     * @return 符合条件的缴费总数
-     */
-    Long selectCount(@Param("patientId") Long patientId);
 }

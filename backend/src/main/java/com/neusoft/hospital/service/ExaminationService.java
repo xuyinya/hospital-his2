@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Examination;
-import com.neusoft.hospital.entity.vo.ExaminationVO;
 
 /**
  * 检查管理 Service 接口
@@ -51,5 +50,5 @@ public interface ExaminationService {
      * @param size           每页条数
      * @return 分页结果
      */
-    PageResult<ExaminationVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
+    PageResult<Examination> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
 }

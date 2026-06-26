@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.RegistrationMapper">
 
-    <select id="selectRegistrationVO" resultType="com.neusoft.hospital.entity.vo.RegistrationVO">
+    <!-- 分页查询挂号列表（含患者/医生/科室信息） -->
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Registration">
         SELECT r.id, r.patient_id, p.patient_name, p.gender, p.age, p.phone,
                r.doctor_id, d.doctor_name, d.title,
                r.dept_id, dept.dept_name,
@@ -22,7 +23,8 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectRegistrationVOCount" resultType="java.lang.Long">
+    <!-- 查询挂号总数（用于分页） -->
+    <select id="selectCount" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM registration r
         LEFT JOIN patient p ON r.patient_id = p.id

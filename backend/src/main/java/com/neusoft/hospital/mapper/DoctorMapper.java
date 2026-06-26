@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.Doctor;
-import com.neusoft.hospital.entity.vo.DoctorVO;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 
@@ -13,46 +12,37 @@ import java.util.List;
 public interface DoctorMapper {
 
     /**
-     * 查询所有启用的医生列表
-     * <p>SQL：查询 doctor 表中 status=1 的所有记录</p>
+     * 查询所有启用的医生列表（含科室名称）
+     * <p>XML 动态 SQL：连表查询 doctor + department，返回带科室名称的医生信息</p>
      *
-     * @return 启用的医生列表
+     * @return 启用的医生列表（含科室名称）
      */
-    @Select("SELECT * FROM doctor WHERE status=1")
     List<Doctor> selectAll();
 
     /**
-     * 查询所有医生的 VO 列表（含科室名称）
-     * <p>XML 动态 SQL：连表查询 doctor + department，返回带科室名称的医生视图信息</p>
-     *
-     * @return 医生 VO 列表（含科室名称）
-     */
-    List<DoctorVO> selectAllVO();
-
-    /**
-     * 分页查询医生 VO 列表（含科室名称）
+     * 分页查询医生列表（含科室名称）
      * <p>XML 动态 SQL：按医生姓名和科室 ID 模糊分页查询，结果包含科室名称</p>
      *
      * @param doctorName 医生姓名（可选，模糊匹配）
      * @param deptId     科室ID（可选）
      * @param offset     分页偏移量
      * @param pageSize   每页条数
-     * @return 医生 VO 分页列表
+     * @return 医生分页列表（含科室名称）
      */
-    List<DoctorVO> selectVOPage(@Param("doctorName") String doctorName,
+    List<Doctor> selectPage(@Param("doctorName") String doctorName,
                                  @Param("deptId") Long deptId,
                                  @Param("offset") int offset,
                                  @Param("pageSize") int pageSize);
 
     /**
-     * 查询医生 VO 总数（用于分页）
+     * 查询医生总数（用于分页）
      * <p>XML 动态 SQL：按姓名和科室 ID 统计医生总记录数</p>
      *
      * @param doctorName 医生姓名（可选）
      * @param deptId     科室ID（可选）
      * @return 符合条件的医生总数
      */
-    Long selectVOCount(@Param("doctorName") String doctorName,
+    Long selectCount(@Param("doctorName") String doctorName,
                        @Param("deptId") Long deptId);
 
     /**
@@ -66,23 +56,13 @@ public interface DoctorMapper {
     Doctor selectById(Long id);
 
     /**
-     * 根据科室ID查询启用的医生列表
-     * <p>SQL：按 dept_id 查询该科室下 status=1 的所有医生</p>
-     *
-     * @param deptId 科室ID
-     * @return 该科室下的医生列表
-     */
-    @Select("SELECT * FROM doctor WHERE dept_id=#{deptId} AND status=1")
-    List<Doctor> selectByDeptId(@Param("deptId") Long deptId);
-
-    /**
-     * 根据科室ID查询医生 VO 列表（含科室名称）
+     * 根据科室ID查询启用的医生列表（含科室名称）
      * <p>XML 动态 SQL：连表查询指定科室下的医生，含科室名称</p>
      *
      * @param deptId 科室ID
-     * @return 医生 VO 列表
+     * @return 该科室下的医生列表（含科室名称）
      */
-    List<DoctorVO> selectByDeptIdVO(@Param("deptId") Long deptId);
+    List<Doctor> selectByDeptId(@Param("deptId") Long deptId);
 
     /**
      * 新增医生记录

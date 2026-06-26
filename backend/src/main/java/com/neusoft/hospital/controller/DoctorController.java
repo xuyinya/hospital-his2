@@ -3,7 +3,6 @@ package com.neusoft.hospital.controller;
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.common.Result;
 import com.neusoft.hospital.entity.Doctor;
-import com.neusoft.hospital.entity.vo.DoctorVO;
 import com.neusoft.hospital.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,12 +41,12 @@ public class DoctorController {
      */
     @Operation(summary = "医生列表（分页）")
     @GetMapping("/list")
-    public Result<PageResult<DoctorVO>> list(
+    public Result<PageResult<Doctor>> list(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(required = false) String doctorName,
             @RequestParam(required = false) Long deptId) {
-        return Result.success(doctorService.listVO(doctorName, deptId, page, size));
+        return Result.success(doctorService.listPage(doctorName, deptId, page, size));
     }
 
     /**
@@ -128,7 +127,7 @@ public class DoctorController {
      */
     @Operation(summary = "按科室查询医生（下拉用）")
     @GetMapping("/dept/{deptId}")
-    public Result<List<DoctorVO>> getByDeptId(@PathVariable Long deptId) {
-        return Result.success(doctorService.getByDeptIdVO(deptId));
+    public Result<List<Doctor>> getByDeptId(@PathVariable Long deptId) {
+        return Result.success(doctorService.getByDeptId(deptId));
     }
 }

@@ -3,7 +3,6 @@ package com.neusoft.hospital.controller;
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.common.Result;
 import com.neusoft.hospital.entity.Treatment;
-import com.neusoft.hospital.entity.vo.TreatmentVO;
 import com.neusoft.hospital.service.TreatmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -94,7 +93,7 @@ public class TreatmentController {
      */
     @Operation(summary = "处置列表")
     @GetMapping("/list")
-    public Result<PageResult<TreatmentVO>> list(
+    public Result<PageResult<Treatment>> list(
             HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,

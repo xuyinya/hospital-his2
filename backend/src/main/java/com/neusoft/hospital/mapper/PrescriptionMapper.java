@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.Prescription;
-import com.neusoft.hospital.entity.vo.PrescriptionVO;
 import org.apache.ibatis.annotations.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -58,7 +57,7 @@ public interface PrescriptionMapper {
     Prescription selectById(Long id);
 
     /**
-     * 分页查询处方 VO 列表（含患者/医生信息）
+     * 分页查询处方列表（含患者/医生信息）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、状态等多条件分页查询处方视图</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -67,9 +66,9 @@ public interface PrescriptionMapper {
      * @param status         状态（可选，0=未取药，1=已取药）
      * @param offset         分页偏移量
      * @param pageSize       每页条数
-     * @return 处方 VO 分页列表
+     * @return 处方分页列表（含关联字段）
      */
-    List<PrescriptionVO> selectPrescriptionVO(@Param("registrationId") Long registrationId,
+    List<Prescription> selectList(@Param("registrationId") Long registrationId,
                                                @Param("patientId") Long patientId,
                                                @Param("doctorId") Long doctorId,
                                                @Param("status") Integer status,
@@ -77,7 +76,7 @@ public interface PrescriptionMapper {
                                                @Param("pageSize") int pageSize);
 
     /**
-     * 查询处方 VO 总数（用于分页）
+     * 查询处方总数（用于分页）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、状态统计记录数</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -86,7 +85,7 @@ public interface PrescriptionMapper {
      * @param status         状态（可选）
      * @return 符合条件的处方总数
      */
-    Long selectPrescriptionVOCount(@Param("registrationId") Long registrationId,
+    Long selectCount(@Param("registrationId") Long registrationId,
                                     @Param("patientId") Long patientId,
                                     @Param("doctorId") Long doctorId,
                                     @Param("status") Integer status);

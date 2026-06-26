@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.Treatment;
-import com.neusoft.hospital.entity.vo.TreatmentVO;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public interface TreatmentMapper {
     Treatment selectById(Long id);
 
     /**
-     * 分页查询处置 VO 列表（含患者/医生/科室信息）
+     * 分页查询处置列表（含患者/医生/科室信息）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、状态等多条件分页查询处置视图</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -65,9 +64,9 @@ public interface TreatmentMapper {
      * @param status         状态（可选，0=未完成，1=已完成）
      * @param offset         分页偏移量
      * @param pageSize       每页条数
-     * @return 处置 VO 分页列表
+     * @return 处置分页列表（含关联字段）
      */
-    List<TreatmentVO> selectTreatmentVO(@Param("registrationId") Long registrationId,
+    List<Treatment> selectList(@Param("registrationId") Long registrationId,
                                          @Param("patientId") Long patientId,
                                          @Param("doctorId") Long doctorId,
                                          @Param("status") Integer status,
@@ -75,7 +74,7 @@ public interface TreatmentMapper {
                                          @Param("pageSize") int pageSize);
 
     /**
-     * 查询处置 VO 总数（用于分页）
+     * 查询处置总数（用于分页）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、状态统计记录数</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -84,7 +83,7 @@ public interface TreatmentMapper {
      * @param status         状态（可选）
      * @return 符合条件的处置总数
      */
-    Long selectTreatmentVOCount(@Param("registrationId") Long registrationId,
+    Long selectCount(@Param("registrationId") Long registrationId,
                                  @Param("patientId") Long patientId,
                                  @Param("doctorId") Long doctorId,
                                  @Param("status") Integer status);

@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Laboratory;
-import com.neusoft.hospital.entity.vo.LaboratoryVO;
 
 /**
  * 检验管理 Service 接口
@@ -52,5 +51,5 @@ public interface LaboratoryService {
      * @param size           每页条数
      * @return 分页结果
      */
-    PageResult<LaboratoryVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
+    PageResult<Laboratory> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
 }

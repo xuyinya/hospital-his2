@@ -3,8 +3,6 @@ package com.neusoft.hospital.service;
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Prescription;
 import com.neusoft.hospital.entity.PrescriptionDetail;
-import com.neusoft.hospital.entity.vo.PrescriptionDetailVO;
-import com.neusoft.hospital.entity.vo.PrescriptionVO;
 import java.util.List;
 
 /**
@@ -54,13 +52,13 @@ public interface PrescriptionService {
      * @param size           每页条数
      * @return 分页结果
      */
-    PageResult<PrescriptionVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
+    PageResult<Prescription> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size);
 
     /**
      * 根据处方ID获取处方明细列表（含药品信息）
      *
      * @param prescriptionId 处方ID
-     * @return 处方明细VO列表
+     * @return 处方明细列表（含药品信息）
      */
-    List<PrescriptionDetailVO> getDetails(Long prescriptionId);
+    List<PrescriptionDetail> getDetails(Long prescriptionId);
 }

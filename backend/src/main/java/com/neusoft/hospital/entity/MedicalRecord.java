@@ -27,4 +27,10 @@ public class MedicalRecord {
     private String treatmentPlan;
     /** 记录时间，病历创建的日期时间 */
     private LocalDateTime recordTime;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 患者姓名，关联 patient 表 */
+    private String patientName;
+    /** 医生姓名，关联 doctor 表 */
+    private String doctorName;
 }

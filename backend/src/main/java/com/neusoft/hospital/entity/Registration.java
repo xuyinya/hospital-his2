@@ -26,4 +26,20 @@ public class Registration {
     private LocalDateTime regTime;
     /** 状态：0-待诊，1-已诊，2-取消 */
     private Integer status;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 患者姓名，关联 patient 表 */
+    private String patientName;
+    /** 性别，关联 patient 表 */
+    private Integer gender;
+    /** 年龄，关联 patient 表 */
+    private Integer age;
+    /** 手机号，关联 patient 表 */
+    private String phone;
+    /** 医生姓名，关联 doctor 表 */
+    private String doctorName;
+    /** 职称，关联 doctor 表 */
+    private String title;
+    /** 科室名称，关联 department 表 */
+    private String deptName;
 }

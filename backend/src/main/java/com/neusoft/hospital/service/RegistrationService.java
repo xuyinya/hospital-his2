@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Registration;
-import com.neusoft.hospital.entity.vo.RegistrationVO;
 
 /**
  * 挂号管理 Service 接口
@@ -52,5 +51,5 @@ public interface RegistrationService {
      * @param size        每页条数
      * @return 分页结果
      */
-    PageResult<RegistrationVO> list(Long patientId, Long doctorId, Integer status, String patientName, Long deptId, Integer page, Integer size);
+    PageResult<Registration> list(Long patientId, Long doctorId, Integer status, String patientName, Long deptId, Integer page, Integer size);
 }

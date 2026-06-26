@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Doctor;
-import com.neusoft.hospital.entity.vo.DoctorVO;
 import com.neusoft.hospital.mapper.DoctorMapper;
 import com.neusoft.hospital.service.DoctorService;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +20,10 @@ public class DoctorServiceImpl implements DoctorService {
     private final DoctorMapper doctorMapper;
 
     /**
-     * 获取所有医生列表（无分页）
-     * 调用 Mapper 查询全部医生记录，返回无分页的完整列表。
+     * 获取所有医生列表（含科室名称，无分页）
+     * 调用 Mapper 查询全部启用的医生记录，含科室名称。
      *
-     * @return 医生实体列表
+     * @return 医生列表（含科室名称）
      */
     @Override
     public List<Doctor> list() {
@@ -43,13 +42,13 @@ public class DoctorServiceImpl implements DoctorService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<DoctorVO> listVO(String doctorName, Long deptId, Integer page, Integer size) {
+    public PageResult<Doctor> listPage(String doctorName, Long deptId, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
-        // 执行分页查询，返回带科室名称的VO列表
-        List<DoctorVO> rows = doctorMapper.selectVOPage(doctorName, deptId, offset, size);
+        // 执行分页查询，返回带科室名称的医生列表
+        List<Doctor> rows = doctorMapper.selectPage(doctorName, deptId, offset, size);
         // 查询满足条件的总记录数
-        Long total = doctorMapper.selectVOCount(doctorName, deptId);
+        Long total = doctorMapper.selectCount(doctorName, deptId);
         return new PageResult<>(total, rows);
     }
 
@@ -66,27 +65,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     /**
-     * 根据科室ID获取该科室下的所有医生
+     * 根据科室ID获取该科室下的所有医生（含科室名称）
      * 调用 Mapper 按科室ID查询关联的医生列表，用于前端下拉选择。
      *
      * @param deptId 科室ID
-     * @return 该科室下的医生实体列表
+     * @return 该科室下的医生列表（含科室名称）
      */
     @Override
     public List<Doctor> getByDeptId(Long deptId) {
         return doctorMapper.selectByDeptId(deptId);
-    }
-
-    /**
-     * 根据科室ID获取医生列表（含科室名称）
-     * 返回包含科室名称的医生VO列表，用于前端展示更多信息。
-     *
-     * @param deptId 科室ID
-     * @return 该科室下的医生VO列表
-     */
-    @Override
-    public List<DoctorVO> getByDeptIdVO(Long deptId) {
-        return doctorMapper.selectByDeptIdVO(deptId);
     }
 
     /**

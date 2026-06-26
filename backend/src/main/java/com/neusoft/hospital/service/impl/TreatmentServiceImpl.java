@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Treatment;
-import com.neusoft.hospital.entity.vo.TreatmentVO;
 import com.neusoft.hospital.mapper.TreatmentMapper;
 import com.neusoft.hospital.service.TreatmentService;
 import lombok.RequiredArgsConstructor;
@@ -80,13 +79,13 @@ public class TreatmentServiceImpl implements TreatmentService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<TreatmentVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
+    public PageResult<Treatment> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带关联信息的VO列表
-        List<TreatmentVO> rows = treatmentMapper.selectTreatmentVO(registrationId, patientId, doctorId, status, offset, size);
+        List<Treatment> rows = treatmentMapper.selectList(registrationId, patientId, doctorId, status, offset, size);
         // 查询满足条件的总记录数
-        Long total = treatmentMapper.selectTreatmentVOCount(registrationId, patientId, doctorId, status);
+        Long total = treatmentMapper.selectCount(registrationId, patientId, doctorId, status);
         return new PageResult<>(total, rows);
     }
 }

@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.TreatmentMapper">
 
-    <select id="selectTreatmentVO" resultType="com.neusoft.hospital.entity.vo.TreatmentVO">
+    <!-- 分页查询处置列表（含患者信息） -->
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Treatment">
         SELECT t.id, t.registration_id, t.patient_id, p.patient_name,
                t.treatment_name, t.treatment_desc, t.fee, t.status, t.treatment_time
         FROM treatment t
@@ -17,7 +18,8 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectTreatmentVOCount" resultType="java.lang.Long">
+    <!-- 查询处置总数（用于分页） -->
+    <select id="selectCount" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM treatment t
         <where>

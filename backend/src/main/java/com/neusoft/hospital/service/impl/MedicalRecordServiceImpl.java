@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.MedicalRecord;
-import com.neusoft.hospital.entity.vo.MedicalRecordVO;
 import com.neusoft.hospital.mapper.MedicalRecordMapper;
 import com.neusoft.hospital.service.MedicalRecordService;
 import lombok.RequiredArgsConstructor;
@@ -80,13 +79,13 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<MedicalRecordVO> list(Long registrationId, Long patientId, Long doctorId, String patientName, Integer page, Integer size) {
+    public PageResult<MedicalRecord> list(Long registrationId, Long patientId, Long doctorId, String patientName, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带患者和医生等关联信息的VO列表
-        List<MedicalRecordVO> rows = medicalRecordMapper.selectMedicalRecordVO(registrationId, patientId, doctorId, patientName, offset, size);
+        List<MedicalRecord> rows = medicalRecordMapper.selectList(registrationId, patientId, doctorId, patientName, offset, size);
         // 查询满足条件的总记录数
-        Long total = medicalRecordMapper.selectMedicalRecordVOCount(registrationId, patientId, doctorId, patientName);
+        Long total = medicalRecordMapper.selectCount(registrationId, patientId, doctorId, patientName);
         return new PageResult<>(total, rows);
     }
 }

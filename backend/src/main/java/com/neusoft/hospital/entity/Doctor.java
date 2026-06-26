@@ -20,4 +20,8 @@ public class Doctor {
     private String specialty;
     /** 状态：1-正常，0-停用 */
     private Integer status;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 科室名称，关联 department 表 */
+    private String deptName;
 }

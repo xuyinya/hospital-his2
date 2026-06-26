@@ -23,4 +23,12 @@ public class PrescriptionDetail {
     private BigDecimal amount;
     /** 用法用量，如"口服 每日三次 每次一片" */
     private String usageMethod;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 药品名称，关联 drug 表 */
+    private String drugName;
+    /** 药品规格，关联 drug 表 */
+    private String specification;
+    /** 药品单位，关联 drug 表 */
+    private String unit;
 }

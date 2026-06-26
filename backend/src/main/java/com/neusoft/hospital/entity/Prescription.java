@@ -24,4 +24,12 @@ public class Prescription {
     private Integer status;
     /** 开单时间，处方创建的日期时间 */
     private LocalDateTime createTime;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 患者姓名，关联 patient 表 */
+    private String patientName;
+    /** 医生姓名，关联 doctor 表 */
+    private String doctorName;
+    /** 处方明细列表（非数据库列，业务组装用） */
+    private java.util.List<PrescriptionDetail> details;
 }

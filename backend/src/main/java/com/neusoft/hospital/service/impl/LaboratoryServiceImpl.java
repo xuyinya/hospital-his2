@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Laboratory;
-import com.neusoft.hospital.entity.vo.LaboratoryVO;
 import com.neusoft.hospital.mapper.LaboratoryMapper;
 import com.neusoft.hospital.service.LaboratoryService;
 import lombok.RequiredArgsConstructor;
@@ -81,13 +80,13 @@ public class LaboratoryServiceImpl implements LaboratoryService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<LaboratoryVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
+    public PageResult<Laboratory> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带关联信息的VO列表
-        List<LaboratoryVO> rows = laboratoryMapper.selectLaboratoryVO(registrationId, patientId, doctorId, status, offset, size);
+        List<Laboratory> rows = laboratoryMapper.selectList(registrationId, patientId, doctorId, status, offset, size);
         // 查询满足条件的总记录数
-        Long total = laboratoryMapper.selectLaboratoryVOCount(registrationId, patientId, doctorId, status);
+        Long total = laboratoryMapper.selectCount(registrationId, patientId, doctorId, status);
         return new PageResult<>(total, rows);
     }
 }

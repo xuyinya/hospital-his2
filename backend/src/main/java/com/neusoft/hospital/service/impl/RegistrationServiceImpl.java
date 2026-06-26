@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Registration;
-import com.neusoft.hospital.entity.vo.RegistrationVO;
 import com.neusoft.hospital.mapper.RegistrationMapper;
 import com.neusoft.hospital.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
@@ -81,13 +80,13 @@ public class RegistrationServiceImpl implements RegistrationService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<RegistrationVO> list(Long patientId, Long doctorId, Integer status, String patientName, Long deptId, Integer page, Integer size) {
+    public PageResult<Registration> list(Long patientId, Long doctorId, Integer status, String patientName, Long deptId, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带患者、医生、科室等关联信息的VO列表
-        List<RegistrationVO> rows = registrationMapper.selectRegistrationVO(patientId, doctorId, status, patientName, deptId, offset, size);
+        List<Registration> rows = registrationMapper.selectList(patientId, doctorId, status, patientName, deptId, offset, size);
         // 查询满足条件的总记录数
-        Long total = registrationMapper.selectRegistrationVOCount(patientId, doctorId, status, patientName, deptId);
+        Long total = registrationMapper.selectCount(patientId, doctorId, status, patientName, deptId);
         return new PageResult<>(total, rows);
     }
 }

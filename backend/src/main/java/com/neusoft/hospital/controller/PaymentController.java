@@ -3,7 +3,6 @@ package com.neusoft.hospital.controller;
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.common.Result;
 import com.neusoft.hospital.entity.Payment;
-import com.neusoft.hospital.entity.vo.PaymentVO;
 import com.neusoft.hospital.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -72,7 +71,7 @@ public class PaymentController {
      */
     @Operation(summary = "收费列表")
     @GetMapping("/list")
-    public Result<PageResult<PaymentVO>> list(
+    public Result<PageResult<Payment>> list(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(required = false) String patientName,

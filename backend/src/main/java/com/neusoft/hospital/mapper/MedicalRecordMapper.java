@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.MedicalRecord;
-import com.neusoft.hospital.entity.vo.MedicalRecordVO;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public interface MedicalRecordMapper {
     MedicalRecord selectByRegistrationId(@Param("registrationId") Long registrationId);
 
     /**
-     * 分页查询病历 VO 列表（含患者/医生信息）
+     * 分页查询病历列表（含患者/医生信息）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、患者姓名等多条件分页查询病历视图</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -67,9 +66,9 @@ public interface MedicalRecordMapper {
      * @param patientName    患者姓名（可选，模糊匹配）
      * @param offset         分页偏移量
      * @param pageSize       每页条数
-     * @return 病历 VO 分页列表
+     * @return 病历分页列表（含关联字段）
      */
-    List<MedicalRecordVO> selectMedicalRecordVO(@Param("registrationId") Long registrationId,
+    List<MedicalRecord> selectList(@Param("registrationId") Long registrationId,
                                                  @Param("patientId") Long patientId,
                                                  @Param("doctorId") Long doctorId,
                                                  @Param("patientName") String patientName,
@@ -77,7 +76,7 @@ public interface MedicalRecordMapper {
                                                  @Param("pageSize") int pageSize);
 
     /**
-     * 查询病历 VO 总数（用于分页）
+     * 查询病历总数（用于分页）
      * <p>XML 动态 SQL：按挂号ID、患者ID、医生ID、患者姓名统计记录数</p>
      *
      * @param registrationId 挂号ID（可选）
@@ -86,7 +85,7 @@ public interface MedicalRecordMapper {
      * @param patientName    患者姓名（可选）
      * @return 符合条件的病历总数
      */
-    Long selectMedicalRecordVOCount(@Param("registrationId") Long registrationId,
+    Long selectCount(@Param("registrationId") Long registrationId,
                                      @Param("patientId") Long patientId,
                                      @Param("doctorId") Long doctorId,
                                      @Param("patientName") String patientName);

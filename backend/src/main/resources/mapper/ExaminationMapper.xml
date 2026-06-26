@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.ExaminationMapper">
 
-    <select id="selectExaminationVO" resultType="com.neusoft.hospital.entity.vo.ExaminationVO">
+    <!-- 分页查询检查列表（含患者信息） -->
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Examination">
         SELECT e.id, e.registration_id, e.patient_id, p.patient_name,
                e.exam_type, e.exam_name, e.result, e.fee, e.status, e.exam_time
         FROM examination e
@@ -17,7 +18,8 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectExaminationVOCount" resultType="java.lang.Long">
+    <!-- 查询检查总数（用于分页） -->
+    <select id="selectCount" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM examination e
         <where>

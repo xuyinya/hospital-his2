@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.MedicalRecord;
-import com.neusoft.hospital.entity.vo.MedicalRecordVO;
 
 /**
  * 病历管理 Service 接口
@@ -51,5 +50,5 @@ public interface MedicalRecordService {
      * @param size           每页条数
      * @return 分页结果
      */
-    PageResult<MedicalRecordVO> list(Long registrationId, Long patientId, Long doctorId, String patientName, Integer page, Integer size);
+    PageResult<MedicalRecord> list(Long registrationId, Long patientId, Long doctorId, String patientName, Integer page, Integer size);
 }

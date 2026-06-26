@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.DoctorMapper">
 
-    <select id="selectAllVO" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+    <!-- 查询所有在职医生列表（含科室名称） -->
+    <select id="selectAll" resultType="com.neusoft.hospital.entity.Doctor">
         SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
         FROM doctor d
         LEFT JOIN department dept ON d.dept_id = dept.id
         WHERE d.status = 1
     </select>
 
-    <select id="selectVOPage" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+    <!-- 分页查询医生列表（含科室名称） -->
+    <select id="selectPage" resultType="com.neusoft.hospital.entity.Doctor">
         SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
         FROM doctor d
         LEFT JOIN department dept ON d.dept_id = dept.id
@@ -25,7 +27,8 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectVOCount" resultType="java.lang.Long">
+    <!-- 查询医生总数（用于分页） -->
+    <select id="selectCount" resultType="java.lang.Long">
         SELECT COUNT(*) FROM doctor d
         <where>
             <if test="doctorName != null and doctorName != ''">
@@ -37,7 +40,8 @@
         </where>
     </select>
 
-    <select id="selectByDeptIdVO" resultType="com.neusoft.hospital.entity.vo.DoctorVO">
+    <!-- 根据科室ID查询在职医生列表 -->
+    <select id="selectByDeptId" resultType="com.neusoft.hospital.entity.Doctor">
         SELECT d.id, d.doctor_name, d.dept_id, dept.dept_name, d.title, d.specialty, d.status
         FROM doctor d
         LEFT JOIN department dept ON d.dept_id = dept.id

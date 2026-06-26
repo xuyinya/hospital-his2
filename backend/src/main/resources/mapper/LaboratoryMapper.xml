@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.LaboratoryMapper">
 
-    <select id="selectLaboratoryVO" resultType="com.neusoft.hospital.entity.vo.LaboratoryVO">
+    <!-- 分页查询检验列表（含患者信息） -->
+    <select id="selectList" resultType="com.neusoft.hospital.entity.Laboratory">
         SELECT l.id, l.registration_id, l.patient_id, p.patient_name,
                l.lab_type, l.lab_name, l.result, l.reference_range, l.fee, l.status, l.lab_time
         FROM laboratory l
@@ -17,7 +18,8 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectLaboratoryVOCount" resultType="java.lang.Long">
+    <!-- 查询检验总数（用于分页） -->
+    <select id="selectCount" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM laboratory l
         <where>

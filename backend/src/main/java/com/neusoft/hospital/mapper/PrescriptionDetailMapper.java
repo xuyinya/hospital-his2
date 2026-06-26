@@ -1,7 +1,6 @@
 package com.neusoft.hospital.mapper;
 
 import com.neusoft.hospital.entity.PrescriptionDetail;
-import com.neusoft.hospital.entity.vo.PrescriptionDetailVO;
 import org.apache.ibatis.annotations.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,11 +35,11 @@ public interface PrescriptionDetailMapper {
     BigDecimal sumAmountByPrescriptionId(@Param("prescriptionId") Long prescriptionId);
 
     /**
-     * 查询处方明细 VO 列表（含药品名称/规格等信息）
+     * 查询处方明细列表（含药品名称/规格等信息）
      * <p>XML 动态 SQL：连表查询 prescription_detail + drug，返回含药品信息的明细视图</p>
      *
      * @param prescriptionId 处方ID
-     * @return 处方明细 VO 列表
+     * @return 处方明细列表（含药品信息）
      */
-    List<PrescriptionDetailVO> selectDetailVO(@Param("prescriptionId") Long prescriptionId);
+    List<PrescriptionDetail> selectByPrescriptionId(@Param("prescriptionId") Long prescriptionId);
 }

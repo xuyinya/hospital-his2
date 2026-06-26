@@ -4,8 +4,6 @@ import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.common.Result;
 import com.neusoft.hospital.entity.Prescription;
 import com.neusoft.hospital.entity.PrescriptionDetail;
-import com.neusoft.hospital.entity.vo.PrescriptionDetailVO;
-import com.neusoft.hospital.entity.vo.PrescriptionVO;
 import com.neusoft.hospital.service.PrescriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -90,7 +88,7 @@ public class PrescriptionController {
      */
     @Operation(summary = "查询处方明细")
     @GetMapping("/{id}/details")
-    public Result<List<PrescriptionDetailVO>> getDetails(@PathVariable Long id) {
+    public Result<List<PrescriptionDetail>> getDetails(@PathVariable Long id) {
         return Result.success(prescriptionService.getDetails(id));
     }
 
@@ -111,7 +109,7 @@ public class PrescriptionController {
      */
     @Operation(summary = "处方列表")
     @GetMapping("/list")
-    public Result<PageResult<PrescriptionVO>> list(
+    public Result<PageResult<Prescription>> list(
             HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,

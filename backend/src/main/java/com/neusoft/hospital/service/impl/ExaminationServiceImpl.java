@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Examination;
-import com.neusoft.hospital.entity.vo.ExaminationVO;
 import com.neusoft.hospital.mapper.ExaminationMapper;
 import com.neusoft.hospital.service.ExaminationService;
 import lombok.RequiredArgsConstructor;
@@ -79,13 +78,13 @@ public class ExaminationServiceImpl implements ExaminationService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<ExaminationVO> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
+    public PageResult<Examination> list(Long registrationId, Long patientId, Long doctorId, Integer status, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带关联信息的VO列表
-        List<ExaminationVO> rows = examinationMapper.selectExaminationVO(registrationId, patientId, doctorId, status, offset, size);
+        List<Examination> rows = examinationMapper.selectList(registrationId, patientId, doctorId, status, offset, size);
         // 查询满足条件的总记录数
-        Long total = examinationMapper.selectExaminationVOCount(registrationId, patientId, doctorId, status);
+        Long total = examinationMapper.selectCount(registrationId, patientId, doctorId, status);
         return new PageResult<>(total, rows);
     }
 }

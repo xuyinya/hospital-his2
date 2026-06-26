@@ -26,4 +26,8 @@ public class Payment {
     private LocalDateTime paymentTime;
     /** 状态：0-未支付，1-已支付，2-已退款 */
     private Integer status;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 患者姓名，关联 patient 表 */
+    private String patientName;
 }

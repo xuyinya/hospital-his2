@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Doctor;
-import com.neusoft.hospital.entity.vo.DoctorVO;
 import java.util.List;
 
 /**
@@ -12,9 +11,9 @@ import java.util.List;
 public interface DoctorService {
 
     /**
-     * 获取所有医生列表
+     * 获取所有医生列表（含科室名称）
      *
-     * @return 医生列表
+     * @return 医生列表（含科室名称）
      */
     List<Doctor> list();
 
@@ -27,7 +26,7 @@ public interface DoctorService {
      * @param size       每页条数
      * @return 分页结果
      */
-    PageResult<DoctorVO> listVO(String doctorName, Long deptId, Integer page, Integer size);
+    PageResult<Doctor> listPage(String doctorName, Long deptId, Integer page, Integer size);
 
     /**
      * 根据医生ID获取医生详情
@@ -38,20 +37,12 @@ public interface DoctorService {
     Doctor getById(Long id);
 
     /**
-     * 根据科室ID获取医生列表
-     *
-     * @param deptId 科室ID
-     * @return 医生列表
-     */
-    List<Doctor> getByDeptId(Long deptId);
-
-    /**
      * 根据科室ID获取医生列表（含科室名称）
      *
      * @param deptId 科室ID
-     * @return 医生VO列表
+     * @return 医生列表（含科室名称）
      */
-    List<DoctorVO> getByDeptIdVO(Long deptId);
+    List<Doctor> getByDeptId(Long deptId);
 
     /**
      * 新增医生

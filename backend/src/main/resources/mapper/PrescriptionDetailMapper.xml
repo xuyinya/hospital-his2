@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.hospital.mapper.PrescriptionDetailMapper">
 
-    <select id="selectDetailVO" resultType="com.neusoft.hospital.entity.vo.PrescriptionDetailVO">
+    <!-- 根据处方ID查询处方明细列表（含药品信息） -->
+    <select id="selectByPrescriptionId" resultType="com.neusoft.hospital.entity.PrescriptionDetail">
         SELECT pd.id, pd.prescription_id, pd.drug_id, dr.drug_name, dr.specification, dr.unit,
                pd.quantity, pd.unit_price, pd.amount, pd.usage_method
         FROM prescription_detail pd

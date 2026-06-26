@@ -2,7 +2,6 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Payment;
-import com.neusoft.hospital.entity.vo.PaymentVO;
 import com.neusoft.hospital.mapper.PaymentMapper;
 import com.neusoft.hospital.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -67,13 +66,13 @@ public class PaymentServiceImpl implements PaymentService {
      * @return 分页结果，含总记录数和当前页数据列表
      */
     @Override
-    public PageResult<PaymentVO> list(String patientName, Integer status, Integer page, Integer size) {
+    public PageResult<Payment> list(String patientName, Integer status, Integer page, Integer size) {
         // 计算数据库分页的起始偏移量
         int offset = (page - 1) * size;
         // 执行多条件分页查询，返回带患者等关联信息的VO列表
-        List<PaymentVO> rows = paymentMapper.selectPaymentVO(patientName, status, offset, size);
+        List<Payment> rows = paymentMapper.selectList(patientName, status, offset, size);
         // 查询满足条件的总记录数
-        Long total = paymentMapper.selectPaymentVOCount(patientName, status);
+        Long total = paymentMapper.selectCount(patientName, status);
         return new PageResult<>(total, rows);
     }
 }

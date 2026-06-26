@@ -2,7 +2,6 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Payment;
-import com.neusoft.hospital.entity.vo.PaymentVO;
 
 /**
  * 收费管理 Service 接口
@@ -42,5 +41,5 @@ public interface PaymentService {
      * @param size        每页条数
      * @return 分页结果
      */
-    PageResult<PaymentVO> list(String patientName, Integer status, Integer page, Integer size);
+    PageResult<Payment> list(String patientName, Integer status, Integer page, Integer size);
 }

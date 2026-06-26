@@ -1,7 +1,7 @@
 package com.neusoft.hospital.controller;
 
 import com.neusoft.hospital.common.Result;
-import com.neusoft.hospital.entity.vo.RegistrationVO;
+import com.neusoft.hospital.entity.Registration;
 import com.neusoft.hospital.mapper.RegistrationMapper;
 import com.neusoft.hospital.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +46,7 @@ public class DashboardController {
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Shanghai"));
 
         // 查询全部挂号记录
-        List<RegistrationVO> allRegs = registrationMapper.selectRegistrationVO(null, null, null, null, null, 0, 10000);
+        List<Registration> allRegs = registrationMapper.selectList(null, null, null, null, null, 0, 10000);
 
         // 在Java中按日期过滤
         long regCount = allRegs.stream()

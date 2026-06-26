@@ -26,4 +26,8 @@ public class Treatment {
     private Integer status;
     /** 处置时间，处置完成的日期时间 */
     private LocalDateTime treatmentTime;
+
+    // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
+    /** 患者姓名，关联 patient 表 */
+    private String patientName;
 }

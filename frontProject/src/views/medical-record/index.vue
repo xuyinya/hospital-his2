@@ -16,10 +16,11 @@
       <el-table-column prop="chiefComplaint" label="主诉" min-width="150" show-overflow-tooltip />
       <el-table-column prop="diagnosis" label="诊断" min-width="150" show-overflow-tooltip />
       <el-table-column prop="recordTime" label="记录时间" width="170" />
-      <el-table-column label="操作" width="150" fixed="right">
+      <el-table-column label="操作" width="210" fixed="right">
         <template #default="{ row }">
           <el-button size="small" type="primary" @click="handleView(row)">查看</el-button>
           <el-button size="small" type="warning" @click="handleEdit(row)">编辑</el-button>
+          <el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,8 +43,10 @@
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
         <el-row :gutter="16">
           <el-col :span="12">
-            <el-form-item label="挂号ID" prop="registrationId">
-              <el-input v-model="formData.registrationId" :disabled="isView" />
+            <el-form-item label="挂号记录">
+              <el-select v-model="formData.registrationId" placeholder="选择挂号记录" filterable :disabled="isView" style="width:100%" @change="onRegSelect">
+                <el-option v-for="r in regOptions" :key="r.id" :label="`#${r.id} ${r.patientName} - ${r.deptName}`" :value="r.id" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -85,10 +88,11 @@
  * 病历管理页面 - 支持病历的查询、新增、查看、编辑操作
  */
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { getMedicalRecordList, addMedicalRecord, updateMedicalRecord } from '@/api/medicalRecord'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { getMedicalRecordList, addMedicalRecord, updateMedicalRecord, deleteMedicalRecord } from '@/api/medicalRecord'
 import { getPatientList } from '@/api/patient'
 import { getDoctorList } from '@/api/doctor'
+import { getRegistrationList } from '@/api/registration'
 
 const loading = ref(false)
 const tableData = ref([])
@@ -118,7 +122,6 @@ const formData = reactive({
 })
 
 const rules = {
-  registrationId: [{ required: true, message: '请输入挂号ID', trigger: 'blur' }],
   patientId: [{ required: true, message: '请选择患者', trigger: 'change' }],
   doctorId: [{ required: true, message: '请选择医生', trigger: 'change' }]
 }
@@ -135,14 +138,27 @@ const fetchData = async () => {
   }
 }
 
-/** 加载下拉选项数据（患者列表和医生列表） */
+const regOptions = ref([])
+
+/** 选择挂号记录后自动填充患者和医生 */
+const onRegSelect = (regId) => {
+  const reg = regOptions.value.find(r => r.id === regId)
+  if (reg) {
+    formData.patientId = reg.patientId || ''
+    formData.doctorId = reg.doctorId || ''
+  }
+}
+
+/** 加载下拉选项数据（患者列表、医生列表、挂号列表） */
 const fetchOptions = async () => {
-  const [pRes, dRes] = await Promise.all([
+  const [pRes, dRes, rRes] = await Promise.all([
     getPatientList({ pageNum: 1, pageSize: 100 }),
-    getDoctorList({ pageNum: 1, pageSize: 100 })
+    getDoctorList({ pageNum: 1, pageSize: 100 }),
+    getRegistrationList({ pageNum: 1, pageSize: 200 })
   ])
   patientOptions.value = pRes.data.rows || []
   doctorOptions.value = dRes.data.rows || []
+  regOptions.value = rRes.data.rows || []
 }
 
 /** 打开新增病历弹窗 */
@@ -180,6 +196,14 @@ const handleSubmit = async () => {
     ElMessage.success('新增成功')
   }
   dialogVisible.value = false
+  fetchData()
+}
+
+/** 删除病历（含二次确认） */
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm(`确认删除该病历？`, '警告', { type: 'warning' })
+  await deleteMedicalRecord(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

@@ -24,9 +24,10 @@
       <el-table-column prop="phone" label="手机号" width="130" />
       <el-table-column prop="address" label="地址" show-overflow-tooltip />
       <el-table-column prop="createTime" label="创建时间" width="170" />
-      <el-table-column label="操作" width="120" fixed="right">
+      <el-table-column label="操作" width="170" fixed="right">
         <template #default="{ row }">
           <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
+          <el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,8 +83,8 @@
  * 患者管理页面 - 支持患者的查询、新增、编辑操作
  */
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { getPatientList, addPatient, updatePatient } from '@/api/patient'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { getPatientList, addPatient, updatePatient, deletePatient } from '@/api/patient'
 
 const loading = ref(false)
 const tableData = ref([])
@@ -150,6 +151,14 @@ const handleSubmit = async () => {
     ElMessage.success('新增成功')
   }
   dialogVisible.value = false
+  fetchData()
+}
+
+/** 删除患者（含二次确认） */
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm(`确认删除患者「${row.patientName}」？`, '警告', { type: 'warning' })
+  await deletePatient(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

@@ -89,6 +89,13 @@ public class MedicalRecordController {
      * @param regId 挂号记录ID
      * @return 与该挂号关联的病历信息
      */
+    @Operation(summary = "删除病历")
+    @DeleteMapping("/{id}")
+    public Result<Void> delete(@PathVariable Long id) {
+        medicalRecordService.delete(id);
+        return Result.success();
+    }
+
     @Operation(summary = "根据挂号查病历")
     @GetMapping("/registration/{regId}")
     public Result<MedicalRecord> getByRegistrationId(@PathVariable Long regId) {

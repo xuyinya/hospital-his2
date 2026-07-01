@@ -23,6 +23,8 @@ public interface MedicalRecordService {
      */
     void update(MedicalRecord medicalRecord);
 
+    void delete(Long id);
+
     /**
      * 根据病历ID获取病历详情
      *

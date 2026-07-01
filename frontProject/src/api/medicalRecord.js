@@ -56,3 +56,7 @@ export function addMedicalRecord(data) {
 export function updateMedicalRecord(id, data) {
   return request.put(`/medical-record/${id}`, data)
 }
+
+export function deleteMedicalRecord(id) {
+  return request.delete(`/medical-record/${id}`)
+}

@@ -77,7 +77,7 @@ CREATE TABLE drug (
 DROP TABLE IF EXISTS medical_record;
 CREATE TABLE medical_record (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    registration_id BIGINT NOT NULL,
+    registration_id BIGINT NULL COMMENT '挂号ID，可为空（患者直接找医生时无需挂号）',
     patient_id BIGINT NOT NULL,
     doctor_id BIGINT NOT NULL,
     chief_complaint VARCHAR(500) COMMENT '主诉',

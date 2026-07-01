@@ -63,6 +63,11 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      * @return 病历实体，若不存在则返回null
      */
     @Override
+    public void delete(Long id) {
+        medicalRecordMapper.deleteById(id);
+    }
+
+    @Override
     public MedicalRecord getByRegistrationId(Long registrationId) {
         return medicalRecordMapper.selectByRegistrationId(registrationId);
     }

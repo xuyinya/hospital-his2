@@ -43,6 +43,9 @@ public interface MedicalRecordMapper {
      * @param id 病历ID
      * @return 病历实体，未找到返回 null
      */
+    @Delete("DELETE FROM medical_record WHERE id=#{id}")
+    int deleteById(Long id);
+
     @Select("SELECT * FROM medical_record WHERE id=#{id}")
     MedicalRecord selectById(Long id);
 

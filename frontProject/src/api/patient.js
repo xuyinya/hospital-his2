@@ -46,3 +46,7 @@ export function addPatient(data) {
 export function updatePatient(id, data) {
   return request.put(`/patient/${id}`, data)
 }
+
+export function deletePatient(id) {
+  return request.delete(`/patient/${id}`)
+}

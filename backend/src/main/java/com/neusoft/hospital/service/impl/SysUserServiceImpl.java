@@ -49,8 +49,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> listAll() {
-        return sysUserMapper.selectAll();
+    public List<SysUser> listByRole(String role) {
+        return sysUserMapper.selectByRole(role);
     }
 
     @Override
@@ -61,5 +61,10 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void delete(Long id) {
         sysUserMapper.deleteById(id);
+    }
+
+    @Override
+    public void updateStatus(Long id, Integer status) {
+        sysUserMapper.updateStatus(id, status);
     }
 }

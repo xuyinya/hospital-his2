@@ -25,6 +25,10 @@ public interface SysUserMapper {
     @Select("SELECT id, username, real_name, role, doctor_id, status FROM sys_user ORDER BY id")
     List<SysUser> selectAll();
 
+    @Select("<script>SELECT id, username, real_name, role, doctor_id, status FROM sys_user"
+            + "<if test='role != null'> WHERE role=#{role}</if> ORDER BY id</script>")
+    List<SysUser> selectByRole(@Param("role") String role);
+
     /**
      * 根据ID查询系统用户
      * <p>SQL：按主键 id 查询用户记录</p>
@@ -55,4 +59,7 @@ public interface SysUserMapper {
 
     @Delete("DELETE FROM sys_user WHERE id=#{id}")
     int deleteById(Long id);
+
+    @Update("UPDATE sys_user SET status=#{status} WHERE id=#{id}")
+    int updateStatus(@Param("id") Long id, @Param("status") Integer status);
 }

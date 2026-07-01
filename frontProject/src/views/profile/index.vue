@@ -34,31 +34,23 @@
 
     <!-- 管理员专属：系统用户管理 -->
     <el-card v-if="authStore.isAdmin" shadow="never" style="margin-top:20px">
-      <template #header><span class="card-title">系统用户管理</span></template>
+      <template #header><span class="card-title">管理员账户管理</span></template>
       <el-row :gutter="12" style="margin-bottom:12px">
         <el-col :span="6"><el-input v-model="newUser.username" placeholder="用户名" /></el-col>
         <el-col :span="4"><el-input v-model="newUser.realName" placeholder="姓名" /></el-col>
         <el-col :span="4"><el-input v-model="newUser.password" placeholder="密码" type="password" show-password /></el-col>
-        <el-col :span="3">
-          <el-select v-model="newUser.role" style="width:100%">
-            <el-option label="管理员" value="admin" />
-            <el-option label="医生" value="doctor" />
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-input-number v-if="newUser.role==='doctor'" v-model="newUser.doctorId" :min="1" placeholder="医生ID" controls-position="right" style="width:100%" />
-        </el-col>
-        <el-col :span="4"><el-button type="primary" @click="addSysUser">新增用户</el-button></el-col>
+        <el-col :span="7"><el-button type="primary" @click="addSysUser">新增管理员</el-button></el-col>
       </el-row>
-      <el-alert v-if="newUser.role==='doctor'" title="医生ID需先在医生管理中添加医生获取" type="info" :closable="false" style="margin-bottom:8px" />
       <el-table :data="sysUsers" border stripe size="small" max-height="300">
         <el-table-column prop="id" label="ID" width="50" />
         <el-table-column prop="username" label="用户名" width="120" />
         <el-table-column prop="realName" label="姓名" width="100" />
-        <el-table-column prop="role" label="角色" width="80"><template #default="{row}">{{ {admin:'管理员',doctor:'医生'}[row.role] }}</template></el-table-column>
         <el-table-column prop="status" label="状态" width="70"><template #default="{row}"><el-tag :type="row.status===1?'success':'info'" size="small">{{row.status===1?'启用':'禁用'}}</el-tag></template></el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="200">
           <template #default="{row}">
+            <el-button v-if="row.username!==authStore.username" size="small" :type="row.status===1?'warning':'success'" @click="toggleStatus(row)">
+              {{ row.status===1?'停用':'启用' }}
+            </el-button>
             <el-button v-if="row.username!==authStore.username" size="small" type="danger" @click="delSysUser(row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -79,7 +71,7 @@ const pwdFormRef = ref(null)
 const saving = ref(false)
 const pwdForm = reactive({ oldPassword: '', newPassword: '', confirmPassword: '' })
 const sysUsers = ref([])
-const newUser = reactive({ username: '', realName: '', password: '', role: 'admin', doctorId: null })
+const newUser = reactive({ username: '', realName: '', password: '' })
 
 const validateConfirm = (rule, value, callback) => {
   if (value !== pwdForm.newPassword) callback(new Error('两次密码不一致'))
@@ -104,16 +96,22 @@ const handleChangePwd = async () => {
 
 const fetchSysUsers = async () => {
   if (!authStore.isAdmin) return
-  const res = await request.get('/sys-user/list')
+  const res = await request.get('/sys-user/list', { params: { role: 'admin' } })
   sysUsers.value = res.data || []
 }
 
 const addSysUser = async () => {
   if (!newUser.username || !newUser.realName || !newUser.password) { ElMessage.warning('请填写完整信息'); return }
-  if (newUser.role === 'doctor' && !newUser.doctorId) { ElMessage.warning('医生用户需填写医生ID'); return }
-  await request.post('/sys-user', newUser)
+  await request.post('/sys-user', { ...newUser, role: 'admin' })
   ElMessage.success('新增成功')
-  Object.assign(newUser, { username: '', realName: '', password: '', role: 'admin', doctorId: null })
+  Object.assign(newUser, { username: '', realName: '', password: '' })
+  fetchSysUsers()
+}
+
+const toggleStatus = async (row) => {
+  const newStatus = row.status === 1 ? 0 : 1
+  await request.put(`/sys-user/${row.id}/status`, null, { params: { status: newStatus } })
+  ElMessage.success(newStatus === 1 ? '已启用' : '已停用')
   fetchSysUsers()
 }
 

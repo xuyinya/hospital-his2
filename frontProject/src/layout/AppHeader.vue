@@ -82,7 +82,9 @@ const avatarStyle = computed(() => ({
  * @param {string} command - 菜单命令标识
  */
 const handleCommand = async (command) => {
-  if (command === 'logout') {
+  if (command === 'profile') {
+    router.push('/profile')
+  } else if (command === 'logout') {
     // 退出登录：确认后清除认证信息并跳转到登录页
     await ElMessageBox.confirm('确认退出登录？', '提示')
     authStore.logout()

@@ -28,9 +28,11 @@ public interface SysUserService {
 
     void updatePassword(Long id, String encodedPassword);
 
-    List<SysUser> listAll();
+    List<SysUser> listByRole(String role);
 
     void add(SysUser user);
 
     void delete(Long id);
+
+    void updateStatus(Long id, Integer status);
 }

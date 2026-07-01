@@ -35,10 +35,10 @@ public class SysUserController {
      *
      * @return 系统用户列表
      */
-    @Operation(summary = "用户列表")
+    @Operation(summary = "管理员用户列表")
     @GetMapping("/list")
-    public Result<List<SysUser>> list() {
-        return Result.success(sysUserService.listAll());
+    public Result<List<SysUser>> list(@RequestParam(required = false) String role) {
+        return Result.success(sysUserService.listByRole(role));
     }
 
     /**
@@ -69,6 +69,13 @@ public class SysUserController {
      * @param id 用户ID
      * @return 操作结果
      */
+    @Operation(summary = "更新用户状态")
+    @PutMapping("/{id}/status")
+    public Result<Void> updateStatus(@PathVariable Long id, @RequestParam Integer status) {
+        sysUserService.updateStatus(id, status);
+        return Result.success();
+    }
+
     @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {

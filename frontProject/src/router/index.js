@@ -23,6 +23,12 @@ const staffRoutes = [
     meta: { title: '首页', icon: 'HomeFilled', roles: ['admin', 'doctor'] }
   },
   {
+    path: 'profile',
+    name: 'Profile',
+    component: () => import('@/views/profile/index.vue'),
+    meta: { title: '个人主页', icon: 'User', roles: ['admin', 'doctor'] }
+  },
+  {
     path: 'my-clinic',
     name: 'MyClinic',
     component: () => import('@/views/my-clinic.vue'),
@@ -136,6 +142,12 @@ const patientRoutes = [
         name: 'PatientPrescriptions',
         component: () => import('@/views/patient-portal/my-prescriptions.vue'),
         meta: { title: '我的处方' }
+      },
+      {
+        path: 'profile',
+        name: 'PatientProfile',
+        component: () => import('@/views/patient-portal/profile.vue'),
+        meta: { title: '个人主页' }
       }
     ]
   }
@@ -147,7 +159,13 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/index.vue'),
-    meta: { noAuth: true } // 标记为免认证页面
+    meta: { noAuth: true }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/patient-portal/register.vue'),
+    meta: { noAuth: true }
   },
   {
     path: '/',

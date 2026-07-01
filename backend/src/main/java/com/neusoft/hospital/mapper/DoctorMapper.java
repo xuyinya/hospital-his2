@@ -102,6 +102,6 @@ public interface DoctorMapper {
      * @param doctorId 医生ID
      * @return 挂号记录总数
      */
-    @Select("SELECT COUNT(*) FROM registration WHERE doctor_id=#{doctorId}")
+    @Select("SELECT COUNT(*) FROM registration WHERE doctor_id=#{doctorId} AND status=0")
     long countRegistrationsByDoctorId(@Param("doctorId") Long doctorId);
 }

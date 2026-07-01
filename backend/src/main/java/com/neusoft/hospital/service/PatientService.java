@@ -30,6 +30,8 @@ public interface PatientService {
      */
     void delete(Long id);
 
+    void updatePassword(Long id, String encodedPassword);
+
     /**
      * 根据患者ID获取患者详情
      *

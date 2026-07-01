@@ -126,12 +126,12 @@ public class RegistrationController {
             HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(required = false) Long patientId,
+            @RequestParam(required = false) Long doctorId,
             @RequestParam(required = false) Integer status,
             @RequestParam(required = false) String patientName,
             @RequestParam(required = false) Long deptId) {
-        // 根据不同角色自动过滤数据
-        Long patientId = null;
-        Long doctorId = null;
+        // 角色过滤：患者/医生强制只看自己的，管理员按请求参数过滤
         String role = (String) request.getAttribute("role");
         if ("patient".equals(role)) {
             patientId = (Long) request.getAttribute("userId");
@@ -154,7 +154,7 @@ public class RegistrationController {
     @Operation(summary = "取消挂号")
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
-        registrationService.updateStatus(id, 2);
+        registrationService.delete(id);
         return Result.success();
     }
 

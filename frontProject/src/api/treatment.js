@@ -57,3 +57,7 @@ export function updateTreatment(id, data) {
 export function updateTreatmentStatus(id, status) {
   return request.put(`/treatment/${id}/status`, null, { params: { status } })
 }
+
+export function deleteTreatment(id) {
+  return request.delete(`/treatment/${id}`)
+}

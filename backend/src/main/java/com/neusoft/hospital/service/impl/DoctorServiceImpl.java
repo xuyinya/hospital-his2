@@ -2,9 +2,12 @@ package com.neusoft.hospital.service.impl;
 
 import com.neusoft.hospital.common.PageResult;
 import com.neusoft.hospital.entity.Doctor;
+import com.neusoft.hospital.entity.SysUser;
 import com.neusoft.hospital.mapper.DoctorMapper;
+import com.neusoft.hospital.mapper.SysUserMapper;
 import com.neusoft.hospital.service.DoctorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -20,6 +23,8 @@ import java.util.List;
 public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorMapper doctorMapper;
+    private final SysUserMapper sysUserMapper;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     /**
      * 获取所有医生列表（含科室名称，无分页）
@@ -89,6 +94,18 @@ public class DoctorServiceImpl implements DoctorService {
         // 默认医生状态为启用（1），若未设置则赋予默认值
         if (doctor.getStatus() == null) doctor.setStatus(1);
         doctorMapper.insert(doctor);
+        // 自动创建对应用户账户（前端传入username，密码123456）
+        String username = doctor.getUsername();
+        if (username != null && !username.isEmpty() && sysUserMapper.selectByUsername(username) == null) {
+            SysUser user = new SysUser();
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode("123456"));
+            user.setRealName(doctor.getDoctorName());
+            user.setRole("doctor");
+            user.setDoctorId(doctor.getId());
+            user.setStatus(1);
+            sysUserMapper.insert(user);
+        }
     }
 
     /**
@@ -112,11 +129,12 @@ public class DoctorServiceImpl implements DoctorService {
      */
     @Override
     public void delete(Long id) {
-        // 检查该医生是否存在关联的挂号记录
+        // 只检查待诊挂号（status=0），历史记录不阻止删除
         long count = doctorMapper.countRegistrationsByDoctorId(id);
         if (count > 0) {
-            throw new RuntimeException("该医生有 " + count + " 条挂号记录，不能删除");
+            throw new RuntimeException("该医生还有 " + count + " 条待诊记录，不能删除");
         }
+        sysUserMapper.deleteByDoctorId(id);
         doctorMapper.deleteById(id);
     }
 }

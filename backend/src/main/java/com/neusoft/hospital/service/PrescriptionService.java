@@ -33,6 +33,8 @@ public interface PrescriptionService {
      */
     void updateStatus(Long id, Integer status);
 
+    void delete(Long id);
+
     /**
      * 根据处方ID获取处方详情
      *

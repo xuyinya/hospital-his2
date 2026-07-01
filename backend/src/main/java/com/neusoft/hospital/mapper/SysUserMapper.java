@@ -3,6 +3,8 @@ package com.neusoft.hospital.mapper;
 import com.neusoft.hospital.entity.SysUser;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * 系统用户数据访问层 —— 对应 sys_user 表
  * <p>提供系统用户的查询和新增操作，包括按用户名查询（用于登录认证）、按ID查询等。</p>
@@ -20,6 +22,9 @@ public interface SysUserMapper {
     @Select("SELECT * FROM sys_user WHERE username = #{username}")
     SysUser selectByUsername(@Param("username") String username);
 
+    @Select("SELECT id, username, real_name, role, doctor_id, status FROM sys_user ORDER BY id")
+    List<SysUser> selectAll();
+
     /**
      * 根据ID查询系统用户
      * <p>SQL：按主键 id 查询用户记录</p>
@@ -29,6 +34,9 @@ public interface SysUserMapper {
      */
     @Select("SELECT * FROM sys_user WHERE id = #{id}")
     SysUser selectById(Long id);
+
+    @Delete("DELETE FROM sys_user WHERE doctor_id=#{doctorId}")
+    int deleteByDoctorId(@Param("doctorId") Long doctorId);
 
     /**
      * 新增系统用户
@@ -41,4 +49,10 @@ public interface SysUserMapper {
             "VALUES(#{username}, #{password}, #{realName}, #{role}, #{doctorId}, #{status}, NOW(), NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(SysUser sysUser);
+
+    @Update("UPDATE sys_user SET password=#{password} WHERE id=#{id}")
+    int updatePassword(@Param("id") Long id, @Param("password") String password);
+
+    @Delete("DELETE FROM sys_user WHERE id=#{id}")
+    int deleteById(Long id);
 }

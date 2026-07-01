@@ -34,6 +34,9 @@ public interface PaymentMapper {
     @Update("UPDATE payment SET status=#{status}, payment_time=NOW() WHERE id=#{id}")
     int updateStatus(@Param("id") Long id, @Param("status") Integer status);
 
+    @Delete("DELETE FROM payment WHERE id=#{id}")
+    int deleteById(Long id);
+
     /**
      * 根据ID查询缴费
      * <p>SQL：按主键 id 查询缴费记录</p>

@@ -27,10 +27,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="treatmentTime" label="处置时间" width="170" />
-      <el-table-column label="操作" width="200" fixed="right">
+      <el-table-column label="操作" width="250" fixed="right">
         <template #default="{ row }">
           <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
           <el-button v-if="row.status === 0" size="small" type="success" @click="handleComplete(row)">完成</el-button>
+          <el-button size="small" type="danger" plain @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,7 +84,7 @@
  */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { getTreatmentList, addTreatment, updateTreatment, updateTreatmentStatus } from '@/api/treatment'
+import { getTreatmentList, addTreatment, updateTreatment, updateTreatmentStatus, deleteTreatment } from '@/api/treatment'
 import { getPatientList } from '@/api/patient'
 
 const loading = ref(false)
@@ -159,6 +160,13 @@ const handleSubmit = async () => {
     ElMessage.success('新增成功')
   }
   dialogVisible.value = false
+  fetchData()
+}
+
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm('确认删除该处置记录？', '警告', { type: 'warning' })
+  await deleteTreatment(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

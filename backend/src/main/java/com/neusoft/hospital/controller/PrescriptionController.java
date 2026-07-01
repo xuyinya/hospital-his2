@@ -142,6 +142,13 @@ public class PrescriptionController {
      * @param status 新的处方状态，0-待取药，1-已取药
      * @return 操作结果
      */
+    @Operation(summary = "删除处方")
+    @DeleteMapping("/{id}")
+    public Result<Void> delete(@PathVariable Long id) {
+        prescriptionService.delete(id);
+        return Result.success();
+    }
+
     @Operation(summary = "更新处方状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateStatus(@PathVariable Long id, @RequestParam Integer status) {

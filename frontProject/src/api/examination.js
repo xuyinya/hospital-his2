@@ -57,3 +57,7 @@ export function updateExamination(id, data) {
 export function updateExaminationResult(id, result) {
   return request.put(`/examination/${id}/result`, { result })
 }
+
+export function deleteExamination(id) {
+  return request.delete(`/examination/${id}`)
+}

@@ -46,6 +46,9 @@ public interface PrescriptionMapper {
     @Update("UPDATE prescription SET status=#{status} WHERE id=#{id}")
     int updateStatus(@Param("id") Long id, @Param("status") Integer status);
 
+    @Delete("DELETE FROM prescription WHERE id=#{id}")
+    int deleteById(Long id);
+
     /**
      * 根据ID查询处方
      * <p>SQL：按主键 id 查询处方记录</p>

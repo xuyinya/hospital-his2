@@ -5,6 +5,7 @@ import com.neusoft.hospital.entity.Prescription;
 import com.neusoft.hospital.entity.PrescriptionDetail;
 import com.neusoft.hospital.mapper.PrescriptionDetailMapper;
 import com.neusoft.hospital.mapper.PrescriptionMapper;
+import com.neusoft.hospital.service.DrugService;
 import com.neusoft.hospital.service.PrescriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     private final PrescriptionMapper prescriptionMapper;
     private final PrescriptionDetailMapper prescriptionDetailMapper;
+    private final DrugService drugService;
 
     /**
      * 新增处方
@@ -47,6 +49,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     @Transactional
     public void addDetail(PrescriptionDetail detail) {
+        // 检查药品库存
+        if (!drugService.decreaseStock(detail.getDrugId(), detail.getQuantity())) {
+            throw new RuntimeException("药品库存不足，无法开具");
+        }
         // 计算单项金额 = 单价 x 数量
         BigDecimal amount = detail.getUnitPrice().multiply(BigDecimal.valueOf(detail.getQuantity()));
         detail.setAmount(amount);
@@ -67,6 +73,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public void updateStatus(Long id, Integer status) {
         prescriptionMapper.updateStatus(id, status);
+    }
+
+    @Override
+    public void delete(Long id) {
+        prescriptionDetailMapper.deleteByPrescriptionId(id);
+        prescriptionMapper.deleteById(id);
     }
 
     /**

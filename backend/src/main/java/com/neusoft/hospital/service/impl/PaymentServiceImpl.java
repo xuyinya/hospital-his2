@@ -44,6 +44,11 @@ public class PaymentServiceImpl implements PaymentService {
         paymentMapper.updateStatus(id, status);
     }
 
+    @Override
+    public void delete(Long id) {
+        paymentMapper.deleteById(id);
+    }
+
     /**
      * 根据收费ID获取收费记录详情
      * 调用 Mapper 按主键查询单条收费记录。

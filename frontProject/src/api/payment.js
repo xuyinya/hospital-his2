@@ -46,3 +46,7 @@ export function addPayment(data) {
 export function updatePaymentStatus(id, status) {
   return request.put(`/payment/${id}/status`, null, { params: { status } })
 }
+
+export function deletePayment(id) {
+  return request.delete(`/payment/${id}`)
+}

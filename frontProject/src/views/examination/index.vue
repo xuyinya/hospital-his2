@@ -28,10 +28,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="examTime" label="检查时间" width="170" />
-      <el-table-column label="操作" width="200" fixed="right">
+      <el-table-column label="操作" width="250" fixed="right">
         <template #default="{ row }">
           <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
           <el-button v-if="row.status === 0" size="small" type="success" @click="handleResult(row)">录入结果</el-button>
+          <el-button size="small" type="danger" plain @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,8 +93,8 @@
  * 检查管理页面 - 支持检查的查询、新增、编辑、录入结果操作
  */
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-import { getExaminationList, addExamination, updateExamination, updateExaminationResult } from '@/api/examination'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { getExaminationList, addExamination, updateExamination, updateExaminationResult, deleteExamination } from '@/api/examination'
 import { getPatientList } from '@/api/patient'
 
 const loading = ref(false)
@@ -188,6 +189,13 @@ const submitResult = async () => {
   await updateExaminationResult(currentId.value, resultText.value)
   ElMessage.success('录入成功')
   resultVisible.value = false
+  fetchData()
+}
+
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm('确认删除该检查记录？', '警告', { type: 'warning' })
+  await deleteExamination(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

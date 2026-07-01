@@ -43,6 +43,9 @@
           <el-menu-item index="/patient-portal/prescriptions">
             <el-icon><Document /></el-icon>我的处方
           </el-menu-item>
+          <el-menu-item index="/patient-portal/profile">
+            <el-icon><User /></el-icon>个人主页
+          </el-menu-item>
         </el-menu>
       </nav>
       <!-- 路由视图出口：展示各功能子页面 -->

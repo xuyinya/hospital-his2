@@ -53,6 +53,11 @@ public class DrugServiceImpl implements DrugService {
         drugMapper.deleteById(id);
     }
 
+    @Override
+    public boolean decreaseStock(Long drugId, int quantity) {
+        return drugMapper.decreaseStock(drugId, quantity) > 0;
+    }
+
     /**
      * 根据药品ID获取药品详情
      * 调用 Mapper 按主键查询单条药品记录。

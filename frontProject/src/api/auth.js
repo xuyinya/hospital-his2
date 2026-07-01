@@ -34,3 +34,11 @@ export function patientLogin(data) {
 export function getUserInfo() {
   return request.get('/auth/info')
 }
+
+export function updatePassword(data) {
+  return request.put('/auth/password', data)
+}
+
+export function patientRegister(data) {
+  return request.post('/auth/patient-register', data)
+}

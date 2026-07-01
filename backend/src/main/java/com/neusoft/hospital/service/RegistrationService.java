@@ -31,6 +31,8 @@ public interface RegistrationService {
      */
     void updateStatus(Long id, Integer status);
 
+    void delete(Long id);
+
     /**
      * 根据挂号ID获取挂号详情
      *

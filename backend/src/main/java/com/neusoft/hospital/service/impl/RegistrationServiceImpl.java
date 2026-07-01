@@ -55,6 +55,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         registrationMapper.updateStatus(id, status);
     }
 
+    @Override
+    public void delete(Long id) {
+        registrationMapper.deleteById(id);
+    }
+
     /**
      * 根据挂号ID获取挂号记录详情
      * 调用 Mapper 按主键查询单条挂号记录。

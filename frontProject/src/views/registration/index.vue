@@ -33,11 +33,11 @@
           <el-tag :type="getStatusType(row.status)" size="small">{{ getStatusText(row.status) }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="220" fixed="right">
+      <el-table-column label="操作" width="210" fixed="right">
         <template #default="{ row }">
           <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
           <el-button v-if="row.status === 0" size="small" type="success" @click="handleComplete(row)">完成</el-button>
-          <el-button v-if="row.status === 0" size="small" type="danger" @click="handleCancel(row)">取消</el-button>
+          <el-button size="small" type="danger" plain @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -56,13 +56,41 @@
     </div>
 
     <!-- 新增/编辑挂号弹窗 -->
-    <el-dialog v-model="dialogVisible" :title="dialogTitle" width="520px" :close-on-click-modal="false">
+    <el-dialog v-model="dialogVisible" :title="dialogTitle" width="600px" :close-on-click-modal="false">
       <el-form :model="formData" :rules="rules" ref="formRef" label-width="90px">
-        <el-form-item label="患者" prop="patientId">
-          <el-select v-model="formData.patientId" placeholder="选择患者" filterable style="width: 100%">
-            <el-option v-for="p in patientOptions" :key="p.id" :label="p.patientName" :value="p.id" />
-          </el-select>
+        <el-form-item label="身份证号">
+          <el-input v-model="formData.idCard" placeholder="输入身份证号自动查询" maxlength="18" @input="onIdCardInput" />
         </el-form-item>
+        <template v-if="matchedPatient">
+          <el-alert :title="`已匹配：${matchedPatient.patientName}（${matchedPatient.gender===1?'男':'女'} ${matchedPatient.age}岁）`" type="success" :closable="false" style="margin-bottom:12px" />
+        </template>
+        <template v-if="formData.idCard && !matchedPatient">
+          <el-divider>新患者信息</el-divider>
+          <el-form-item label="姓名" required>
+            <el-input v-model="formData.newPatientName" placeholder="请输入姓名" />
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-radio-group v-model="formData.newGender">
+              <el-radio :value="1">男</el-radio>
+              <el-radio :value="0">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="年龄">
+            <el-input-number v-model="formData.newAge" :min="0" :max="150" controls-position="right" style="width:100%" />
+          </el-form-item>
+          <el-form-item label="手机号">
+            <el-input v-model="formData.newPhone" maxlength="11" />
+          </el-form-item>
+        </template>
+        <template v-if="!formData.idCard">
+          <el-divider>或选择已有患者</el-divider>
+          <el-form-item label="患者">
+            <el-select v-model="formData.patientId" placeholder="选择已有患者" filterable style="width:100%">
+              <el-option v-for="p in patientOptions" :key="p.id" :label="`${p.patientName}（${p.idCard||''}）`" :value="p.id" />
+            </el-select>
+          </el-form-item>
+        </template>
+        <el-divider>挂号信息</el-divider>
         <el-form-item label="科室" prop="deptId">
           <el-select v-model="formData.deptId" placeholder="选择科室" @change="onDeptChange" style="width: 100%">
             <el-option v-for="d in deptOptions" :key="d.id" :label="d.deptName" :value="d.id" />
@@ -97,8 +125,8 @@
  */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { getRegistrationList, addRegistration, updateRegistration, updateRegistrationStatus } from '@/api/registration'
-import { getPatientList } from '@/api/patient'
+import { getRegistrationList, addRegistration, updateRegistration, updateRegistrationStatus, deleteRegistration } from '@/api/registration'
+import { getPatientList, addPatient } from '@/api/patient'
 import { getDepartmentList } from '@/api/department'
 import { getDoctorByDept } from '@/api/doctor'
 
@@ -122,11 +150,30 @@ const formData = reactive({
   doctorId: '',
   deptId: '',
   regType: '普通',
-  regFee: 0
+  regFee: 0,
+  idCard: '',
+  newPatientName: '',
+  newGender: 1,
+  newAge: 30,
+  newPhone: ''
 })
 
+const matchedPatient = ref(null)
+
+const onIdCardInput = () => {
+  const id = formData.idCard
+  matchedPatient.value = null
+  formData.patientId = ''
+  if (id.length >= 15) {
+    const found = patientOptions.value.find(p => p.idCard === id)
+    if (found) {
+      matchedPatient.value = found
+      formData.patientId = found.id
+    }
+  }
+}
+
 const rules = {
-  patientId: [{ required: true, message: '请选择患者', trigger: 'change' }],
   doctorId: [{ required: true, message: '请选择医生', trigger: 'change' }],
   deptId: [{ required: true, message: '请选择科室', trigger: 'change' }]
 }
@@ -176,14 +223,16 @@ const onDeptChange = async (deptId) => {
 /** 打开新增挂号弹窗 */
 const handleAdd = () => {
   dialogTitle.value = '新增挂号'
-  Object.assign(formData, { id: null, patientId: '', doctorId: '', deptId: '', regType: '普通', regFee: 0 })
+  matchedPatient.value = null
+  Object.assign(formData, { id: null, patientId: '', doctorId: '', deptId: '', regType: '普通', regFee: 0, idCard: '', newPatientName: '', newGender: 1, newAge: 30, newPhone: '' })
   dialogVisible.value = true
 }
 
 /** 打开编辑挂号弹窗并加载当前科室所对应的医生 */
 const handleEdit = (row) => {
   dialogTitle.value = '编辑挂号'
-  Object.assign(formData, row)
+  matchedPatient.value = null
+  Object.assign(formData, { idCard: '', newPatientName: '', newGender: 1, newAge: 30, newPhone: '' }, row)
   onDeptChange(row.deptId)
   dialogVisible.value = true
 }
@@ -195,7 +244,27 @@ const handleSubmit = async () => {
     await updateRegistration(formData.id, formData)
     ElMessage.success('修改成功')
   } else {
-    await addRegistration(formData)
+    let pid = formData.patientId
+    // 新患者：先创建患者再挂号
+    if (!pid && formData.idCard && formData.newPatientName) {
+      const pRes = await addPatient({
+        patientName: formData.newPatientName,
+        gender: formData.newGender,
+        age: formData.newAge,
+        idCard: formData.idCard,
+        phone: formData.newPhone
+      })
+      pid = pRes.data?.id || pRes.id
+      if (!pid) {
+        // 尝试按身份证号查找刚创建的患者
+        const list = await getPatientList({ pageNum: 1, pageSize: 200 })
+        const p = (list.data.rows || []).find(x => x.idCard === formData.idCard)
+        pid = p?.id
+      }
+      if (!pid) { ElMessage.error('创建患者失败'); return }
+    }
+    if (!pid) { ElMessage.warning('请选择或录入患者信息'); return }
+    await addRegistration({ ...formData, patientId: pid })
     ElMessage.success('新增成功')
   }
   dialogVisible.value = false
@@ -215,6 +284,13 @@ const handleCancel = async (row) => {
   await ElMessageBox.confirm('确认取消该挂号？', '提示')
   await updateRegistrationStatus(row.id, 2)
   ElMessage.success('操作成功')
+  fetchData()
+}
+
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm(`确认删除该挂号记录？`, '警告', { type: 'warning' })
+  await deleteRegistration(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

@@ -54,6 +54,9 @@
         <el-form-item label="姓名" prop="doctorName">
           <el-input v-model="formData.doctorName" />
         </el-form-item>
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="formData.username" placeholder="登录用，如zhangming" :disabled="isEdit" />
+        </el-form-item>
         <el-form-item label="科室" prop="deptId">
           <el-select v-model="formData.deptId" placeholder="选择科室" style="width: 100%">
             <el-option v-for="d in deptOptions" :key="d.id" :label="d.deptName" :value="d.id" />
@@ -73,6 +76,7 @@
         <el-form-item label="状态">
           <el-switch v-model="formData.status" :active-value="1" :inactive-value="0" active-text="在职" inactive-text="离职" />
         </el-form-item>
+        <el-alert v-if="!isEdit" title="默认密码：123456" type="info" :closable="false" show-icon style="margin-top:8px" />
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -90,6 +94,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getDoctorList, addDoctor, updateDoctor, deleteDoctor } from '@/api/doctor'
 import { getDepartmentList } from '@/api/department'
+import { getRegistrationList } from '@/api/registration'
 
 const loading = ref(false)
 const tableData = ref([])
@@ -110,14 +115,15 @@ const searchParams = reactive({
 const formData = reactive({
   id: null,
   doctorName: '',
+  username: '',
   deptId: '',
   title: '',
   specialty: '',
   status: 1
 })
-
 const rules = {
   doctorName: [{ required: true, message: '请输入医生姓名', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入登录用户名', trigger: 'blur' }],
   deptId: [{ required: true, message: '请选择科室', trigger: 'change' }],
   title: [{ required: true, message: '请选择职称', trigger: 'change' }]
 }
@@ -144,7 +150,7 @@ const fetchDeptOptions = async () => {
 const handleAdd = () => {
   isEdit.value = false
   dialogTitle.value = '新增医生'
-  Object.assign(formData, { id: null, doctorName: '', deptId: '', title: '', specialty: '', status: 1 })
+  Object.assign(formData, { id: null, doctorName: '', username: '', deptId: '', title: '', specialty: '', status: 1 })
   dialogVisible.value = true
 }
 
@@ -156,10 +162,20 @@ const handleEdit = (row) => {
   dialogVisible.value = true
 }
 
-/** 删除医生（含二次确认，检查是否有挂号记录） */
+/** 删除医生（有待诊患者时阻止，历史记录不阻止） */
 const handleDelete = async (row) => {
   try {
-    await ElMessageBox.confirm(`确认删除医生「${row.doctorName}」？删除前请确保该医生没有挂号记录。`, '警告', { confirmButtonText: '确认删除', cancelButtonText: '取消', type: 'warning' })
+    const pendingRes = await getRegistrationList({ doctorId: row.id, status: 0, pageNum: 1, pageSize: 1 })
+    const pending = pendingRes.data?.total || 0
+    if (pending > 0) {
+      await ElMessageBox.alert(
+        `医生「${row.doctorName}」还有 ${pending} 条待诊记录，无法删除。\n\n请先处理完待诊患者，或将患者转给其他医生后再删除。\n\n若暂时不需要该医生接诊，可先将其状态改为"离职"。`,
+        '无法删除',
+        { confirmButtonText: '知道了', type: 'warning' }
+      )
+      return
+    }
+    await ElMessageBox.confirm(`确认删除医生「${row.doctorName}」？`, '警告', { type: 'warning' })
     await deleteDoctor(row.id)
     ElMessage.success('删除成功')
     fetchData()

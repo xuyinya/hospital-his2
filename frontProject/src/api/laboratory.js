@@ -57,3 +57,7 @@ export function updateLaboratory(id, data) {
 export function updateLaboratoryResult(id, result) {
   return request.put(`/laboratory/${id}/result`, { result })
 }
+
+export function deleteLaboratory(id) {
+  return request.delete(`/laboratory/${id}`)
+}

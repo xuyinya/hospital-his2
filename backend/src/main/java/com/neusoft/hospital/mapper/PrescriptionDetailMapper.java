@@ -24,6 +24,9 @@ public interface PrescriptionDetailMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(PrescriptionDetail detail);
 
+    @Delete("DELETE FROM prescription_detail WHERE prescription_id=#{prescriptionId}")
+    int deleteByPrescriptionId(@Param("prescriptionId") Long prescriptionId);
+
     /**
      * 统计指定处方的总金额
      * <p>SQL：对处方明细的 amount 字段求和，无记录时返回 0</p>

@@ -82,6 +82,9 @@
               {{ loading ? '登录中...' : '登 录' }}
             </el-button>
           </el-form-item>
+          <div style="text-align:center">
+            <router-link to="/register">没有账号？立即注册</router-link>
+          </div>
         </el-form>
 
       </div>

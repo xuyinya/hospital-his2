@@ -76,4 +76,7 @@ public interface DrugMapper {
      * @return 符合条件的药品总数
      */
     Long selectCount(@Param("drugName") String drugName);
+
+    @Update("UPDATE drug SET stock = stock - #{quantity} WHERE id=#{id} AND stock >= #{quantity}")
+    int decreaseStock(@Param("id") Long id, @Param("quantity") int quantity);
 }

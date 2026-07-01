@@ -19,6 +19,10 @@ public class LoginResponse {
     private String realName;
     /** 用户角色（admin=管理员, doctor=医生） */
     private String role;
+    /** 身份证号（患者） */
+    private String idCard;
+    /** 手机号（患者） */
+    private String phone;
 
     /**
      * 构造登录响应对象

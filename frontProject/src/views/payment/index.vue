@@ -31,9 +31,10 @@
         </template>
       </el-table-column>
       <el-table-column prop="paymentTime" label="支付时间" width="170" />
-      <el-table-column label="操作" width="150" fixed="right">
+      <el-table-column label="操作" width="200" fixed="right">
         <template #default="{ row }">
           <el-button v-if="row.status === 0" size="small" type="success" @click="handlePay(row)">确认支付</el-button>
+          <el-button size="small" type="danger" plain @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,7 +98,7 @@
  */
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { getPaymentList, addPayment, updatePaymentStatus } from '@/api/payment'
+import { getPaymentList, addPayment, updatePaymentStatus, deletePayment } from '@/api/payment'
 import { getPatientList } from '@/api/patient'
 
 const loading = ref(false)
@@ -167,6 +168,13 @@ const handlePay = async (row) => {
   await ElMessageBox.confirm('确认该笔收费已支付？', '提示')
   await updatePaymentStatus(row.id, 1)
   ElMessage.success('操作成功')
+  fetchData()
+}
+
+const handleDelete = async (row) => {
+  await ElMessageBox.confirm('确认删除该收费记录？', '警告', { type: 'warning' })
+  await deletePayment(row.id)
+  ElMessage.success('删除成功')
   fetchData()
 }
 

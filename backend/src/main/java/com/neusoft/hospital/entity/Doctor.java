@@ -24,4 +24,6 @@ public class Doctor {
     // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
     /** 科室名称，关联 department 表 */
     private String deptName;
+    /** 登录用户名，仅新增医生时使用，用于创建 sys_user 记录 */
+    private String username;
 }

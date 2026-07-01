@@ -45,6 +45,9 @@ public interface RegistrationMapper {
     @Update("UPDATE registration SET status=#{status} WHERE id=#{id}")
     int updateStatus(@Param("id") Long id, @Param("status") Integer status);
 
+    @Delete("DELETE FROM registration WHERE id=#{id}")
+    int deleteById(Long id);
+
     /**
      * 根据ID查询挂号
      * <p>SQL：按主键 id 查询挂号记录</p>

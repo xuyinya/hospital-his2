@@ -24,6 +24,8 @@ public interface PaymentService {
      */
     void updateStatus(Long id, Integer status);
 
+    void delete(Long id);
+
     /**
      * 根据收费ID获取收费详情
      *

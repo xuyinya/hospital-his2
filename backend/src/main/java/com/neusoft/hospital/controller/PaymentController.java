@@ -41,6 +41,13 @@ public class PaymentController {
         return Result.success();
     }
 
+    @Operation(summary = "删除收费")
+    @DeleteMapping("/{id}")
+    public Result<Void> delete(@PathVariable Long id) {
+        paymentService.delete(id);
+        return Result.success();
+    }
+
     /**
      * 查询收费详情
      * <p>

@@ -17,6 +17,8 @@ export const useAuthStore = defineStore('auth', () => {
   const username = ref(localStorage.getItem('username') || '')
   const realName = ref(localStorage.getItem('realName') || '')
   const role = ref(localStorage.getItem('role') || '')
+  const idCard = ref(localStorage.getItem('idCard') || '')
+  const phone = ref(localStorage.getItem('phone') || '')
 
   // 计算属性：判断是否已登录、是否为患者/管理员/医生
   const isLoggedIn = computed(() => !!token.value)
@@ -54,6 +56,8 @@ export const useAuthStore = defineStore('auth', () => {
     username.value = data.username
     realName.value = data.realName
     role.value = data.role
+    idCard.value = data.idCard || ''
+    phone.value = data.phone || ''
     saveToLocal(data)
     return data
   }
@@ -67,6 +71,8 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('username', data.username)
     localStorage.setItem('realName', data.realName)
     localStorage.setItem('role', data.role)
+    if (data.idCard) localStorage.setItem('idCard', data.idCard)
+    if (data.phone) localStorage.setItem('phone', data.phone)
   }
 
   /**
@@ -82,8 +88,12 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('username')
     localStorage.removeItem('realName')
     localStorage.removeItem('role')
+    localStorage.removeItem('idCard')
+    localStorage.removeItem('phone')
+    idCard.value = ''
+    phone.value = ''
   }
 
   // 导出状态和操作方法
-  return { token, username, realName, role, isLoggedIn, isPatient, isAdmin, isDoctor, login, patientLogin, logout }
+  return { token, username, realName, role, idCard, phone, isLoggedIn, isPatient, isAdmin, isDoctor, login, patientLogin, logout }
 })

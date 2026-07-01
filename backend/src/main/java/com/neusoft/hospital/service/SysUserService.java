@@ -2,6 +2,8 @@ package com.neusoft.hospital.service;
 
 import com.neusoft.hospital.entity.SysUser;
 
+import java.util.List;
+
 /**
  * 系统用户 Service 接口
  * 提供系统用户（管理员/医生账号）的基础查询功能，用于登录认证场景。
@@ -23,4 +25,12 @@ public interface SysUserService {
      * @return 系统用户对象
      */
     SysUser getById(Long id);
+
+    void updatePassword(Long id, String encodedPassword);
+
+    List<SysUser> listAll();
+
+    void add(SysUser user);
+
+    void delete(Long id);
 }

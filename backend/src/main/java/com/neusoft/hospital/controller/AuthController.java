@@ -89,6 +89,33 @@ public class AuthController {
 
         String token = jwtUtil.generateToken(patient.getId(), patient.getPatientName(), "patient");
         LoginResponse response = new LoginResponse(token, patient.getPatientName(), patient.getPatientName(), "patient");
+        response.setIdCard(patient.getIdCard());
+        response.setPhone(patient.getPhone());
+        return Result.success(response);
+    }
+
+    @Operation(summary = "患者注册")
+    @PostMapping("/patient-register")
+    public Result<LoginResponse> patientRegister(@RequestBody Patient patient) {
+        String idCard = patient.getIdCard();
+        if (idCard == null || idCard.length() != 18) {
+            return Result.error("身份证号应为18位");
+        }
+        Patient exist = patientService.getByIdCard(idCard);
+        if (exist != null) {
+            return Result.error("该身份证号已注册，请直接登录");
+        }
+        if (patient.getPassword() == null || patient.getPassword().length() < 4) {
+            return Result.error("密码至少4位");
+        }
+        patient.setPassword(passwordEncoder.encode(patient.getPassword()));
+        patientService.add(patient);
+        // 重新查一次获取自增ID
+        Patient created = patientService.getByIdCard(idCard);
+        String token = jwtUtil.generateToken(created.getId(), created.getPatientName(), "patient");
+        LoginResponse response = new LoginResponse(token, created.getPatientName(), created.getPatientName(), "patient");
+        response.setIdCard(created.getIdCard());
+        response.setPhone(created.getPhone());
         return Result.success(response);
     }
 
@@ -131,5 +158,31 @@ public class AuthController {
             map.put("role", user.getRole());
         }
         return Result.success(map);
+    }
+
+    @Operation(summary = "修改密码")
+    @PutMapping("/password")
+    public Result<Void> updatePassword(@RequestBody Map<String, String> body, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("userId");
+        String role = (String) request.getAttribute("role");
+        String oldPwd = body.get("oldPassword");
+        String newPwd = body.get("newPassword");
+        if (newPwd == null || newPwd.length() < 4) {
+            return Result.error("新密码至少4位");
+        }
+        if ("patient".equals(role)) {
+            Patient p = patientService.getById(userId);
+            if (p == null || !passwordEncoder.matches(oldPwd, p.getPassword())) {
+                return Result.error("原密码错误");
+            }
+            patientService.updatePassword(userId, passwordEncoder.encode(newPwd));
+        } else {
+            SysUser user = sysUserService.getById(userId);
+            if (user == null || !passwordEncoder.matches(oldPwd, user.getPassword())) {
+                return Result.error("原密码错误");
+            }
+            sysUserService.updatePassword(userId, passwordEncoder.encode(newPwd));
+        }
+        return Result.success();
     }
 }

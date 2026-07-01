@@ -3,6 +3,8 @@ package com.neusoft.hospital.service.impl;
 import com.neusoft.hospital.entity.SysUser;
 import com.neusoft.hospital.mapper.SysUserMapper;
 import com.neusoft.hospital.service.SysUserService;
+
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,25 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser getById(Long id) {
         return sysUserMapper.selectById(id);
+    }
+
+    @Override
+    public void updatePassword(Long id, String encodedPassword) {
+        sysUserMapper.updatePassword(id, encodedPassword);
+    }
+
+    @Override
+    public List<SysUser> listAll() {
+        return sysUserMapper.selectAll();
+    }
+
+    @Override
+    public void add(SysUser user) {
+        sysUserMapper.insert(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        sysUserMapper.deleteById(id);
     }
 }

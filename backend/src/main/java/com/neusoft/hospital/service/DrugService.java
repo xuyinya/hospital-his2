@@ -30,6 +30,8 @@ public interface DrugService {
      */
     void delete(Long id);
 
+    boolean decreaseStock(Long drugId, int quantity);
+
     /**
      * 根据药品ID获取药品详情
      *

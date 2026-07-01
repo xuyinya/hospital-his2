@@ -54,6 +54,11 @@ public class PatientServiceImpl implements PatientService {
         patientMapper.deleteById(id);
     }
 
+    @Override
+    public void updatePassword(Long id, String encodedPassword) {
+        patientMapper.updatePassword(id, encodedPassword);
+    }
+
     /**
      * 根据患者ID获取患者详情
      * 调用 Mapper 按主键查询单条患者记录。

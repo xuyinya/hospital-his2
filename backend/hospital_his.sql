@@ -94,7 +94,7 @@ CREATE TABLE medical_record (
 DROP TABLE IF EXISTS prescription;
 CREATE TABLE prescription (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    registration_id BIGINT NOT NULL,
+    registration_id BIGINT NULL COMMENT '挂号ID，可为空',
     patient_id BIGINT NOT NULL,
     doctor_id BIGINT NOT NULL,
     total_amount DECIMAL(10,2) DEFAULT 0,

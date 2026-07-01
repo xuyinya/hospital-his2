@@ -65,3 +65,7 @@ export function addPrescriptionDetail(data) {
 export function updatePrescriptionStatus(id, status) {
   return request.put(`/prescription/${id}/status`, null, { params: { status } })
 }
+
+export function deletePrescription(id) {
+  return request.delete(`/prescription/${id}`)
+}

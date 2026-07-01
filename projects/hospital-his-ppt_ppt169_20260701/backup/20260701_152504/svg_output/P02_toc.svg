@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <!-- 标题区 -->
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">目录</text>
+  <text x="100" y="108" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">CONTENTS</text>
+  <!-- 目录项 - 两列布局 -->
+  <!-- 左列 -->
+  <g transform="translate(100,156)">
+    <rect x="0" y="0" width="520" height="56" rx="6" fill="#F0F4FF"/>
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">01</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">项目背景与技术栈</text>
+  </g>
+  <g transform="translate(100,226)">
+    <rect x="0" y="0" width="520" height="56" rx="6" fill="#F0F4FF"/>
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">02</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">需求分析</text>
+  </g>
+  <g transform="translate(100,296)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">03</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">系统设计（架构 + 数据库）</text>
+  </g>
+  <g transform="translate(100,366)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">04</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">管理员角色 — 系统管理</text>
+  </g>
+  <g transform="translate(100,436)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">05</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">医生角色 — 接诊工作台</text>
+  </g>
+  <g transform="translate(100,506)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">06</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">患者角色 — 自助门户</text>
+  </g>
+  <!-- 右列 -->
+  <g transform="translate(660,156)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">07</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">安全机制（JWT + BCrypt）</text>
+  </g>
+  <g transform="translate(660,226)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">08</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">系统测试（30用例）</text>
+  </g>
+  <g transform="translate(660,296)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">09</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">部署与运维</text>
+  </g>
+  <g transform="translate(660,366)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">10</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">系统演示效果</text>
+  </g>
+  <g transform="translate(660,436)">
+    <text x="20" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="bold" fill="#2563EB">11</text>
+    <text x="60" y="36" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#1E293B">总结与展望</text>
+  </g>
+  <!-- 翻页提示 -->
+  <text x="640" y="620" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#94A3B8">答辩演示 · 共 25 页</text>
+</svg>

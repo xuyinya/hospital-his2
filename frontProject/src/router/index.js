@@ -23,6 +23,12 @@ const staffRoutes = [
     meta: { title: '首页', icon: 'HomeFilled', roles: ['admin', 'doctor'] }
   },
   {
+    path: 'my-clinic',
+    name: 'MyClinic',
+    component: () => import('@/views/my-clinic.vue'),
+    meta: { title: '接诊管理', icon: 'List', roles: ['doctor'] }
+  },
+  {
     path: 'registration',
     name: 'Registration',
     component: () => import('@/views/registration/index.vue'),
@@ -106,6 +112,12 @@ const patientRoutes = [
         name: 'PatientHome',
         component: () => import('@/views/patient-portal/index.vue'),
         meta: { title: '患者首页' }
+      },
+      {
+        path: 'self-registration',
+        name: 'PatientSelfRegistration',
+        component: () => import('@/views/patient-portal/self-registration.vue'),
+        meta: { title: '自助挂号' }
       },
       {
         path: 'registrations',

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">功能需求</text>
+  <line x1="100" y1="92" x2="320" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <text x="100" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">系统覆盖门诊全流程，划分为 12 大功能模块 + 3 大用户角色</text>
+  <!-- 模块卡片网格 4x3 -->
+  <g transform="translate(80,160)">
+    <rect x="0" y="0" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="85" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">挂号管理</text>
+    <rect x="190" y="0" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="275" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">患者管理</text>
+    <rect x="380" y="0" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="465" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">医生管理</text>
+    <rect x="570" y="0" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="655" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">药品管理</text>
+    <rect x="0" y="100" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="85" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">病历管理</text>
+    <rect x="190" y="100" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="275" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">处方管理</text>
+    <rect x="380" y="100" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="465" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">检查管理</text>
+    <rect x="570" y="100" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="655" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">检验管理</text>
+    <rect x="0" y="200" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="85" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">处置管理</text>
+    <rect x="190" y="200" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="275" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">收费管理</text>
+    <rect x="380" y="200" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="465" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">科室管理</text>
+    <rect x="570" y="200" width="170" height="80" rx="6" fill="#F0F4FF"/><text x="655" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">接诊工作台</text>
+  </g>
+  <!-- 角色区域 -->
+  <rect x="80" y="490" width="1120" height="140" rx="8" fill="#F0F4FF"/>
+  <text x="110" y="540" font-family="Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" fill="#2563EB">三大用户角色</text>
+  <text x="200" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">管理员</text><text x="200" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">基础数据维护</text>
+  <rect x="470" y="555" width="2" height="50" fill="#E2E8F0"/>
+  <text x="520" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">医生</text><text x="520" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">接诊/写病历/开处方</text>
+  <rect x="790" y="555" width="2" height="50" fill="#E2E8F0"/>
+  <text x="840" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">患者</text><text x="840" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">自助挂号/查看记录</text>
+</svg>

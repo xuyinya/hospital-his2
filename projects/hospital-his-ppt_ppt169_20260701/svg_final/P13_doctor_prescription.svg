@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">核心代码 — 处方创建与明细添加</text>
+  <line x1="100" y1="92" x2="600" y2="92" stroke="#06B6D4" stroke-width="2" />
+  
+  <path fill="#1E293B" d="M86,130 H1194 A6,6 0 0 1 1200,136 V344 A6,6 0 0 1 1194,350 H86 A6,6 0 0 1 80,344 V136 A6,6 0 0 1 86,130 Z" />
+  <text x="100" y="160" font-family="Consolas, monospace" font-size="17" fill="#64748B">// 1. 创建处方 → 返回处方ID (PrescriptionController)</text>
+  <text x="100" y="190" font-family="Consolas, monospace" font-size="17" fill="#E2E8F0">@PostMapping   public Result&lt;Long&gt; add(@RequestBody Prescription p) {</text>
+  <text x="130" y="220" font-family="Consolas, monospace" font-size="17" fill="#E2E8F0">prescriptionService.add(p);</text>
+  <text x="130" y="250" font-family="Consolas, monospace" font-size="17" fill="#C9A84C">return Result.success(p.getId());  // 返回ID供明细使用</text>
+  <text x="100" y="280" font-family="Consolas, monospace" font-size="17" fill="#E2E8F0">}</text>
+  <text x="100" y="320" font-family="Consolas, monospace" font-size="17" fill="#64748B">// 2. 逐条添加明细 → 自动计算金额 (PrescriptionServiceImpl)</text>
+  <text x="100" y="350" font-family="Consolas, monospace" font-size="17" fill="#E2E8F0">public void addDetail(PrescriptionDetail d) {</text>
+  
+  <g transform="translate(80,380)">
+    <path fill="#F0F4FF" d="M8,0 H532 A8,8 0 0 1 540,8 V122 A8,8 0 0 1 532,130 H8 A8,8 0 0 1 0,122 V8 A8,8 0 0 1 8,0 Z" />
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563EB">流程分析</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">1. 前端调用新增处方接口 → 获得 prescriptionId</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">2. 用 prescriptionId 逐条调用处方明细接口</text>
+    <text x="20" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">3. 明细插入后自动更新主表 totalAmount</text>
+  </g>
+  <g transform="translate(660,380)">
+    <path fill="#F0F4FF" d="M8,0 H532 A8,8 0 0 1 540,8 V122 A8,8 0 0 1 532,130 H8 A8,8 0 0 1 0,122 V8 A8,8 0 0 1 8,0 Z" />
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#EF4444">缺陷 BUG-004（轻微）</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">RegistrationMapper.insert 初始缺少</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">chief_complaint + present_illness 字段</text>
+    <text x="20" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">导致患者自述症状无法保存</text>
+  </g>
+</svg>

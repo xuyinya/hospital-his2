@@ -23,11 +23,11 @@
           <template #default="{ row }">¥{{ row.regFee }}</template>
         </el-table-column>
         <el-table-column prop="regTime" label="挂号时间" width="170" />
-        <!-- 挂号状态：待诊/已诊/已取消 -->
+        <!-- 挂号状态：诊断中/已完成/已取消 -->
         <el-table-column prop="status" label="状态" width="80">
           <template #default="{ row }">
             <el-tag :type="{0:'warning',1:'success',2:'info'}[row.status]" size="small">
-              {{ {0:'待诊',1:'已诊',2:'已取消'}[row.status] || '未知' }}
+              {{ {0:'诊断中',1:'已完成',2:'已取消'}[row.status] || '未知' }}
             </el-tag>
           </template>
         </el-table-column>

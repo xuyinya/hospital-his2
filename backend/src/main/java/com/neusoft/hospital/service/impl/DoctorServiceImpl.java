@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.DoctorMapper;
 import com.neusoft.hospital.service.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 删除医生时会校验是否存在关联的挂号记录，防止误删。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class DoctorServiceImpl implements DoctorService {
 

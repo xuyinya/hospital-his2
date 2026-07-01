@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">核心代码 — @Transactional 保证数据一致性</text>
+  <line x1="100" y1="92" x2="600" y2="92" stroke="#06B6D4" stroke-width="2" />
+  
+  <text x="100" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="23" fill="#64748B">Service 层添加 @Transactional 注解，确保数据库操作的事务原子性：要么全部成功，要么全部回滚。</text>
+  
+  <path fill="#1E293B" d="M86,180 H624 A6,6 0 0 1 630,186 V414 A6,6 0 0 1 624,420 H86 A6,6 0 0 1 80,414 V186 A6,6 0 0 1 86,180 Z" />
+  <text x="100" y="210" font-family="Consolas, monospace" font-size="19" fill="#06B6D4">@Service</text>
+  <text x="100" y="240" font-family="Consolas, monospace" font-size="19" fill="#C9A84C">@Transactional</text>
+  <text x="100" y="270" font-family="Consolas, monospace" font-size="19" fill="#64748B">@RequiredArgsConstructor</text>
+  <text x="100" y="300" font-family="Consolas, monospace" font-size="19" fill="#E2E8F0">public class RegistrationServiceImpl {</text>
+  <text x="130" y="330" font-family="Consolas, monospace" font-size="19" fill="#10B981">// 所有方法自动获得事务支持</text>
+  <text x="130" y="360" font-family="Consolas, monospace" font-size="19" fill="#E2E8F0">public void add(Registration r) {</text>
+  <text x="160" y="390" font-family="Consolas, monospace" font-size="19" fill="#94A3B8">registrationMapper.insert(r);</text>
+  <text x="130" y="420" font-family="Consolas, monospace" font-size="19" fill="#E2E8F0">}</text>
+  
+  <g transform="translate(670,180)">
+    <path fill="#F0F4FF" d="M8,0 H522 A8,8 0 0 1 530,8 V232 A8,8 0 0 1 522,240 H8 A8,8 0 0 1 0,232 V8 A8,8 0 0 1 8,0 Z" />
+    <text x="20" y="40" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#2563EB">@Transactional 作用</text>
+    <text x="20" y="80" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">新号挂号时插入 registration 记录，</text>
+    <text x="20" y="110" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">如果后续操作失败（如处方明细插入失败），</text>
+    <text x="20" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">已执行的 INSERT 自动回滚，不留脏数据。</text>
+    <text x="20" y="180" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#EF4444">涉及文件：</text>
+    <text x="20" y="210" font-family="Consolas, monospace" font-size="18" fill="#64748B">RegistrationServiceImpl.java</text>
+    <text x="20" y="235" font-family="Consolas, monospace" font-size="18" fill="#64748B">PrescriptionServiceImpl.java</text>
+  </g>
+  
+  <path fill="#F0F4FF" d="M88,470 H1192 A8,8 0 0 1 1200,478 V642 A8,8 0 0 1 1192,650 H88 A8,8 0 0 1 80,642 V478 A8,8 0 0 1 88,470 Z" />
+  <text x="110" y="520" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563EB">修复缺陷 BUG-003（一般）</text>
+  <text x="110" y="560" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">初始代码中 RegistrationServiceImpl 和 PrescriptionServiceImpl 缺少 @Transactional 注解。</text>
+  <text x="110" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">在并发场景下，若新增挂号或保存处方过程中发生异常，已执行的数据库操作不会自动回滚。</text>
+  <text x="110" y="640" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#10B981">修复：在两个 Service 实现类上添加 @Transactional 注解，确保事务原子性。</text>
+</svg>

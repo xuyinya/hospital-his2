@@ -37,7 +37,12 @@ public class MedicalRecordController {
      */
     @Operation(summary = "新增病历")
     @PostMapping
-    public Result<Void> add(@RequestBody MedicalRecord medicalRecord) {
+    public Result<Void> add(@RequestBody MedicalRecord medicalRecord, HttpServletRequest request) {
+        // 医生角色自动填入 doctorId，防止张冠李戴
+        String role = (String) request.getAttribute("role");
+        if ("doctor".equals(role)) {
+            medicalRecord.setDoctorId((Long) request.getAttribute("doctorId"));
+        }
         medicalRecordService.add(medicalRecord);
         return Result.success();
     }

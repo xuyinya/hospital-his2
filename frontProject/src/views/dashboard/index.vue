@@ -1,7 +1,7 @@
 <template>
   <!-- 首页仪表盘组件：展示统计卡片、快捷操作和系统信息 -->
   <div class="dashboard">
-    <!-- 顶部统计卡片行：今日挂号、今日就诊、待诊人数、今日收入 -->
+    <!-- 顶部统计卡片行：挂号总数、已就诊数、待诊人数、总收入 -->
     <el-row :gutter="20" class="stat-cards">
       <!-- 今日挂号统计卡片 -->
       <el-col :span="6">
@@ -12,7 +12,7 @@
             </div>
             <div class="card-info">
               <div class="card-value">{{ stats.registrationCount }}</div>
-              <div class="card-label">今日挂号</div>
+              <div class="card-label">挂号总数</div>
             </div>
           </div>
         </el-card>
@@ -26,7 +26,7 @@
             </div>
             <div class="card-info">
               <div class="card-value">{{ stats.patientCount }}</div>
-              <div class="card-label">今日就诊</div>
+              <div class="card-label">已就诊数</div>
             </div>
           </div>
         </el-card>
@@ -54,7 +54,7 @@
             </div>
             <div class="card-info">
               <div class="card-value">¥{{ stats.todayIncome }}</div>
-              <div class="card-label">今日收入</div>
+              <div class="card-label">总收入</div>
             </div>
           </div>
         </el-card>

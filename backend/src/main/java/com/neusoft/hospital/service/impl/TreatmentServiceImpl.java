@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.TreatmentMapper;
 import com.neusoft.hospital.service.TreatmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 处置状态标识是否已完成，用于跟踪门诊处置（如换药、注射等）的执行进度。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TreatmentServiceImpl implements TreatmentService {
 

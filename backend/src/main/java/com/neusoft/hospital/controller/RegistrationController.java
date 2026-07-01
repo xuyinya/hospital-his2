@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Tag(name = "挂号管理")
 @RestController
 @RequestMapping("/api/registration")
@@ -39,6 +41,33 @@ public class RegistrationController {
     @Operation(summary = "新增挂号")
     @PostMapping
     public Result<Void> add(@RequestBody Registration registration) {
+        registrationService.add(registration);
+        return Result.success();
+    }
+
+    /**
+     * 患者自助挂号
+     * <p>
+     * 患者端自行选择科室、医生和挂号类型完成挂号。
+     * 患者ID从JWT中自动获取，挂号费用根据挂号类型自动设置（普通号25元，专家号50元）。
+     * </p>
+     *
+     * @param registration 挂号信息（只需传 doctorId, deptId, regType）
+     * @param request      HTTP请求对象，用于从JWT中提取患者ID
+     * @return 操作结果
+     */
+    @Operation(summary = "患者自助挂号")
+    @PostMapping("/self")
+    public Result<Void> selfRegistration(@RequestBody Registration registration, HttpServletRequest request) {
+        // 从JWT中获取患者ID（患者登录时 userId 即为 patient.id）
+        Long patientId = (Long) request.getAttribute("userId");
+        registration.setPatientId(patientId);
+        // 根据挂号类型自动设置费用（防止客户端篡改）
+        if ("专家".equals(registration.getRegType())) {
+            registration.setRegFee(new BigDecimal("50.00"));
+        } else {
+            registration.setRegFee(new BigDecimal("25.00"));
+        }
         registrationService.add(registration);
         return Result.success();
     }

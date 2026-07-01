@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">患者角色 — 自助挂号</text>
+  <line x1="100" y1="92" x2="380" y2="92" stroke="#06B6D4" stroke-width="2" />
+  <text x="100" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">5 步向导流程，患者自行完成挂号，减少窗口排队压力</text>
+  
+  <g transform="translate(80,180)">
+    <path fill="#2563EB" d="M6,0 H194 A6,6 0 0 1 200,6 V74 A6,6 0 0 1 194,80 H6 A6,6 0 0 1 0,74 V6 A6,6 0 0 1 6,0 Z" /><text x="100" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选科室</text>
+    <polygon points="210,25 230,40 210,55" fill="#64748B" />
+    <path fill="#3B82F6" d="M246,0 H434 A6,6 0 0 1 440,6 V74 A6,6 0 0 1 434,80 H246 A6,6 0 0 1 240,74 V6 A6,6 0 0 1 246,0 Z" /><text x="340" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选医生</text>
+    <polygon points="450,25 470,40 450,55" fill="#64748B" />
+    <path fill="#06B6D4" d="M486,0 H674 A6,6 0 0 1 680,6 V74 A6,6 0 0 1 674,80 H486 A6,6 0 0 1 480,74 V6 A6,6 0 0 1 486,0 Z" /><text x="580" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选类型</text>
+    <polygon points="690,25 710,40 690,55" fill="#64748B" />
+    <path fill="#10B981" d="M726,0 H914 A6,6 0 0 1 920,6 V74 A6,6 0 0 1 914,80 H726 A6,6 0 0 1 720,74 V6 A6,6 0 0 1 726,0 Z" /><text x="820" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">写症状</text>
+    <polygon points="930,25 950,40 930,55" fill="#64748B" />
+    <path fill="#EF4444" d="M966,0 H1154 A6,6 0 0 1 1160,6 V74 A6,6 0 0 1 1154,80 H966 A6,6 0 0 1 960,74 V6 A6,6 0 0 1 966,0 Z" /><text x="1060" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">确认提交</text>
+  </g>
+  
+  <g transform="translate(80,310)">
+    <path fill="#F0F4FF" d="M8,0 H352 A8,8 0 0 1 360,8 V152 A8,8 0 0 1 352,160 H8 A8,8 0 0 1 0,152 V8 A8,8 0 0 1 8,0 Z" /><text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#2563EB">安全设计</text><text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">费用后端计算</text><text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">患者ID从JWT提取</text><text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">普通号25元/专家号50元</text>
+    <path fill="#F0F4FF" d="M398,0 H742 A8,8 0 0 1 750,8 V152 A8,8 0 0 1 742,160 H398 A8,8 0 0 1 390,152 V8 A8,8 0 0 1 398,0 Z" /><text x="410" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#06B6D4">数据保存</text><text x="410" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">chief_complaint 主诉</text><text x="410" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">present_illness 现病史</text><text x="410" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">供医生接诊时查看</text>
+    <path fill="#F0F4FF" d="M788,0 H1132 A8,8 0 0 1 1140,8 V152 A8,8 0 0 1 1132,160 H788 A8,8 0 0 1 780,152 V8 A8,8 0 0 1 788,0 Z" /><text x="800" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#10B981">涉及接口</text><text x="800" y="70" font-family="Consolas, monospace" font-size="18" fill="#64748B">POST registration/self</text><text x="800" y="100" font-family="Consolas, monospace" font-size="18" fill="#64748B">GET doctor/dept/{id}</text><text x="800" y="130" font-family="Consolas, monospace" font-size="18" fill="#64748B">GET department/list</text>
+  </g>
+</svg>

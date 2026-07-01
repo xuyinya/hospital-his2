@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">患者门户 — 界面展示</text>
+  <line x1="100" y1="92" x2="380" y2="92" stroke="#06B6D4" stroke-width="2" />
+  
+  <path stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6,4" fill="#FAFBFC" d="M88,140 H612 A8,8 0 0 1 620,148 V532 A8,8 0 0 1 612,540 H88 A8,8 0 0 1 80,532 V148 A8,8 0 0 1 88,140 Z" />
+  <text x="350" y="340" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#94A3B8">此处插入：自助挂号页面截图</text>
+  <path stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6,4" fill="#FAFBFC" d="M668,140 H1192 A8,8 0 0 1 1200,148 V532 A8,8 0 0 1 1192,540 H668 A8,8 0 0 1 660,532 V148 A8,8 0 0 1 668,140 Z" />
+  <text x="930" y="340" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#94A3B8">此处插入：我的处方/病历截图</text>
+</svg>

@@ -19,6 +19,7 @@ import java.util.List;
  * 支持按挂号/患者/医生/状态的多维度分页查询。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PrescriptionServiceImpl implements PrescriptionService {
 

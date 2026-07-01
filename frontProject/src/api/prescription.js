@@ -48,6 +48,15 @@ export function addPrescription(data) {
 }
 
 /**
+ * 新增处方明细（添加一种药品到处方中）
+ * @param {object} data 处方明细信息（prescriptionId, drugId, quantity, unitPrice, usageMethod）
+ * @returns {Promise} 新增结果
+ */
+export function addPrescriptionDetail(data) {
+  return request.post('/prescription/detail', data)
+}
+
+/**
  * 更新处方状态（如确认取药）
  * @param {number|string} id 处方 ID
  * @param {number|string} status 状态值（如 1=已取药）

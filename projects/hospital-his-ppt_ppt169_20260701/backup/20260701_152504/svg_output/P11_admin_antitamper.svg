@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">核心代码 — 费用后端计算防篡改</text>
+  <line x1="100" y1="92" x2="620" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <text x="100" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">患者端自助挂号时，费用在后端计算而非使用前端传入的值，防止客户端篡改价格。</text>
+  <!-- 代码块 -->
+  <rect x="80" y="170" width="1120" height="250" rx="6" fill="#1E293B"/>
+  <text x="100" y="200" font-family="Consolas, monospace" font-size="18" fill="#64748B">@PostMapping("/self")</text>
+  <text x="100" y="230" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">public Result&lt;Void&gt; selfRegistration(@RequestBody Registration r,</text>
+  <text x="130" y="260" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">HttpServletRequest request) {</text>
+  <text x="160" y="290" font-family="Consolas, monospace" font-size="18" fill="#10B981">// 从 JWT 中获取患者 ID（防止冒充他人）</text>
+  <text x="160" y="320" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">Long patientId = (Long) request.getAttribute("userId");</text>
+  <text x="160" y="350" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">r.setPatientId(patientId);</text>
+  <text x="160" y="380" font-family="Consolas, monospace" font-size="18" fill="#C9A84C">// 根据挂号类型后端计算费用，忽略客户端传入值</text>
+  <text x="160" y="410" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">r.setRegFee("专家".equals(r.getRegType()) ?</text>
+  <text x="190" y="440" font-family="Consolas, monospace" font-size="18" fill="#E2E8F0">new BigDecimal("50.00") : new BigDecimal("25.00"));</text>
+  <!-- 右侧说明 -->
+  <g transform="translate(80,460)">
+    <rect x="0" y="0" width="540" height="120" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563EB">安全设计要点</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">费用在后端根据 regType 重新计算</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">患者 ID 从 JWT 中提取，不依赖前端传入</text>
+  </g>
+  <g transform="translate(660,460)">
+    <rect x="0" y="0" width="540" height="120" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#EF4444">修复缺陷 BUG-002（严重）</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">原设计：费用在前端计算，可被篡改</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">修复：后端根据 regType 重新计算 普通=25 / 专家=50</text>
+  </g>
+</svg>

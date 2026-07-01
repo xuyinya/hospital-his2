@@ -26,6 +26,10 @@ public class Registration {
     private LocalDateTime regTime;
     /** 状态：0-待诊，1-已诊，2-取消 */
     private Integer status;
+    /** 主诉，由患者挂号时填写 */
+    private String chiefComplaint;
+    /** 现病史，由患者挂号时填写 */
+    private String presentIllness;
 
     // ---- 以下为JOIN查询时填充的关联字段（非数据库列） ----
     /** 患者姓名，关联 patient 表 */

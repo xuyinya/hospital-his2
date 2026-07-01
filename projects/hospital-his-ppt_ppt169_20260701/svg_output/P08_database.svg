@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">数据库设计</text>
+  <line x1="100" y1="92" x2="320" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <text x="100" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">hospital_his 数据库 · 12 张核心表 + 1 张系统用户表</text>
+  <!-- 核心表网格 6x2 -->
+  <g transform="translate(80,160)">
+    <rect x="0" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="85" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">patient 患者</text>
+    <rect x="190" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="275" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">department 科室</text>
+    <rect x="380" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="465" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">doctor 医生</text>
+    <rect x="570" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="655" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">registration 挂号</text>
+    <rect x="760" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="845" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">drug 药品</text>
+    <rect x="950" y="0" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="1035" y="38" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">sys_user 用户</text>
+    <rect x="0" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="85" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">medical_record</text>
+    <rect x="190" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="275" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">prescription</text>
+    <rect x="380" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="465" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">prescription_detail</text>
+    <rect x="570" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="655" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">examination</text>
+    <rect x="760" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="845" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">laboratory</text>
+    <rect x="950" y="75" width="170" height="60" rx="6" fill="#F0F4FF"/><text x="1035" y="113" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">treatment/payment</text>
+  </g>
+  <!-- 关键外键说明 -->
+  <g transform="translate(80,330)">
+    <rect x="0" y="0" width="540" height="150" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" fill="#2563EB">核心关联关系</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">registration → patient / doctor / department</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">medical_record → registration / patient / doctor</text>
+    <text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">prescription → registration / patient / doctor</text>
+  </g>
+  <g transform="translate(660,330)">
+    <rect x="0" y="0" width="540" height="150" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" fill="#06B6D4">设计要点</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">FOREIGN KEY 外键约束保证引用完整性</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">status 字段实现逻辑删除（药品/科室/医生）</text>
+    <text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">chief_complaint + present_illness 存储患者自述</text>
+  </g>
+</svg>

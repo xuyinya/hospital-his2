@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.PatientMapper;
 import com.neusoft.hospital.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 以及通过身份证号精确查询患者（用于挂号时自动填充患者信息）。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PatientServiceImpl implements PatientService {
 

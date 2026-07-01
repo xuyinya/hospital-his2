@@ -52,6 +52,8 @@ CREATE TABLE registration (
     reg_fee DECIMAL(10,2),
     reg_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     status TINYINT DEFAULT 0 COMMENT '状态 0待诊 1已诊 2取消',
+    chief_complaint VARCHAR(500) COMMENT '主诉（患者挂号时填写）',
+    present_illness VARCHAR(1000) COMMENT '现病史（患者挂号时填写）',
     FOREIGN KEY (patient_id) REFERENCES patient(id),
     FOREIGN KEY (doctor_id) REFERENCES doctor(id),
     FOREIGN KEY (dept_id) REFERENCES department(id)
@@ -218,6 +220,19 @@ INSERT INTO doctor (doctor_name, dept_id, title, specialty) VALUES
 ('孙丽', 5, '主任医师', '骨科'),
 ('周敏', 6, '主治医师', '眼科');
 
+-- 系统用户数据（密码统一为 123456，BCrypt加密）
+-- admin 密码为 admin123
+INSERT INTO sys_user (username, password, real_name, role, doctor_id, status) VALUES
+('admin',      '$2a$10$ysMHonqQM.pjAjWzdvKUWOMOApaFawPHB3ROy95YqCbvIUJiSrOlm', '系统管理员', 'admin',  NULL, 1),
+('zhangming',  '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '张明', 'doctor', 1, 1),
+('lihua',      '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '李华', 'doctor', 2, 1),
+('wangqiang',  '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '王强', 'doctor', 3, 1),
+('liufang',    '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '刘芳', 'doctor', 4, 1),
+('chenjing',   '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '陈静', 'doctor', 5, 1),
+('zhaowei',    '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '赵伟', 'doctor', 6, 1),
+('sunli',      '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '孙丽', 'doctor', 7, 1),
+('zhoumin',    '$2a$10$Ks5YLP74KGO73xud.DJxjON9FsI3Icip5TvNSR2dn5okAmUtjjXj6', '周敏', 'doctor', 8, 1);
+
 -- 药品数据
 INSERT INTO drug (drug_name, drug_code, specification, unit, manufacturer, unit_price, stock) VALUES
 ('阿莫西林胶囊', 'AMX001', '250mg*24粒', '盒', '华北制药', 15.50, 1000),
@@ -245,7 +260,7 @@ INSERT INTO registration (patient_id, doctor_id, dept_id, reg_type, reg_fee, sta
 (4, 5, 3, '普通', 25.00, 0),
 (5, 7, 5, '专家', 50.00, 0),
 (4, 1, 1, '普通', 25.00, 0),
-(1, 3, 2, '专家', 50.00, 0),
+(1, 3, 2, '专家', 50.00, 1),
 (2, 1, 1, '普通', 25.00, 0);
 
 -- 病历数据
@@ -256,7 +271,7 @@ INSERT INTO medical_record (registration_id, patient_id, doctor_id, chief_compla
 
 -- 处方数据
 INSERT INTO prescription (registration_id, patient_id, doctor_id, total_amount, status) VALUES
-(1, 1, 1, 57.50, 0);
+(1, 1, 1, 81.50, 0);
 
 -- 处方明细
 INSERT INTO prescription_detail (prescription_id, drug_id, quantity, unit_price, amount, usage_method) VALUES

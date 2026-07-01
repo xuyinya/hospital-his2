@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">医生角色 — 接诊工作台</text>
+  <line x1="100" y1="92" x2="420" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <!-- 流程 -->
+  <g transform="translate(80,150)">
+    <rect x="0" y="0" width="200" height="80" rx="6" fill="#2563EB"/><text x="100" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">患者列表</text>
+    <polygon points="210,25 230,40 210,55" fill="#64748B"/>
+    <rect x="240" y="0" width="200" height="80" rx="6" fill="#3B82F6"/><text x="340" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">点击接诊</text>
+    <polygon points="450,25 470,40 450,55" fill="#64748B"/>
+    <rect x="480" y="0" width="200" height="80" rx="6" fill="#06B6D4"/><text x="580" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">填写病历</text>
+    <polygon points="690,25 710,40 690,55" fill="#64748B"/>
+    <rect x="720" y="0" width="200" height="80" rx="6" fill="#10B981"/><text x="820" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">开处方/完成</text>
+  </g>
+  <!-- 详情 -->
+  <g transform="translate(80,290)">
+    <rect x="0" y="0" width="350" height="200" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563EB">接诊功能</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">查看患者信息+自述症状</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">填写病历（主诉/诊断/治疗）</text>
+    <text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">搜索药品 → 添加明细</text>
+    <text x="20" y="160" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">自动计算处方总金额</text>
+    <text x="20" y="190" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">完成诊疗 → 状态已诊</text>
+  </g>
+  <g transform="translate(460,290)">
+    <rect x="0" y="0" width="350" height="200" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#06B6D4">数据过滤</text>
+    <text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">JWT 自动识别医生身份</text>
+    <text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">只显示本人患者的挂号</text>
+    <text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">已诊 / 待诊 筛选</text>
+    <text x="20" y="160" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">已诊患者可查看记录</text>
+  </g>
+  <g transform="translate(840,290)">
+    <rect x="0" y="0" width="350" height="200" rx="8" fill="#F0F4FF"/>
+    <text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" font-weight="bold" fill="#10B981">涉及接口</text>
+    <text x="20" y="70" font-family="Consolas, monospace" font-size="18" fill="#64748B">GET registration/list</text>
+    <text x="20" y="100" font-family="Consolas, monospace" font-size="18" fill="#64748B">POST medical-record</text>
+    <text x="20" y="130" font-family="Consolas, monospace" font-size="18" fill="#64748B">POST prescription</text>
+    <text x="20" y="160" font-family="Consolas, monospace" font-size="18" fill="#64748B">POST prescription/detail</text>
+    <text x="20" y="190" font-family="Consolas, monospace" font-size="18" fill="#64748B">PUT registration/status</text>
+  </g>
+</svg>

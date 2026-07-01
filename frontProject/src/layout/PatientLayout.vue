@@ -31,6 +31,9 @@
           <el-menu-item index="/patient-portal/index">
             <el-icon><HomeFilled /></el-icon>首页
           </el-menu-item>
+          <el-menu-item index="/patient-portal/self-registration">
+            <el-icon><Plus /></el-icon>自助挂号
+          </el-menu-item>
           <el-menu-item index="/patient-portal/registrations">
             <el-icon><Tickets /></el-icon>我的挂号
           </el-menu-item>

@@ -110,11 +110,6 @@ public class PatientController {
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(required = false) String patientName) {
-        // 医生角色只能看自己的患者
-        Long doctorId = null;
-        if ("doctor".equals(request.getAttribute("role"))) {
-            doctorId = (Long) request.getAttribute("doctorId");
-        }
-        return Result.success(patientService.list(patientName, doctorId, page, size));
+        return Result.success(patientService.list(patientName, null, page, size));
     }
 }

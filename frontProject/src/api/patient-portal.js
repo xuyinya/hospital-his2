@@ -54,3 +54,13 @@ export function getMyPrescriptions(params) {
 export function getMyPrescriptionDetails(id) {
   return request.get(`/prescription/${id}/details`)
 }
+
+/**
+ * 患者自助挂号
+ * 患者自行选择科室、医生和挂号类型完成挂号，患者ID从JWT中自动获取
+ * @param {object} data 挂号信息（deptId, doctorId, regType）
+ * @returns {Promise} 操作结果
+ */
+export function selfRegistration(data) {
+  return request.post('/registration/self', data)
+}

@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.LaboratoryMapper;
 import com.neusoft.hospital.service.LaboratoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 与检查管理类似，但面向的是化验/检验项目，录入结果时需同时填写参考范围。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LaboratoryServiceImpl implements LaboratoryService {
 

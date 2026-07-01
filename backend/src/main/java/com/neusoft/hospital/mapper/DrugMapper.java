@@ -31,7 +31,7 @@ public interface DrugMapper {
      * @return 影响的行数
      */
     @Update("UPDATE drug SET drug_name=#{drugName}, drug_code=#{drugCode}, specification=#{specification}, " +
-            "unit=#{unit}, manufacturer=#{manufacturer}, unit_price=#{unitPrice}, stock=#{stock} WHERE id=#{id}")
+            "unit=#{unit}, manufacturer=#{manufacturer}, unit_price=#{unitPrice}, stock=#{stock}, status=#{status} WHERE id=#{id}")
     int update(Drug drug);
 
     /**

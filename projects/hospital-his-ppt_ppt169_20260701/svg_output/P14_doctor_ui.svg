@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">医生接诊工作台 — 交互展示</text>
+  <line x1="100" y1="92" x2="480" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <!-- 占位图 -->
+  <rect x="140" y="140" width="1000" height="480" rx="8" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6,4" fill="#FAFBFC"/>
+  <text x="640" y="370" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" fill="#94A3B8">此处插入：医生接诊工作台截图</text>
+  <text x="640" y="410" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#94A3B8">患者列表 + 接诊对话框（病历填写 + 处方开药）</text>
+  <text x="640" y="630" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">交互流程：点击"接诊"→ 查看患者自述 → 填写病历 → 搜索药品 → 添加明细 → 完成诊疗</text>
+</svg>

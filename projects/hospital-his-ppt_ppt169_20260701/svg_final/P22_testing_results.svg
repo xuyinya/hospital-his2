@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">系统测试 — 结果与缺陷</text>
+  <line x1="100" y1="92" x2="420" y2="92" stroke="#06B6D4" stroke-width="2" />
+  
+  <g transform="translate(80,140)">
+    <path fill="#F0F4FF" d="M8,0 H342 A8,8 0 0 1 350,8 V122 A8,8 0 0 1 342,130 H8 A8,8 0 0 1 0,122 V8 A8,8 0 0 1 8,0 Z" /><text x="175" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#10B981">30/30</text><text x="175" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">全部通过</text>
+    <path fill="#F0F4FF" d="M388,0 H722 A8,8 0 0 1 730,8 V122 A8,8 0 0 1 722,130 H388 A8,8 0 0 1 380,122 V8 A8,8 0 0 1 388,0 Z" /><text x="555" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#2563EB">4</text><text x="555" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">发现缺陷</text>
+    <path fill="#F0F4FF" d="M768,0 H1102 A8,8 0 0 1 1110,8 V122 A8,8 0 0 1 1102,130 H768 A8,8 0 0 1 760,122 V8 A8,8 0 0 1 768,0 Z" /><text x="935" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#06B6D4">100%</text><text x="935" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">通过率</text>
+  </g>
+  
+  <g transform="translate(80,310)">
+    <path fill="#FEF2F2" d="M8,0 H532 A8,8 0 0 1 540,8 V82 A8,8 0 0 1 532,90 H8 A8,8 0 0 1 0,82 V8 A8,8 0 0 1 8,0 Z" /><text x="15" y="30" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#EF4444">BUG-001 严重</text><text x="15" y="55" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">DrugMapper.update 缺少 status=#{status}</text><text x="15" y="80" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <path fill="#FEF2F2" d="M568,0 H1092 A8,8 0 0 1 1100,8 V82 A8,8 0 0 1 1092,90 H568 A8,8 0 0 1 560,82 V8 A8,8 0 0 1 568,0 Z" /><text x="575" y="30" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#EF4444">BUG-002 严重</text><text x="575" y="55" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">自助挂号费用前端计算可被篡改</text><text x="575" y="80" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <path fill="#FFFBEB" d="M8,110 H532 A8,8 0 0 1 540,118 V192 A8,8 0 0 1 532,200 H8 A8,8 0 0 1 0,192 V118 A8,8 0 0 1 8,110 Z" /><text x="15" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#C9A84C">BUG-003 一般</text><text x="15" y="165" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">Service 缺少 @Transactional 注解</text><text x="15" y="190" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <path fill="#F0F4FF" d="M568,110 H1092 A8,8 0 0 1 1100,118 V192 A8,8 0 0 1 1092,200 H568 A8,8 0 0 1 560,192 V118 A8,8 0 0 1 568,110 Z" /><text x="575" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">BUG-004 轻微</text><text x="575" y="165" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">RegistrationMapper 缺少症状字段</text><text x="575" y="190" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+  </g>
+</svg>

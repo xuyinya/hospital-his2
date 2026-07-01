@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.RegistrationMapper;
 import com.neusoft.hospital.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 挂号状态包括：待诊、已诊、取消等，贯穿门诊业务流程的起点。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
 

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">管理员角色 — 系统管理</text>
+  <line x1="100" y1="92" x2="420" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <text x="100" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">管理员拥有全部管理权限，负责基础数据维护</text>
+  <!-- 管理的模块 2x3 -->
+  <g transform="translate(80,160)">
+    <rect x="0" y="0" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="30" y="40" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">挂号管理</text><text x="30" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">CRUD + 状态流转</text>
+    <rect x="380" y="0" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="410" y="40" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">患者管理</text><text x="410" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">增删改查+分页+身份证查询</text>
+    <rect x="760" y="0" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="790" y="40" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">医生管理</text><text x="790" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">删除前检查挂号记录</text>
+    <rect x="0" y="110" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="30" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">药品管理</text><text x="30" y="180" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">启停状态 + 库存管理</text>
+    <rect x="380" y="110" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="410" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">科室管理</text><text x="410" y="180" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">只读列表</text>
+    <rect x="760" y="110" width="350" height="90" rx="6" fill="#F0F4FF"/><text x="790" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#2563EB">收费管理</text><text x="790" y="180" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">新增+确认支付</text>
+  </g>
+  <!-- 底部：关键设计-->
+  <rect x="80" y="420" width="1120" height="120" rx="8" fill="#F0F4FF"/>
+  <text x="110" y="465" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="bold" fill="#2563EB">关键设计</text>
+  <text x="110" y="500" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">药品停用 = UPDATE status=0（逻辑删除）· 医生删除前 countRegistrationsByDoctorId 检查</text>
+  <text x="110" y="530" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">挂号费用后端设置 普通 ¥25 / 专家 ¥50 · 首页统计全量数据展示</text>
+  <!-- 截图占位 -->
+  <rect x="80" y="570" width="540" height="120" rx="4" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6,4" fill="#FAFBFC"/>
+  <text x="350" y="635" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#94A3B8">此处插入：管理员管理页面截图（药品/患者管理）</text>
+</svg>

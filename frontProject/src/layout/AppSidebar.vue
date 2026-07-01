@@ -53,6 +53,7 @@ const currentRoute = computed(() => route.path)
  */
 const allMenus = [
   { path: '/dashboard', title: '首页', icon: 'HomeFilled', roles: ['admin', 'doctor'] },
+  { path: '/my-clinic', title: '接诊管理', icon: 'List', roles: ['doctor'] },
   { path: '/registration', title: '挂号管理', icon: 'Tickets', roles: ['admin'] },
   { path: '/doctor', title: '医生管理', icon: 'User', roles: ['admin'] },
   { path: '/patient', title: '患者管理', icon: 'UserFilled', roles: ['admin', 'doctor'] },

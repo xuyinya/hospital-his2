@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.MedicalRecordMapper;
 import com.neusoft.hospital.service.MedicalRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 一条挂号记录对应一份病历，通过挂号ID可以唯一关联到病历。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MedicalRecordServiceImpl implements MedicalRecordService {
 

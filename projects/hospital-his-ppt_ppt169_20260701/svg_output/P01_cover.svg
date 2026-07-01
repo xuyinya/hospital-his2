@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="1280" height="8" fill="#2563EB"/>
+  <!-- 左侧装饰条 -->
+  <rect x="0" y="0" width="6" height="720" fill="#2563EB"/>
+  <!-- 医院图标（简化的十字+建筑） -->
+  <g transform="translate(640,180)">
+    <rect x="-36" y="-14" width="72" height="16" rx="4" fill="#2563EB"/>
+    <rect x="-14" y="-36" width="28" height="72" rx="4" fill="#2563EB"/>
+    <circle cx="0" cy="0" r="56" fill="none" stroke="#06B6D4" stroke-width="2" opacity="0.3"/>
+  </g>
+  <!-- 主标题 -->
+  <text x="640" y="300" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="64" font-weight="bold" fill="#1E293B">东软云医院系统（HIS）</text>
+  <!-- 副标题 -->
+  <text x="640" y="370" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="32" fill="#64748B">医院门诊信息管理系统 · 毕业设计答辩</text>
+  <!-- 分割线 -->
+  <line x1="540" y1="410" x2="740" y2="410" stroke="#2563EB" stroke-width="3"/>
+  <!-- 底部信息 -->
+  <text x="640" y="480" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#94A3B8">前端 Vue 3 + Element Plus · 后端 Spring Boot 3.2.5 · 数据库 MySQL 8.0</text>
+  <text x="640" y="530" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#94A3B8">2026年7月</text>
+  <rect x="0" y="712" width="1280" height="8" fill="#06B6D4"/>
+</svg>

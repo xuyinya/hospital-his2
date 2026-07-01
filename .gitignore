@@ -8,3 +8,7 @@ target/
 *.log
 .DS_Store
 ~$*.docx
+projects/hospital-his-ppt_ppt169_20260701/exports/~*.pptx
+projects/hospital-his-ppt_ppt169_20260701/live_preview/
+projects/hospital-his-ppt_ppt169_20260701/backup/
+projects/hospital-his-ppt_ppt169_20260701/svg_final/

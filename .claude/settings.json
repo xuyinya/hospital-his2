@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f \"东软云医院HIS系统_实训报告_管理员端.docx\")",
+      "Bash(python generate_report.py)",
+      "Bash(rm generate_report.py)",
+      "Bash(rm -f \"~$云医院HIS系统_实训报告_管理员端.docx\" \"东软云医院HIS系统_实训报告_管理员端.docx\")"
+    ]
+  }
+}

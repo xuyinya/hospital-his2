@@ -24,6 +24,8 @@
         <mysql.version>8.0.33</mysql.version>
         <lombok.version>1.18.30</lombok.version>
         <knife4j.version>4.4.0</knife4j.version>
+        <surefire.version>3.5.3</surefire.version>
+        <junit-platform.version>1.11.4</junit-platform.version>
     </properties>
 
     <dependencies>
@@ -146,6 +148,23 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-launcher</artifactId>
+                        <version>1.11.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-engine</artifactId>
+                        <version>1.11.4</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

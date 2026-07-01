@@ -18,8 +18,8 @@ public interface RegistrationMapper {
      * @param registration 挂号实体
      * @return 影响的行数
      */
-    @Insert("INSERT INTO registration(patient_id, doctor_id, dept_id, reg_type, reg_fee, reg_time, status) " +
-            "VALUES(#{patientId}, #{doctorId}, #{deptId}, #{regType}, #{regFee}, NOW(), 0)")
+    @Insert("INSERT INTO registration(patient_id, doctor_id, dept_id, reg_type, reg_fee, reg_time, status, chief_complaint, present_illness) " +
+            "VALUES(#{patientId}, #{doctorId}, #{deptId}, #{regType}, #{regFee}, NOW(), 0, #{chiefComplaint}, #{presentIllness})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Registration registration);
 

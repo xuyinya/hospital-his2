@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.PaymentMapper;
 import com.neusoft.hospital.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  * 收费记录关联挂号和患者，支付状态标识是否已缴费。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 

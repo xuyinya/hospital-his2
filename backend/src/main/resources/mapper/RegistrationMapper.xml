@@ -7,7 +7,8 @@
         SELECT r.id, r.patient_id, p.patient_name, p.gender, p.age, p.phone,
                r.doctor_id, d.doctor_name, d.title,
                r.dept_id, dept.dept_name,
-               r.reg_type, r.reg_fee, r.reg_time, r.status
+               r.reg_type, r.reg_fee, r.reg_time, r.status,
+               r.chief_complaint, r.present_illness
         FROM registration r
         LEFT JOIN patient p ON r.patient_id = p.id
         LEFT JOIN doctor d ON r.doctor_id = d.id

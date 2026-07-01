@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">患者角色 — 自助挂号</text>
+  <line x1="100" y1="92" x2="380" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <text x="100" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">5 步向导流程，患者自行完成挂号，减少窗口排队压力</text>
+  <!-- 5步流程 -->
+  <g transform="translate(80,180)">
+    <rect x="0" y="0" width="200" height="80" rx="6" fill="#2563EB"/><text x="100" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选科室</text>
+    <polygon points="210,25 230,40 210,55" fill="#64748B"/>
+    <rect x="240" y="0" width="200" height="80" rx="6" fill="#3B82F6"/><text x="340" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选医生</text>
+    <polygon points="450,25 470,40 450,55" fill="#64748B"/>
+    <rect x="480" y="0" width="200" height="80" rx="6" fill="#06B6D4"/><text x="580" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">选类型</text>
+    <polygon points="690,25 710,40 690,55" fill="#64748B"/>
+    <rect x="720" y="0" width="200" height="80" rx="6" fill="#10B981"/><text x="820" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">写症状</text>
+    <polygon points="930,25 950,40 930,55" fill="#64748B"/>
+    <rect x="960" y="0" width="200" height="80" rx="6" fill="#EF4444"/><text x="1060" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#FFFFFF">确认提交</text>
+  </g>
+  <!-- 特性 -->
+  <g transform="translate(80,310)">
+    <rect x="0" y="0" width="360" height="160" rx="8" fill="#F0F4FF"/><text x="20" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#2563EB">安全设计</text><text x="20" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">费用后端计算</text><text x="20" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">患者ID从JWT提取</text><text x="20" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">普通号25元/专家号50元</text>
+    <rect x="390" y="0" width="360" height="160" rx="8" fill="#F0F4FF"/><text x="410" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#06B6D4">数据保存</text><text x="410" y="70" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">chief_complaint 主诉</text><text x="410" y="100" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">present_illness 现病史</text><text x="410" y="130" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">供医生接诊时查看</text>
+    <rect x="780" y="0" width="360" height="160" rx="8" fill="#F0F4FF"/><text x="800" y="35" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="bold" fill="#10B981">涉及接口</text><text x="800" y="70" font-family="Consolas, monospace" font-size="18" fill="#64748B">POST registration/self</text><text x="800" y="100" font-family="Consolas, monospace" font-size="18" fill="#64748B">GET doctor/dept/{id}</text><text x="800" y="130" font-family="Consolas, monospace" font-size="18" fill="#64748B">GET department/list</text>
+  </g>
+</svg>

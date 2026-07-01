@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.DrugMapper;
 import com.neusoft.hospital.service.DrugService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  * 提供药品信息的新增、修改、删除、查询功能，支持按药品名称模糊查询的分页列表。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class DrugServiceImpl implements DrugService {
 

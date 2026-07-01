@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">功能需求</text>
+  <line x1="100" y1="92" x2="320" y2="92" stroke="#06B6D4" stroke-width="2" />
+  <text x="100" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">系统覆盖门诊全流程，划分为 12 大功能模块 + 3 大用户角色</text>
+  
+  <g transform="translate(80,160)">
+    <path fill="#F0F4FF" d="M6,0 H164 A6,6 0 0 1 170,6 V74 A6,6 0 0 1 164,80 H6 A6,6 0 0 1 0,74 V6 A6,6 0 0 1 6,0 Z" /><text x="85" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">挂号管理</text>
+    <path fill="#F0F4FF" d="M196,0 H354 A6,6 0 0 1 360,6 V74 A6,6 0 0 1 354,80 H196 A6,6 0 0 1 190,74 V6 A6,6 0 0 1 196,0 Z" /><text x="275" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">患者管理</text>
+    <path fill="#F0F4FF" d="M386,0 H544 A6,6 0 0 1 550,6 V74 A6,6 0 0 1 544,80 H386 A6,6 0 0 1 380,74 V6 A6,6 0 0 1 386,0 Z" /><text x="465" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">医生管理</text>
+    <path fill="#F0F4FF" d="M576,0 H734 A6,6 0 0 1 740,6 V74 A6,6 0 0 1 734,80 H576 A6,6 0 0 1 570,74 V6 A6,6 0 0 1 576,0 Z" /><text x="655" y="48" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">药品管理</text>
+    <path fill="#F0F4FF" d="M6,100 H164 A6,6 0 0 1 170,106 V174 A6,6 0 0 1 164,180 H6 A6,6 0 0 1 0,174 V106 A6,6 0 0 1 6,100 Z" /><text x="85" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">病历管理</text>
+    <path fill="#F0F4FF" d="M196,100 H354 A6,6 0 0 1 360,106 V174 A6,6 0 0 1 354,180 H196 A6,6 0 0 1 190,174 V106 A6,6 0 0 1 196,100 Z" /><text x="275" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">处方管理</text>
+    <path fill="#F0F4FF" d="M386,100 H544 A6,6 0 0 1 550,106 V174 A6,6 0 0 1 544,180 H386 A6,6 0 0 1 380,174 V106 A6,6 0 0 1 386,100 Z" /><text x="465" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">检查管理</text>
+    <path fill="#F0F4FF" d="M576,100 H734 A6,6 0 0 1 740,106 V174 A6,6 0 0 1 734,180 H576 A6,6 0 0 1 570,174 V106 A6,6 0 0 1 576,100 Z" /><text x="655" y="148" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">检验管理</text>
+    <path fill="#F0F4FF" d="M6,200 H164 A6,6 0 0 1 170,206 V274 A6,6 0 0 1 164,280 H6 A6,6 0 0 1 0,274 V206 A6,6 0 0 1 6,200 Z" /><text x="85" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">处置管理</text>
+    <path fill="#F0F4FF" d="M196,200 H354 A6,6 0 0 1 360,206 V274 A6,6 0 0 1 354,280 H196 A6,6 0 0 1 190,274 V206 A6,6 0 0 1 196,200 Z" /><text x="275" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">收费管理</text>
+    <path fill="#F0F4FF" d="M386,200 H544 A6,6 0 0 1 550,206 V274 A6,6 0 0 1 544,280 H386 A6,6 0 0 1 380,274 V206 A6,6 0 0 1 386,200 Z" /><text x="465" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">科室管理</text>
+    <path fill="#F0F4FF" d="M576,200 H734 A6,6 0 0 1 740,206 V274 A6,6 0 0 1 734,280 H576 A6,6 0 0 1 570,274 V206 A6,6 0 0 1 576,200 Z" /><text x="655" y="248" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1E293B">接诊工作台</text>
+  </g>
+  
+  <path fill="#F0F4FF" d="M88,490 H1192 A8,8 0 0 1 1200,498 V622 A8,8 0 0 1 1192,630 H88 A8,8 0 0 1 80,622 V498 A8,8 0 0 1 88,490 Z" />
+  <text x="110" y="540" font-family="Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="bold" fill="#2563EB">三大用户角色</text>
+  <text x="200" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">管理员</text><text x="200" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">基础数据维护</text>
+  <rect x="470" y="555" width="2" height="50" fill="#E2E8F0" />
+  <text x="520" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">医生</text><text x="520" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">接诊/写病历/开处方</text>
+  <rect x="790" y="555" width="2" height="50" fill="#E2E8F0" />
+  <text x="840" y="600" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#1E293B">患者</text><text x="840" y="625" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">自助挂号/查看记录</text>
+</svg>

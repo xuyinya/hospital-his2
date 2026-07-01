@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF" />
+  <path fill="#2563EB" d="M83,44 H83 A3,3 0 0 1 86,47 V77 A3,3 0 0 1 83,80 H83 A3,3 0 0 1 80,77 V47 A3,3 0 0 1 83,44 Z" />
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">系统架构设计</text>
+  <line x1="100" y1="92" x2="360" y2="92" stroke="#06B6D4" stroke-width="2" />
+  <text x="100" y="125" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">前后端分离 B/S 架构 · 四层分层设计</text>
+  
+  <g transform="translate(100,170)">
+    
+    <path fill="#2563EB" d="M6,0 H1074 A6,6 0 0 1 1080,6 V64 A6,6 0 0 1 1074,70 H6 A6,6 0 0 1 0,64 V6 A6,6 0 0 1 6,0 Z" />
+    <text x="540" y="44" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#FFFFFF" font-weight="bold">前端层 — Vue 3 + Element Plus + Vue Router + Pinia + Axios</text>
+    
+    <polygon points="540,70 520,85 560,85" fill="#64748B" />
+    
+    <path fill="#3B82F6" d="M6,90 H1074 A6,6 0 0 1 1080,96 V154 A6,6 0 0 1 1074,160 H6 A6,6 0 0 1 0,154 V96 A6,6 0 0 1 6,90 Z" />
+    <text x="540" y="134" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#FFFFFF" font-weight="bold">Controller 层 — RESTful API · JwtInterceptor 认证拦截 · 统一 Result 封装</text>
+    
+    <polygon points="540,160 520,175 560,175" fill="#64748B" />
+    
+    <path fill="#06B6D4" d="M6,180 H1074 A6,6 0 0 1 1080,186 V244 A6,6 0 0 1 1074,250 H6 A6,6 0 0 1 0,244 V186 A6,6 0 0 1 6,180 Z" />
+    <text x="540" y="224" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#FFFFFF" font-weight="bold">Service 层 — @Transactional 事务管理 · 业务逻辑 · MyBatis Mapper 调用</text>
+    
+    <polygon points="540,250 520,265 560,265" fill="#64748B" />
+    
+    <path fill="#64748B" d="M6,270 H1074 A6,6 0 0 1 1080,276 V334 A6,6 0 0 1 1074,340 H6 A6,6 0 0 1 0,334 V276 A6,6 0 0 1 6,270 Z" />
+    <text x="540" y="314" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="24" fill="#FFFFFF" font-weight="bold">数据层 — MySQL 8.0 · MyBatis 注解+XML · Druid 连接池 · 13张业务表</text>
+  </g>
+  
+  <text x="100" y="535" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#2563EB">请求流程：</text>
+  <text x="100" y="570" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#64748B">浏览器 → Axios + JWT Header → Controller → Service(@Transactional) → Mapper → MySQL → Result JSON → 前端</text>
+  <text x="100" y="615" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#94A3B8">JwtInterceptor 拦截 /api/** 路径(放行 /api/auth/login 及 Swagger) · 解析 Token 存入 Request Attribute</text>
+</svg>

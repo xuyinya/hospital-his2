@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+  <rect x="80" y="44" width="6" height="36" rx="3" fill="#2563EB"/>
+  <text x="100" y="72" font-family="Microsoft YaHei, Arial, sans-serif" font-size="42" font-weight="bold" fill="#1E293B">系统测试 — 结果与缺陷</text>
+  <line x1="100" y1="92" x2="420" y2="92" stroke="#06B6D4" stroke-width="2"/>
+  <!-- 结果大数字 -->
+  <g transform="translate(80,140)">
+    <rect x="0" y="0" width="350" height="130" rx="8" fill="#F0F4FF"/><text x="175" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#10B981">30/30</text><text x="175" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">全部通过</text>
+    <rect x="380" y="0" width="350" height="130" rx="8" fill="#F0F4FF"/><text x="555" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#2563EB">4</text><text x="555" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">发现缺陷</text>
+    <rect x="760" y="0" width="350" height="130" rx="8" fill="#F0F4FF"/><text x="935" y="50" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="56" font-weight="bold" fill="#06B6D4">100%</text><text x="935" y="100" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#64748B">通过率</text>
+  </g>
+  <!-- 4个缺陷 -->
+  <g transform="translate(80,310)">
+    <rect x="0" y="0" width="540" height="90" rx="8" fill="#FEF2F2"/><text x="15" y="30" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#EF4444">BUG-001 严重</text><text x="15" y="55" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">DrugMapper.update 缺少 status=#{status}</text><text x="15" y="80" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <rect x="560" y="0" width="540" height="90" rx="8" fill="#FEF2F2"/><text x="575" y="30" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#EF4444">BUG-002 严重</text><text x="575" y="55" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">自助挂号费用前端计算可被篡改</text><text x="575" y="80" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <rect x="0" y="110" width="540" height="90" rx="8" fill="#FFFBEB"/><text x="15" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#C9A84C">BUG-003 一般</text><text x="15" y="165" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">Service 缺少 @Transactional 注解</text><text x="15" y="190" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+    <rect x="560" y="110" width="540" height="90" rx="8" fill="#F0F4FF"/><text x="575" y="140" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#64748B">BUG-004 轻微</text><text x="575" y="165" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1E293B">RegistrationMapper 缺少症状字段</text><text x="575" y="190" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#10B981">已修复</text>
+  </g>
+</svg>

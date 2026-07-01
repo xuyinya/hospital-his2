@@ -84,12 +84,6 @@
           </el-form-item>
         </el-form>
 
-        <!-- 登录提示信息（默认账号） -->
-        <div class="login-tips">
-          <p>管理员: admin / admin123</p>
-          <p>医生: doctor / 123456</p>
-          <p>患者: 身份证号 / 123456</p>
-        </div>
       </div>
     </div>
   </div>

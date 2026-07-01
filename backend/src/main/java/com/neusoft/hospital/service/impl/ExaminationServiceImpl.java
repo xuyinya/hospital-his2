@@ -6,6 +6,7 @@ import com.neusoft.hospital.mapper.ExaminationMapper;
 import com.neusoft.hospital.service.ExaminationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  * 负责检查单的新增、修改、结果录入和查询操作，支持关联挂号/患者/医生的多维度分页查询。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ExaminationServiceImpl implements ExaminationService {
 

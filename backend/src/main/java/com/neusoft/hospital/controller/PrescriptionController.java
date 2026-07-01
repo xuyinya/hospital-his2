@@ -32,17 +32,22 @@ public class PrescriptionController {
      * 新增处方
      * <p>
      * 为患者的就诊记录创建一张处方，包含处方编号、开具医生、患者等信息。
-     * 处方创建后状态默认为待取药。
+     * 处方创建后状态默认为待取药，返回自动生成的处方ID（用于后续添加明细）。
      * </p>
      *
      * @param prescription 处方信息
-     * @return 操作结果
+     * @return 新处方的ID
      */
     @Operation(summary = "新增处方")
     @PostMapping
-    public Result<Void> add(@RequestBody Prescription prescription) {
+    public Result<Long> add(@RequestBody Prescription prescription, HttpServletRequest request) {
+        // 医生角色自动填入 doctorId，防止处方归属错误
+        String role = (String) request.getAttribute("role");
+        if ("doctor".equals(role)) {
+            prescription.setDoctorId((Long) request.getAttribute("doctorId"));
+        }
         prescriptionService.add(prescription);
-        return Result.success();
+        return Result.success(prescription.getId());
     }
 
     /**

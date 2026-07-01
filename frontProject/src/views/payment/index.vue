@@ -42,8 +42,8 @@
     <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
-        v-model:current-page="searchParams.pageNum"
-        v-model:page-size="searchParams.pageSize"
+        v-model:current-page="searchParams.page"
+        v-model:page-size="searchParams.size"
         :page-sizes="[10, 20, 50]"
         :total="total"
         layout="total, sizes, prev, pager, next, jumper"
@@ -111,8 +111,8 @@ const patientOptions = ref([])
 const searchParams = reactive({
   patientName: '',
   status: '',
-  pageNum: 1,
-  pageSize: 10
+  page: 1,
+  size: 10
 })
 
 const formData = reactive({
@@ -144,7 +144,7 @@ const fetchData = async () => {
 
 /** 加载患者下拉选项 */
 const fetchPatientOptions = async () => {
-  const res = await getPatientList({ pageNum: 1, pageSize: 100 })
+  const res = await getPatientList({ page: 1, size: 100 })
   patientOptions.value = res.data.rows || []
 }
 

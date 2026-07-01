@@ -38,8 +38,8 @@
     <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
-        v-model:current-page="searchParams.pageNum"
-        v-model:page-size="searchParams.pageSize"
+        v-model:current-page="searchParams.page"
+        v-model:page-size="searchParams.size"
         :page-sizes="[10, 20, 50]"
         :total="total"
         layout="total, sizes, prev, pager, next, jumper"
@@ -108,8 +108,8 @@ const isEdit = ref(false)
 const searchParams = reactive({
   doctorName: '',
   deptId: '',
-  pageNum: 1,
-  pageSize: 10
+  page: 1,
+  size: 10
 })
 
 const formData = reactive({
@@ -165,7 +165,7 @@ const handleEdit = (row) => {
 /** 删除医生（有待诊患者时阻止，历史记录不阻止） */
 const handleDelete = async (row) => {
   try {
-    const pendingRes = await getRegistrationList({ doctorId: row.id, status: 0, pageNum: 1, pageSize: 1 })
+    const pendingRes = await getRegistrationList({ doctorId: row.id, status: 0, page: 1, size: 1 })
     const pending = pendingRes.data?.total || 0
     if (pending > 0) {
       await ElMessageBox.alert(

@@ -49,8 +49,8 @@
       <!-- 分页组件 -->
       <div class="pagination">
         <el-pagination
-          v-model:current-page="pageNum"
-          v-model:page-size="pageSize"
+          v-model:current-page="page"
+          v-model:page-size="size"
           :total="total"
           layout="total, prev, pager, next"
           @current-change="fetchData"
@@ -71,8 +71,8 @@ import { getMyPrescriptions, getMyPrescriptionDetails } from '@/api/patient-port
 const loading = ref(false)
 const tableData = ref([])
 const total = ref(0)
-const pageNum = ref(1)
-const pageSize = ref(10)
+const page = ref(1)
+const size = ref(10)
 /** 处方明细弹窗显示状态 */
 const detailVisible = ref(false)
 /** 当前查看的处方明细数据（药品列表） */
@@ -85,7 +85,7 @@ const detailList = ref([])
 const fetchData = async () => {
   loading.value = true
   try {
-    const res = await getMyPrescriptions({ pageNum: pageNum.value, pageSize: pageSize.value })
+    const res = await getMyPrescriptions({ page: page.value, size: size.value })
     tableData.value = res.data.rows || []
     total.value = res.data.total || 0
   } finally {

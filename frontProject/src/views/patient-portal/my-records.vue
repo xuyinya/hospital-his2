@@ -37,8 +37,8 @@
       <!-- 分页组件 -->
       <div class="pagination">
         <el-pagination
-          v-model:current-page="pageNum"
-          v-model:page-size="pageSize"
+          v-model:current-page="page"
+          v-model:page-size="size"
           :total="total"
           layout="total, prev, pager, next"
           @current-change="fetchData"
@@ -59,8 +59,8 @@ import { getMyRecords } from '@/api/patient-portal'
 const loading = ref(false)
 const tableData = ref([])
 const total = ref(0)
-const pageNum = ref(1)
-const pageSize = ref(10)
+const page = ref(1)
+const size = ref(10)
 /** 病历详情弹窗显示状态 */
 const dialogVisible = ref(false)
 /** 当前查看的病历详情数据 */
@@ -73,7 +73,7 @@ const currentRecord = ref({})
 const fetchData = async () => {
   loading.value = true
   try {
-    const res = await getMyRecords({ pageNum: pageNum.value, pageSize: pageSize.value })
+    const res = await getMyRecords({ page: page.value, size: size.value })
     tableData.value = res.data.rows || []
     total.value = res.data.total || 0
   } finally {

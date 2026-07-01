@@ -59,8 +59,8 @@
     <!-- 分页 -->
     <div class="pagination">
       <el-pagination
-        v-model:current-page="pageNum"
-        v-model:page-size="pageSize"
+        v-model:current-page="page"
+        v-model:page-size="size"
         :total="total"
         layout="total, sizes, prev, pager, next"
         :page-sizes="[10, 20, 50]"
@@ -258,8 +258,8 @@ import { getDrugList } from '@/api/drug'
 const loading = ref(false)
 const tableData = ref([])
 const total = ref(0)
-const pageNum = ref(1)
-const pageSize = ref(10)
+const page = ref(1)
+const size = ref(10)
 const statusFilter = ref('')   // 默认显示全部
 const searchName = ref('')
 
@@ -267,7 +267,7 @@ const searchName = ref('')
 const fetchData = async () => {
   loading.value = true
   try {
-    const params = { pageNum: pageNum.value, pageSize: pageSize.value }
+    const params = { page: page.value, size: size.value }
     if (statusFilter.value !== null && statusFilter.value !== undefined && statusFilter.value !== '') {
       params.status = statusFilter.value
     }
@@ -286,7 +286,7 @@ const fetchData = async () => {
 
 /** 筛选或搜索时重置到第一页 */
 const handleFilter = () => {
-  pageNum.value = 1
+  page.value = 1
   fetchData()
 }
 
@@ -294,7 +294,7 @@ const handleFilter = () => {
 const resetFilter = () => {
   statusFilter.value = ''
   searchName.value = ''
-  pageNum.value = 1
+  page.value = 1
   fetchData()
 }
 
@@ -441,7 +441,7 @@ const viewConsultation = async (row) => {
 /** 加载药品列表 */
 const loadDrugs = async () => {
   try {
-    const res = await getDrugList({ pageNum: 1, pageSize: 999 })
+    const res = await getDrugList({ page: 1, size: 999 })
     drugOptions.value = res.data.rows || []
   } catch {
     drugOptions.value = []
@@ -467,7 +467,7 @@ const checkExistingRecord = async (registrationId) => {
 /** 检查是否有已有处方 */
 const checkExistingPrescription = async (registrationId) => {
   try {
-    const res = await getPrescriptionList({ pageNum: 1, pageSize: 10, registrationId })
+    const res = await getPrescriptionList({ page: 1, size: 10, registrationId })
     const rows = res.data.rows || []
     if (rows.length > 0) {
       savedPrescriptionId.value = rows[0].id

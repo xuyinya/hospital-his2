@@ -45,8 +45,8 @@
     <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
-        v-model:current-page="searchParams.pageNum"
-        v-model:page-size="searchParams.pageSize"
+        v-model:current-page="searchParams.page"
+        v-model:page-size="searchParams.size"
         :page-sizes="[10, 20, 50]"
         :total="total"
         layout="total, sizes, prev, pager, next, jumper"
@@ -140,8 +140,8 @@ const formRef = ref(null)
 const searchParams = reactive({
   patientName: '',
   status: '',
-  pageNum: 1,
-  pageSize: 10
+  page: 1,
+  size: 10
 })
 
 const formData = reactive({
@@ -202,7 +202,7 @@ const fetchData = async () => {
 /** 加载下拉选项数据（患者列表和科室列表） */
 const fetchOptions = async () => {
   const [pRes, dRes] = await Promise.all([
-    getPatientList({ pageNum: 1, pageSize: 100 }),
+    getPatientList({ page: 1, size: 100 }),
     getDepartmentList()
   ])
   patientOptions.value = pRes.data.rows || []
@@ -257,7 +257,7 @@ const handleSubmit = async () => {
       pid = pRes.data?.id || pRes.id
       if (!pid) {
         // 尝试按身份证号查找刚创建的患者
-        const list = await getPatientList({ pageNum: 1, pageSize: 200 })
+        const list = await getPatientList({ page: 1, size: 200 })
         const p = (list.data.rows || []).find(x => x.idCard === formData.idCard)
         pid = p?.id
       }

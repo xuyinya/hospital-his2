@@ -5,6 +5,7 @@ import com.neusoft.hospital.entity.SysUser;
 import com.neusoft.hospital.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,8 @@ public class SysUserController {
      */
     @Operation(summary = "管理员用户列表")
     @GetMapping("/list")
-    public Result<List<SysUser>> list(@RequestParam(required = false) String role) {
+    public Result<List<SysUser>> list(@RequestParam(required = false) String role, HttpServletRequest request) {
+        if (!"admin".equals(request.getAttribute("role"))) return Result.error("仅管理员可访问");
         return Result.success(sysUserService.listByRole(role));
     }
 
@@ -54,7 +56,8 @@ public class SysUserController {
      */
     @Operation(summary = "新增用户")
     @PostMapping
-    public Result<Void> add(@RequestBody SysUser user) {
+    public Result<Void> add(@RequestBody SysUser user, HttpServletRequest request) {
+        if (!"admin".equals(request.getAttribute("role"))) return Result.error("仅管理员可操作");
         // BCrypt加密密码，确保存储安全
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getStatus() == null) user.setStatus(1);
@@ -71,14 +74,16 @@ public class SysUserController {
      */
     @Operation(summary = "更新用户状态")
     @PutMapping("/{id}/status")
-    public Result<Void> updateStatus(@PathVariable Long id, @RequestParam Integer status) {
+    public Result<Void> updateStatus(@PathVariable Long id, @RequestParam Integer status, HttpServletRequest request) {
+        if (!"admin".equals(request.getAttribute("role"))) return Result.error("仅管理员可操作");
         sysUserService.updateStatus(id, status);
         return Result.success();
     }
 
     @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@PathVariable Long id) {
+    public Result<Void> delete(@PathVariable Long id, HttpServletRequest request) {
+        if (!"admin".equals(request.getAttribute("role"))) return Result.error("仅管理员可操作");
         sysUserService.delete(id);
         return Result.success();
     }

@@ -7,6 +7,7 @@ import com.neusoft.hospital.service.SysUserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 系统用户管理服务实现类
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * 用于登录认证模块校验用户身份。
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SysUserServiceImpl implements SysUserService {
 

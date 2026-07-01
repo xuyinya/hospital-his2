@@ -38,8 +38,8 @@
     <!-- 分页控件 -->
     <div class="pagination">
       <el-pagination
-        v-model:current-page="searchParams.pageNum"
-        v-model:page-size="searchParams.pageSize"
+        v-model:current-page="searchParams.page"
+        v-model:page-size="searchParams.size"
         :page-sizes="[10, 20, 50]"
         :total="total"
         layout="total, sizes, prev, pager, next, jumper"
@@ -139,8 +139,8 @@ const detailList = ref([])
 const searchParams = reactive({
   patientName: '',
   status: '',
-  pageNum: 1,
-  pageSize: 10
+  page: 1,
+  size: 10
 })
 
 const addVisible = ref(false)
@@ -209,7 +209,7 @@ const handleAdd = async () => {
   Object.assign(addForm, { registrationId: '', patientId: '', doctorId: '', drugItems: [] })
   addVisible.value = true
   if (drugOptions.value.length === 0) {
-    const res = await getDrugList({ pageNum: 1, pageSize: 100 })
+    const res = await getDrugList({ page: 1, size: 100 })
     drugOptions.value = res.data.rows || []
   }
 }
@@ -245,9 +245,9 @@ const handleDelete = async (row) => {
 /** 加载下拉选项 */
 const loadOptions = async () => {
   const [pRes, dRes, rRes] = await Promise.all([
-    getPatientList({ pageNum: 1, pageSize: 100 }),
-    getDoctorList({ pageNum: 1, pageSize: 100 }),
-    getRegistrationList({ pageNum: 1, pageSize: 200 })
+    getPatientList({ page: 1, size: 100 }),
+    getDoctorList({ page: 1, size: 100 }),
+    getRegistrationList({ page: 1, size: 200 })
   ])
   patientOptions.value = pRes.data.rows || []
   doctorOptions.value = dRes.data.rows || []

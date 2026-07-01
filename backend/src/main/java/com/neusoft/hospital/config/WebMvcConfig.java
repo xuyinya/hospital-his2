@@ -38,6 +38,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/auth/login")
                 // 放行患者登录接口
                 .excludePathPatterns("/api/auth/patient-login")
+                // 放行患者注册接口
+                .excludePathPatterns("/api/auth/patient-register")
                 // 放行Swagger/Knife4j文档相关资源路径
                 .excludePathPatterns("/doc.html", "/swagger-ui/**", "/v3/api-docs/**",
                         "/webjars/**", "/swagger-resources/**", "/favicon.ico");

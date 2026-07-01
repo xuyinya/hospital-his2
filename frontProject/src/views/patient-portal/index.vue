@@ -101,9 +101,9 @@ onMounted(async () => {
 
     // 获取各项统计（通过分页查询获取总条数）
     const [regRes, recRes, preRes] = await Promise.all([
-      getMyRegistrations({ pageNum: 1, pageSize: 1 }),
-      getMyRecords({ pageNum: 1, pageSize: 1 }),
-      getMyPrescriptions({ pageNum: 1, pageSize: 1 })
+      getMyRegistrations({ page: 1, size: 1 }),
+      getMyRecords({ page: 1, size: 1 }),
+      getMyPrescriptions({ page: 1, size: 1 })
     ])
     stats.value = {
       registrations: regRes.data?.total || 0,
